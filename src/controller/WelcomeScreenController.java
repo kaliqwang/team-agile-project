@@ -3,6 +3,7 @@ package controller;
 import fxapp.MainFXApplication;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import model.User;
 
 public class WelcomeScreenController {
 
@@ -17,13 +18,11 @@ public class WelcomeScreenController {
 
     @FXML
     public void showSignUpDialogPressed() {
-        // Show the error message
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.initOwner(mainApplication.getMainScreen());
-        alert.setTitle("Unimplemented");
-        alert.setHeaderText("Unimplemented Feature");
-        alert.setContentText("Sorry, Sign Up is not yet implemented!");
-        alert.showAndWait();
+        User newUser = mainApplication.showRegistrationDialog();
+        if (newUser != null) {
+            //logged in
+            mainApplication.showHomeScreen(mainApplication.getMainScreen());
+        }
     }
 
     @FXML

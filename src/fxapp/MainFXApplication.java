@@ -1,21 +1,21 @@
 package fxapp;
 
+import controller.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.User;
+import persist.IDao;
+import persist.UserDaoImpl;
 
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import controller.MainScreenController;
-import controller.WelcomeScreenController;
-import controller.HomeScreenController;
-import controller.LoginController;
 
 /**
  * Main application class.  Some code reused from the code makery tutorial
@@ -33,9 +33,12 @@ public class MainFXApplication extends Application {
     /** the main layout for the main window */
     private BorderPane rootLayout;
 
+    private IDao<User, String> usersData;
+
     @Override
     public void start(Stage primaryStage) {
         mainScreen = primaryStage;
+        usersData = new UserDaoImpl("users.db");
         initRootLayout(mainScreen);
         showWelcomeScreen(mainScreen);
     }
@@ -150,6 +153,7 @@ public class MainFXApplication extends Application {
             // Connect dialog stage to controller.
             LoginController controller = loader.getController();
             controller.setDialogStage(dialogStage);
+            controller.setUserDao(usersData);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -162,6 +166,36 @@ public class MainFXApplication extends Application {
         }
     }
 
+    public User showRegistrationDialog() {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainFXApplication.class.getResource("../view/RegistrationDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("New User Registration");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainScreen);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Connect dialog stage to controller.
+            RegistrationController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setUserDao(usersData);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.getUser();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     public static void main(String[] args) {
         launch(args);

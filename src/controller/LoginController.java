@@ -2,8 +2,12 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.User;
+
+import persist.IDao;
 
 public class LoginController {
 
@@ -13,7 +17,12 @@ public class LoginController {
     @FXML
     private TextField passwordField;
 
+    @FXML
+    private Button loginButton;
+
     private Stage _dialogStage;
+
+    private IDao<User, String> _users;
 
     private boolean _okClicked = false;
 
@@ -23,6 +32,8 @@ public class LoginController {
     public void setDialogStage(Stage dialogStage) {
         _dialogStage = dialogStage;
     }
+
+    public void setUserDao(IDao<User, String> dao) { _users = dao; }
 
     public boolean isOkClicked() {
         return _okClicked;
@@ -43,8 +54,11 @@ public class LoginController {
 
     private boolean isInputValid() {
         String errorMessage = "";
-        if (!usernameField.getText().equals("username") || !passwordField.getText().equals("password")) {
-            errorMessage += "Invalid username or password";
+        User tryUser = _users.get(usernameField.getText());
+        if (tryUser == null) {
+            errorMessage = "Username does not exist.";
+        } else if (!passwordField.getText().equals(tryUser.getPassword())) {
+            errorMessage = "Invalid username or password";
         }
         if (errorMessage.length() == 0) {
             return true;
