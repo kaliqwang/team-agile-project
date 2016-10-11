@@ -19,4 +19,6 @@ public class HomeScreenController {
         mainApplication.showWelcomeScreen(mainApplication.getMainScreen());
     }
 
+    @FXML
+    public void showWaterSourceReportDialogPressed() { mainApplication.showWaterSourceReportDialog(); }
 }

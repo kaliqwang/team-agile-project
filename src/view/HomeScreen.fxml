@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeScreenController">
    <children>
       <ImageView fx:id="signUpButton" fitHeight="400.0" fitWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -24,5 +24,15 @@
             <Font size="24.0" />
          </font>
       </Label>
+      <Button fx:id="editProfileButton" layoutX="404.0" layoutY="30.0" mnemonicParsing="false" style="-fx-background-color: Transparent; -fx-border-width: 1px; -fx-border-color: white; -fx-border-radius: 5px;" text="Edit Profile" textFill="WHITE">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="submitWaterSourceReportButton" layoutX="14.0" layoutY="30.0" mnemonicParsing="false" onAction="#showWaterSourceReportDialogPressed" style="-fx-background-color: Transparent; -fx-border-width: 1px; -fx-border-color: white; -fx-border-radius: 5px;" text="Submit Water Source Report" textFill="WHITE">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

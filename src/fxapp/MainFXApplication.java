@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.User;
+import model.WaterSourceReport;
 import persist.IDao;
 import persist.UserDaoImpl;
 
@@ -190,6 +191,37 @@ public class MainFXApplication extends Application {
             dialogStage.showAndWait();
 
             return controller.getUser();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public WaterSourceReport showWaterSourceReportDialog() {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainFXApplication.class.getResource("../view/WaterSourceReportDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Submit Water Source Report");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainScreen);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Connect dialog stage to controller.
+            WaterSourceReportController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setUserDao(usersData);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.getWaterSourceReport();
 
         } catch (IOException e) {
             e.printStackTrace();

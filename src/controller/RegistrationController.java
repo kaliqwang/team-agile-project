@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -134,4 +135,5 @@ public class RegistrationController {
         }
         errorLabel.setText(error);
     }
+
 }
