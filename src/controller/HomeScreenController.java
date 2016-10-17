@@ -21,4 +21,7 @@ public class HomeScreenController {
 
     @FXML
     public void showWaterSourceReportDialogPressed() { mainApplication.showWaterSourceReportDialog(); }
+
+    @FXML
+    public void showWaterSourceReportsDialogPressed() { mainApplication.showWaterSourceReportsDialog(); }
 }

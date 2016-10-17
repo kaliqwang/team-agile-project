@@ -228,6 +228,34 @@ public class MainFXApplication extends Application {
         }
     }
 
+    public void showWaterSourceReportsDialog() {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainFXApplication.class.getResource("../view/WaterSourceReportsDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("View Water Source Reports");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainScreen);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Connect dialog stage to controller.
+            WaterSourceReportsController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setUserDao(usersData);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+    }
     public static void main(String[] args) {
         launch(args);
     }

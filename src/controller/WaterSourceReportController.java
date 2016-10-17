@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -31,6 +32,12 @@ public class WaterSourceReportController {
     private Stage _dialogStage;
 
     private IDao<User, String> _users;
+
+    @FXML
+    private void initialize() {
+        waterTypeField.setItems(FXCollections.observableArrayList(WaterType.values()));
+        waterConditionField.setItems(FXCollections.observableArrayList(WaterCondition.values()));
+    }
 
     public void setDialogStage(Stage dialogStage) {
         _dialogStage = dialogStage;
