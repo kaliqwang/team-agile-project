@@ -1,13 +1,24 @@
 package controller;
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableObjectValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.User;
 import model.WaterSourceReport;
-import persist.IDao;
+import model.persist.IDao;
+import model.persist.WaterSourceReportDaoImpl;
 
 /**
  * Created by Rayner Kristanto on 10/11/16.
@@ -32,6 +43,9 @@ public class WaterSourceReportsController {
     private Label conditionOfWaterLabel;
 
     @FXML
+    private TableView<WaterSourceReport> reportTable;
+
+    @FXML
     private TableColumn<WaterSourceReport, String> dateColumn;
 
     @FXML
@@ -39,20 +53,45 @@ public class WaterSourceReportsController {
 
     private Stage _dialogStage;
 
-    private IDao<User, String> _users;
+    private IDao<User, String> _userData;
+
+    private WaterSourceReportDaoImpl _reportData;
+
+    private ObservableList<WaterSourceReport> members = FXCollections.emptyObservableList();
 
     @FXML
     private void initialize() {
-        // dateColumn.setCellValueFactory(cellData -> cellData.getValue().getDate());
+        reportTable.setItems(members);
+        dateColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getDate().toString()));
         locationColumn.setCellValueFactory(cellData -> cellData.getValue().getWaterLocationProperty());
-        
+        reportTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showReportDetails(newValue));
     }
 
     public void setDialogStage(Stage dialogStage) {
         _dialogStage = dialogStage;
     }
 
-    public void setUserDao(IDao<User, String> dao) { _users = dao; }
+    public void setUserDao(IDao<User,String> dao) {
+        _userData = dao;
+    }
 
+    public void setReportDao(IDao<WaterSourceReport, Integer> dao) {
+        _reportData = (WaterSourceReportDaoImpl) dao;
+        members = FXCollections.observableArrayList(_reportData.getAll());
+        reportTable.setItems(members);
+    }
 
+    public void showReportDetails(WaterSourceReport report) {
+        dateAndTimeLabel.setText(report.getDate().toString());
+        reportNumberLabel.setText(report.getReportNumber().toString());
+        User reportingUser = _userData.get(report.getAuthor());
+        nameOfReporterLabel.setText(reportingUser.getFirstName() + " "
+                                    + reportingUser.getLastName() + " ("
+                                    + reportingUser.getUsername() + ")");
+        locationOfWaterLabel.setText(report.getWaterLocation());
+        typeOfWaterLabel.setText(report.getWaterType().getDisplayText());
+        conditionOfWaterLabel.setText(report.getWaterCondition().getDisplayText());
+
+    }
 }

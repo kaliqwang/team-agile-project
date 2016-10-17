@@ -24,7 +24,7 @@ public class LoginController {
 
     private IDao<User, String> _users;
 
-    private boolean _okClicked = false;
+    private User selectedUser = null;
 
     @FXML
     private void initialize() {}
@@ -35,14 +35,14 @@ public class LoginController {
 
     public void setUserDao(IDao<User, String> dao) { _users = dao; }
 
-    public boolean isOkClicked() {
-        return _okClicked;
+    public User getSelectedUser() {
+        return selectedUser;
     }
 
     @FXML
     private void handleOKPressed() {
-        if (isInputValid()) {
-            _okClicked = true;
+        selectedUser = getUser();
+        if (selectedUser != null) {
             _dialogStage.close();
         }
     }
@@ -52,7 +52,7 @@ public class LoginController {
         _dialogStage.close();
     }
 
-    private boolean isInputValid() {
+    private User getUser() {
         String errorMessage = "";
         User tryUser = _users.get(usernameField.getText());
         if (tryUser == null) {
@@ -61,7 +61,7 @@ public class LoginController {
             errorMessage = "Invalid username or password";
         }
         if (errorMessage.length() == 0) {
-            return true;
+            return tryUser;
         } else {
             // Show the error message if bad data
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -70,7 +70,7 @@ public class LoginController {
             alert.setHeaderText("Login Attempt Failed");
             alert.setContentText(errorMessage);
             alert.showAndWait();
-            return false;
+            return null;
         }
     }
 

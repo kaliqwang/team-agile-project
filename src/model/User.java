@@ -51,6 +51,15 @@ public class User {
         _authLevel.set(auth);
     }
 
+    public User(Data uData) {
+        _username.set(uData.username);
+        _password.set(uData.password);
+        _authLevel.set(uData.authLevel);
+        _email.set(uData.email);
+        _firstName.set(uData.firstName);
+        _lastName.set(uData.lastName);
+    }
+
     public String toString() { return _username.get(); }
 
     public boolean equals(Object o) {
@@ -63,5 +72,39 @@ public class User {
             return true;
         return this._username.equals(b._username);
 
+    }
+
+    public class Data {
+        private String username;
+        private String password;
+        private AuthLevel authLevel;
+        private String email;
+        private String firstName;
+        private String lastName;
+
+        public Data(
+                String uname,
+                String pwd,
+                AuthLevel auth,
+                String email,
+                String fName,
+                String lName
+        ) {
+            this.username = uname;
+            this.password = pwd;
+            this.authLevel = auth;
+            this.email = email;
+            this.firstName = fName;
+            this.lastName = lName;
+        }
+    }
+
+    public Data getPlainData() {
+        return new Data(_username.get(),
+                        _password.get(),
+                        _authLevel.get(),
+                        _email.get(),
+                        _firstName.get(),
+                        _lastName.get());
     }
 }

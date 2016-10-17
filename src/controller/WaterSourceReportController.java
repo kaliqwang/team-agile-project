@@ -11,6 +11,9 @@ import model.WaterCondition;
 import model.WaterSourceReport;
 import model.WaterType;
 import model.persist.IDao;
+import model.persist.WaterSourceReportDaoImpl;
+
+import java.util.Date;
 
 /**
  * Created by Rayner Kristanto on 10/10/16.
@@ -31,7 +34,9 @@ public class WaterSourceReportController {
 
     private Stage _dialogStage;
 
-    private IDao<User, String> _users;
+    private IDao<WaterSourceReport, Integer> _reportData;
+
+    private User _currUser;
 
     @FXML
     private void initialize() {
@@ -43,22 +48,30 @@ public class WaterSourceReportController {
         _dialogStage = dialogStage;
     }
 
-    public void setUserDao(IDao<User, String> dao) { _users = dao; }
+    public void setReportDao(IDao<WaterSourceReport, Integer> dao) { _reportData = dao; }
 
-    public WaterSourceReport getWaterSourceReport() {
-        try {
-            WaterSourceReport report = new WaterSourceReport();
-            report.setWaterLocation(waterLocation.getText());
-            report.setWaterType(waterTypeField.getValue());
-            report.setWaterCondition(waterConditionField.getValue());
-            return report;
-        } catch (NullPointerException e) {
-            return null;
-        }
+    public void setCurrUser(User currUser) { _currUser = currUser; }
+
+    public boolean getWaterSourceReport() {
+        return true;
     }
 
     @FXML
     private void handleWaterSourceReportSubmitButton() {
-        _dialogStage.close();
+        try {
+            WaterSourceReportDaoImpl i = (WaterSourceReportDaoImpl) _reportData;
+            WaterSourceReport report = new WaterSourceReport();
+            report.setReportNumber(i.nextIndex());
+            report.setDate(new Date());
+            report.setAuthor(_currUser.getUsername());
+            report.setWaterLocation(waterLocation.getText());
+            report.setWaterType(waterTypeField.getValue());
+            report.setWaterCondition(waterConditionField.getValue());
+            _reportData.persist(report);
+
+            _dialogStage.close();
+        } catch (NullPointerException e) {
+
+        }
     }
 }

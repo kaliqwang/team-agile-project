@@ -2,6 +2,7 @@ package controller;
 
 import fxapp.MainFXApplication;
 import javafx.fxml.FXML;
+import model.WaterSourceReport;
 
 public class HomeScreenController {
 
@@ -20,7 +21,12 @@ public class HomeScreenController {
     }
 
     @FXML
-    public void showWaterSourceReportDialogPressed() { mainApplication.showWaterSourceReportDialog(); }
+    public void showWaterSourceReportDialogPressed() {
+        boolean submitted = mainApplication.showWaterSourceReportDialog();
+        if (submitted) {
+
+        }
+    }
 
     @FXML
     public void showWaterSourceReportsDialogPressed() { mainApplication.showWaterSourceReportsDialog(); }

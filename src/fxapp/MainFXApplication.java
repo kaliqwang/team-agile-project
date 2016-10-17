@@ -1,5 +1,6 @@
 package fxapp;
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
 import controller.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,8 @@ import model.User;
 import model.WaterSourceReport;
 import model.persist.IDao;
 import model.persist.UserDaoImpl;
+import model.persist.UserJsonDaoImpl;
+import model.persist.WaterSourceReportDaoImpl;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -34,11 +37,14 @@ public class MainFXApplication extends Application {
     private BorderPane rootLayout;
 
     private IDao<User, String> usersData;
+    private IDao<WaterSourceReport, Integer> waterData;
+    private User currUser;
 
     @Override
     public void start(Stage primaryStage) {
         mainScreen = primaryStage;
-        usersData = new UserDaoImpl("users.db");
+        usersData = new UserJsonDaoImpl("users.json");
+        waterData = new WaterSourceReportDaoImpl("water.json");
         initRootLayout(mainScreen);
         showWelcomeScreen(mainScreen);
     }
@@ -157,8 +163,9 @@ public class MainFXApplication extends Application {
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
+            currUser = controller.getSelectedUser();
 
-            return controller.isOkClicked();
+            return (currUser != null);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -166,7 +173,7 @@ public class MainFXApplication extends Application {
         }
     }
 
-    public User showRegistrationDialog() {
+    public boolean showRegistrationDialog() {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -189,15 +196,17 @@ public class MainFXApplication extends Application {
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
 
-            return controller.getUser();
+            currUser = controller.getUser();
+
+            return (currUser != null);
 
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return false;
         }
     }
 
-    public WaterSourceReport showWaterSourceReportDialog() {
+    public boolean showWaterSourceReportDialog() {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -215,7 +224,8 @@ public class MainFXApplication extends Application {
             // Connect dialog stage to controller.
             WaterSourceReportController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setUserDao(usersData);
+            controller.setReportDao(waterData);
+            controller.setCurrUser(currUser);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -224,7 +234,7 @@ public class MainFXApplication extends Application {
 
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return false;
         }
     }
 
@@ -247,6 +257,7 @@ public class MainFXApplication extends Application {
             WaterSourceReportsController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setUserDao(usersData);
+            controller.setReportDao(waterData);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
