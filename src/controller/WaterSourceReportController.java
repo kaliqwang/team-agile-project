@@ -9,7 +9,7 @@ import model.User;
 import model.WaterCondition;
 import model.WaterSourceReport;
 import model.WaterType;
-import persist.IDao;
+import model.persist.IDao;
 
 /**
  * Created by Rayner Kristanto on 10/10/16.

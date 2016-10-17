@@ -4,15 +4,14 @@ import controller.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.PasswordField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.User;
 import model.WaterSourceReport;
-import persist.IDao;
-import persist.UserDaoImpl;
+import model.persist.IDao;
+import model.persist.UserDaoImpl;
 
 import java.io.IOException;
 import java.util.logging.Level;

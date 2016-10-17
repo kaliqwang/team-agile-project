@@ -1,4 +1,4 @@
-package persist;
+package model.persist;
 
 import model.AuthLevel;
 import model.User;

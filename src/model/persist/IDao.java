@@ -1,6 +1,4 @@
-package persist;
-
-import java.io.Serializable;
+package model.persist;
 
 /**
  * Interface for a generic data access object

@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.User;
 
-import persist.IDao;
+import model.persist.IDao;
 
 public class LoginController {
 
