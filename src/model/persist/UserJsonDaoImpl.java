@@ -1,5 +1,7 @@
 package model.persist;
 
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 import model.AuthLevel;
 import model.User;
 
@@ -33,8 +35,6 @@ public class UserJsonDaoImpl implements IDao<User,String> {
         }
     }
 
-
-
     private void readFile() {
         BufferedReader in;
         try {
@@ -43,17 +43,16 @@ public class UserJsonDaoImpl implements IDao<User,String> {
             e.printStackTrace();
             return;
         }
+        JsonReader rdr = new JsonReader(in);
+        Map<String, User.Data> newEntries = null;
         try {
-            while (in.ready()) {
-                String currLine = in.readLine();
-                User.Data entry = json.fromJson(currLine, User.Data.class);
-                User currUser = new User(entry);
-                entries.put(currUser.getUsername(), entry);
-            }
-            in.close();
-        } catch (IOException e) {
+            newEntries = json.fromJson(rdr,
+                    new TypeToken<Map<String, User.Data>>() {}.getType());
+        } catch (Exception e) {
             e.printStackTrace();
-            return;
+        }
+        if (newEntries != null) {
+            entries.putAll(newEntries);
         }
     }
 
@@ -66,10 +65,8 @@ public class UserJsonDaoImpl implements IDao<User,String> {
             return;
         }
         try {
-            for (User.Data u : entries.values()) {
-                String serialized = json.toJson(u);
-                out.write(serialized+"\n");
-            }
+            String serialized = json.toJson(entries);
+            out.write(serialized);
             out.close();
         } catch (IOException e) {
             e.printStackTrace();

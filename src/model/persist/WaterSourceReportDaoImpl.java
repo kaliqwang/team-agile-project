@@ -1,6 +1,8 @@
 package model.persist;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 import model.WaterSourceReport;
 
 import java.util.ArrayList;
@@ -40,17 +42,17 @@ public class WaterSourceReportDaoImpl implements IDao<WaterSourceReport, Integer
             e.printStackTrace();
             return;
         }
+        JsonReader rdr = new JsonReader(in);
+        Map<Integer, WaterSourceReport.Data> newEntries = null;
         try {
-            while (in.ready()) {
-                String currLine = in.readLine();
-                WaterSourceReport.Data entry = json.fromJson(currLine, WaterSourceReport.Data.class);
-                WaterSourceReport currReport = new WaterSourceReport(entry);
-                entries.put(currReport.getReportNumber(), entry);
-            }
-            in.close();
-        } catch (IOException e) {
+            newEntries = json.fromJson(rdr,
+                    new TypeToken<Map<Integer, WaterSourceReport.Data>>() {}
+                            .getType());
+        } catch (Exception e) {
             e.printStackTrace();
-            return;
+        }
+        if (newEntries != null) {
+            entries.putAll(newEntries);
         }
     }
 
@@ -62,11 +64,9 @@ public class WaterSourceReportDaoImpl implements IDao<WaterSourceReport, Integer
             e.printStackTrace();
             return;
         }
+        String serialized = json.toJson(entries);
         try {
-            for (WaterSourceReport.Data wsr : entries.values()) {
-                String serialized = json.toJson(wsr);
-                out.write(serialized+"\n");
-            }
+            out.write(serialized);
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
