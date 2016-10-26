@@ -298,6 +298,40 @@ public class MainFXApplication extends Application {
     }
 
     }
+    
+    public boolean showWaterPurityReportDialog() {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainFXApplication.class.getResource("../view/WaterPurityReportDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Submit Water Purity Report");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainScreen);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Connect dialog stage to controller.
+            WaterPurityReportController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setReportDao(waterData);
+            controller.setCurrUser(currUser);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.getWaterPurityReport();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    
     public static void main(String[] args) {
         launch(args);
     }

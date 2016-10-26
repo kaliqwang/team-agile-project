@@ -30,6 +30,14 @@ public class HomeScreenController {
 
         }
     }
+    
+    @FXML
+    public void showWaterPurityReportDialogPressed() {
+        boolean submitted = mainApplication.showWaterPurityReportDialog();
+        if (submitted) {
+
+        }
+    }
 
     @FXML
     public void showWaterSourceReportsDialogPressed() { mainApplication.showWaterSourceReportsDialog(); }
