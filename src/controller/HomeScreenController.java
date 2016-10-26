@@ -3,12 +3,8 @@ package controller;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
-import com.lynden.gmapsfx.service.geocoding.GeocoderAddressComponent;
-import com.lynden.gmapsfx.service.geocoding.GeocoderStatus;
-import com.lynden.gmapsfx.service.geocoding.GeocodingResult;
 import com.lynden.gmapsfx.service.geocoding.GeocodingService;
 import fxapp.MainFXApplication;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import model.User;
 import model.WaterSourceReport;
@@ -16,7 +12,6 @@ import model.persist.IDao;
 import model.persist.WaterSourceReportDaoImpl;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class HomeScreenController {
