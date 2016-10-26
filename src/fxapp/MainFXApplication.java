@@ -250,6 +250,7 @@ public class MainFXApplication extends Application {
             dialogStage.initOwner(mainScreen);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
+            dialogStage.setMinHeight(600.0);
 
             // Connect dialog stage to controller.
             WaterSourceReportController controller = loader.getController();

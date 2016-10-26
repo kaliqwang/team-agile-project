@@ -1,5 +1,13 @@
 package controller;
 
+import com.lynden.gmapsfx.GoogleMapView;
+import com.lynden.gmapsfx.javascript.object.GoogleMap;
+import com.lynden.gmapsfx.javascript.object.LatLong;
+import com.lynden.gmapsfx.javascript.object.MapOptions;
+import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
+import com.lynden.gmapsfx.service.geocoding.GeocoderStatus;
+import com.lynden.gmapsfx.service.geocoding.GeocodingResult;
+import com.lynden.gmapsfx.service.geocoding.GeocodingService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -32,16 +40,24 @@ public class WaterSourceReportController {
     @FXML
     private Button WaterSourceReportSubmitButton;
 
+    @FXML
+    private GoogleMapView mapView;
+
+    private GoogleMap map;
+
     private Stage _dialogStage;
 
     private IDao<WaterSourceReport, Integer> _reportData;
 
     private User _currUser;
 
+    private GeocodingService _geoSrv;
+
     @FXML
     private void initialize() {
         waterTypeField.setItems(FXCollections.observableArrayList(WaterType.values()));
         waterConditionField.setItems(FXCollections.observableArrayList(WaterCondition.values()));
+        mapView.addMapInializedListener(this::onMapInitialized);
     }
 
     public void setDialogStage(Stage dialogStage) {
@@ -73,5 +89,28 @@ public class WaterSourceReportController {
         } catch (NullPointerException e) {
 
         }
+    }
+
+    private void onMapInitialized() {
+        MapOptions mapOptions = new MapOptions();
+        mapOptions.center(new LatLong(33.7490, -84.3880))
+                .mapType(MapTypeIdEnum.TERRAIN)
+                .overviewMapControl(true)
+                .panControl(true)
+                .rotateControl(true)
+                .scaleControl(true)
+                .streetViewControl(false)
+                .zoomControl(true)
+                .zoom(12);
+
+        map = mapView.createMap(mapOptions);
+        _geoSrv = new GeocodingService();
+        waterLocation.textProperty().addListener((observable) -> {
+            _geoSrv.geocode(waterLocation.getText(), this::onMapSearchReceived);
+        });
+    }
+
+    private void onMapSearchReceived(GeocodingResult[] results, GeocoderStatus status) {
+        return;
     }
 }

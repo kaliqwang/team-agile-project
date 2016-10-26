@@ -14,7 +14,7 @@
             <Image url="@coolWater.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="logoutButton" layoutX="525.0" layoutY="14.0" mnemonicParsing="false" onAction="#logoutPressed" style="-fx-background-color: Transparent; -fx-border-width: 1px; -fx-border-color: white; -fx-border-radius: 5px;" text="Log Out" textFill="WHITE" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+      <Button fx:id="logoutButton" layoutX="525.0" layoutY="63.0" mnemonicParsing="false" onAction="#logoutPressed" style="-fx-background-color: Transparent; -fx-border-width: 1px; -fx-border-color: white; -fx-border-radius: 5px;" text="Log Out" textFill="WHITE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="63.0">
          <font>
             <Font size="12.0" />
          </font>
@@ -24,7 +24,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="editProfileButton" layoutX="404.0" layoutY="30.0" mnemonicParsing="false" onAction="#editProfilePressed" style="-fx-background-color: Transparent; -fx-border-width: 1px; -fx-border-color: white; -fx-border-radius: 5px;" text="Edit Profile" textFill="WHITE">
+      <Button fx:id="editProfileButton" layoutX="510.0" layoutY="30.0" mnemonicParsing="false" onAction="#editProfilePressed" style="-fx-background-color: Transparent; -fx-border-width: 1px; -fx-border-color: white; -fx-border-radius: 5px;" text="Edit Profile" textFill="WHITE">
          <font>
             <Font size="12.0" />
          </font>
