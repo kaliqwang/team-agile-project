@@ -21,6 +21,9 @@ public class HomeScreenController {
     }
 
     @FXML
+    public void editProfilePressed() { mainApplication.showProfileChangeDialog(); }
+
+    @FXML
     public void showWaterSourceReportDialogPressed() {
         boolean submitted = mainApplication.showWaterSourceReportDialog();
         if (submitted) {

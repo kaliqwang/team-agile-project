@@ -206,6 +206,36 @@ public class MainFXApplication extends Application {
         }
     }
 
+    public boolean showProfileChangeDialog() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainFXApplication.class.getResource("../view/ProfileChangeDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("User Profile Editor");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainScreen);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            ProfileChangeController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setUserDao(usersData);
+            controller.setCurrUser(currUser);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return true;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public boolean showWaterSourceReportDialog() {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
