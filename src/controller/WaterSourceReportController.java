@@ -60,6 +60,8 @@ public class WaterSourceReportController {
     @FXML
     private VBox mapResults;
 
+    private WaterSourceReport reportResult;
+
     private GoogleMap map;
 
     private String lastSearchQuery;
@@ -100,8 +102,8 @@ public class WaterSourceReportController {
 
     public void setCurrUser(User currUser) { _currUser = currUser; }
 
-    public boolean getWaterSourceReport() {
-        return true;
+    public WaterSourceReport getWaterSourceReport() {
+        return reportResult;
     }
 
     @FXML
@@ -123,6 +125,7 @@ public class WaterSourceReportController {
             report.setWaterLongitude(lon);
             report.setWaterType(waterTypeField.getValue());
             report.setWaterCondition(waterConditionField.getValue());
+            reportResult = report;
             _reportData.persist(report);
             _dialogStage.close();
         } catch (NullPointerException e) {
@@ -178,6 +181,7 @@ public class WaterSourceReportController {
         for (Marker m : mapMarkers.values()) {
             map.removeMarker(m);
         }
+        mapMarkers.clear();
         if (status == GeocoderStatus.ZERO_RESULTS) {
             VBox resultsZero = new VBox(2);
             resultsZero.setAlignment(Pos.CENTER);

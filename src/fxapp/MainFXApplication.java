@@ -15,6 +15,7 @@ import model.persist.IDao;
 import model.persist.UserDaoImpl;
 import model.persist.UserJsonDaoImpl;
 import model.persist.WaterSourceReportDaoImpl;
+import util.MappableCallback;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -132,6 +133,8 @@ public class MainFXApplication extends Application {
             // Give the controller access to the main app.
             HomeScreenController controller = loader.getController();
             controller.setMainApp(this);
+            controller.setUserDao(usersData);
+            controller.setReportDao(waterData);
 
         } catch (IOException e) {
             //error on load, so log it
@@ -236,7 +239,7 @@ public class MainFXApplication extends Application {
         }
     }
 
-    public boolean showWaterSourceReportDialog() {
+    public WaterSourceReport showWaterSourceReportDialog() {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -265,10 +268,13 @@ public class MainFXApplication extends Application {
 
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 
+    /**
+     * Displays a dialog which enables the user to read water source reports.
+     */
     public void showWaterSourceReportsDialog() {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
@@ -279,7 +285,7 @@ public class MainFXApplication extends Application {
             // Create the dialog Stage
             Stage dialogStage = new Stage();
             dialogStage.setTitle("View Water Source Reports");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.initOwner(mainScreen);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);

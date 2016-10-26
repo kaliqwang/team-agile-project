@@ -1,24 +1,19 @@
 package controller;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
+import com.lynden.gmapsfx.javascript.object.LatLong;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.User;
 import model.WaterSourceReport;
 import model.persist.IDao;
 import model.persist.WaterSourceReportDaoImpl;
+import util.MappableCallback;
 
 /**
  * Created by Rayner Kristanto on 10/11/16.
@@ -92,6 +87,5 @@ public class WaterSourceReportsController {
         locationOfWaterLabel.setText("("+report.getWaterLatitude()+","+report.getWaterLongitude()+")");
         typeOfWaterLabel.setText(report.getWaterType().getDisplayText());
         conditionOfWaterLabel.setText(report.getWaterCondition().getDisplayText());
-
     }
 }
