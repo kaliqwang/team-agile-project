@@ -63,7 +63,7 @@ public class WaterSourceReportsController {
     private void initialize() {
         reportTable.setItems(members);
         dateColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getDate().toString()));
-        locationColumn.setCellValueFactory(cellData -> cellData.getValue().getWaterLocationProperty());
+        //locationColumn.setCellValueFactory(cellData -> cellData.getValue().getWaterLocationProperty());
         reportTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showReportDetails(newValue));
     }
@@ -89,7 +89,7 @@ public class WaterSourceReportsController {
         nameOfReporterLabel.setText(reportingUser.getFirstName() + " "
                                     + reportingUser.getLastName() + " ("
                                     + reportingUser.getUsername() + ")");
-        locationOfWaterLabel.setText(report.getWaterLocation());
+        locationOfWaterLabel.setText("("+report.getWaterLatitude()+","+report.getWaterLongitude()+")");
         typeOfWaterLabel.setText(report.getWaterType().getDisplayText());
         conditionOfWaterLabel.setText(report.getWaterCondition().getDisplayText());
 

@@ -11,7 +11,8 @@ public class WaterSourceReport {
     private final IntegerProperty _reportNumber = new SimpleIntegerProperty();
     private final ObjectProperty<Date> _date = new SimpleObjectProperty<>();
     private final StringProperty _author = new SimpleStringProperty();
-    private final StringProperty _waterLocation = new SimpleStringProperty();
+    private final DoubleProperty _waterLatitude = new SimpleDoubleProperty();
+    private final DoubleProperty _waterLongitude = new SimpleDoubleProperty();
     private final ObjectProperty<WaterType> _waterType = new SimpleObjectProperty<>();
     private final ObjectProperty<WaterCondition> _waterCondition = new SimpleObjectProperty<>();
 
@@ -24,9 +25,10 @@ public class WaterSourceReport {
     public String getAuthor() { return _author.get(); }
     public void setAuthor(String author) { _author.set(author); }
 
-    public String getWaterLocation() { return _waterLocation.get(); }
-    public void setWaterLocation(String waterLocation) { _waterLocation.set(waterLocation); }
-    public StringProperty getWaterLocationProperty() { return _waterLocation; }
+    public double getWaterLatitude() { return _waterLatitude.get(); }
+    public void setWaterLatitude(double latitude) { _waterLatitude.set(latitude); }
+    public double getWaterLongitude() { return _waterLongitude.get(); }
+    public void setWaterLongitude(double longitude) { _waterLongitude.set(longitude); }
     public WaterType getWaterType() { return _waterType.get(); }
     public void setWaterType(WaterType waterType) { _waterType.set(waterType); }
 
@@ -41,7 +43,8 @@ public class WaterSourceReport {
         _reportNumber.set(plainData.rptNum);
         _date.set(plainData.rptDate);
         _author.set(plainData.author);
-        _waterLocation.set(plainData.waterLocation);
+        _waterLatitude.set(plainData.latitude);
+        _waterLongitude.set(plainData.longitude);
         _waterType.set(plainData.waterType);
         _waterCondition.set(plainData.waterCondition);
     }
@@ -51,7 +54,8 @@ public class WaterSourceReport {
                 _reportNumber.get(),
                 _date.get(),
                 _author.get(),
-                _waterLocation.get(),
+                _waterLatitude.get(),
+                _waterLongitude.get(),
                 _waterType.get(),
                 _waterCondition.get()
         );
@@ -61,7 +65,8 @@ public class WaterSourceReport {
         private int rptNum;
         private Date rptDate;
         private String author;
-        private String waterLocation;
+        private double latitude;
+        private double longitude;
         private WaterType waterType;
         private WaterCondition waterCondition;
 
@@ -69,14 +74,16 @@ public class WaterSourceReport {
                 int reportNum,
                 Date reportDate,
                 String auth,
-                String location,
+                double latitude,
+                double longitude,
                 WaterType type,
                 WaterCondition condition
         ) {
             this.rptNum = reportNum;
             this.rptDate = reportDate;
             this.author = auth;
-            this.waterLocation = location;
+            this.latitude = latitude;
+            this.longitude = longitude;
             this.waterType = type;
             this.waterCondition = condition;
         }
