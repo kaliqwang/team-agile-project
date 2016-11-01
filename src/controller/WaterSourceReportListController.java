@@ -1,6 +1,5 @@
 package controller;
 
-import com.lynden.gmapsfx.javascript.object.LatLong;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,14 +10,13 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import model.User;
 import model.WaterSourceReport;
-import model.persist.IDao;
-import model.persist.WaterSourceReportDaoImpl;
-import util.MappableCallback;
+import model.persist.GenericDAO;
+import model.persist.WaterSourceReportDAO;
 
 /**
  * Created by Rayner Kristanto on 10/11/16.
  */
-public class WaterSourceReportsController {
+public class WaterSourceReportListController {
     @FXML
     private Label dateAndTimeLabel;
 
@@ -48,9 +46,9 @@ public class WaterSourceReportsController {
 
     private Stage _dialogStage;
 
-    private IDao<User, String> _userData;
+    private GenericDAO<User, String> _userData;
 
-    private WaterSourceReportDaoImpl _reportData;
+    private WaterSourceReportDAO _reportData;
 
     private ObservableList<WaterSourceReport> members = FXCollections.emptyObservableList();
 
@@ -67,12 +65,12 @@ public class WaterSourceReportsController {
         _dialogStage = dialogStage;
     }
 
-    public void setUserDao(IDao<User,String> dao) {
+    public void setUserDao(GenericDAO<User,String> dao) {
         _userData = dao;
     }
 
-    public void setReportDao(IDao<WaterSourceReport, Integer> dao) {
-        _reportData = (WaterSourceReportDaoImpl) dao;
+    public void setReportDao(GenericDAO<WaterSourceReport, Integer> dao) {
+        _reportData = (WaterSourceReportDAO) dao;
         members = FXCollections.observableArrayList(_reportData.getAll());
         reportTable.setItems(members);
     }
@@ -85,7 +83,7 @@ public class WaterSourceReportsController {
                                     + reportingUser.getLastName() + " ("
                                     + reportingUser.getUsername() + ")");
         locationOfWaterLabel.setText("("+report.getWaterLatitude()+","+report.getWaterLongitude()+")");
-        typeOfWaterLabel.setText(report.getWaterType().getDisplayText());
-        conditionOfWaterLabel.setText(report.getWaterCondition().getDisplayText());
+        typeOfWaterLabel.setText(report.getWaterSourceType().getDisplayText());
+        conditionOfWaterLabel.setText(report.getWaterSourceCondition().getDisplayText());
     }
 }

@@ -4,15 +4,12 @@ import javafx.beans.property.*;
 
 import java.util.Date;
 
-/**
- * Created by Rayner Kristanto on 10/10/16.
- */
 public class WaterPurityReport {
     private final IntegerProperty _reportNumber = new SimpleIntegerProperty();
     private final ObjectProperty<Date> _date = new SimpleObjectProperty<>();
     private final StringProperty _author = new SimpleStringProperty();
     private final StringProperty _waterLocation = new SimpleStringProperty();
-    private final ObjectProperty<OverallCondition> _overallCondition = new SimpleObjectProperty<>();
+    private final ObjectProperty<WaterPurityCondition> _overallCondition = new SimpleObjectProperty<>();
     private final StringProperty _virusPPM = new SimpleStringProperty();
     private final StringProperty _contaminantPPM = new SimpleStringProperty();
 
@@ -29,8 +26,8 @@ public class WaterPurityReport {
     public String getWaterLocation() { return _waterLocation.get(); }
     public void setWaterLocation(String waterLocation) { _waterLocation.set(waterLocation); }
     public StringProperty getWaterLocationProperty() { return _waterLocation; }
-    public OverallCondition getOverallCondition() { return _overallCondition.get(); }
-    public void setOverallCondition(OverallCondition overallCondition) { _overallCondition.set(overallCondition); }
+    public WaterPurityCondition getWaterPurityCondition() { return _overallCondition.get(); }
+    public void setWaterPurityCondition(WaterPurityCondition overallCondition) { _overallCondition.set(overallCondition); }
 
     public String getVirusPPM() { return _virusPPM.get(); }
     public void setVirusPPM(String virusPPM) { _virusPPM.set(virusPPM); }
@@ -70,7 +67,7 @@ public class WaterPurityReport {
         private Date rptDate;
         private String author;
         private String waterLocation;
-        private OverallCondition overallCondition;
+        private WaterPurityCondition overallCondition;
         private String virusPPM;
         private String contaminantPPM;
 
@@ -79,7 +76,7 @@ public class WaterPurityReport {
                 Date reportDate,
                 String auth,
                 String location,
-                OverallCondition condition,
+                WaterPurityCondition condition,
                 String virusPPM,
                 String contaminantPPM
         ) {

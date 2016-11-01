@@ -1,8 +1,5 @@
 package model;
 
-/**
- * Created by Max Yang on 10/2/16.
- */
 public enum AuthLevel {
     USER("User"),
     WORKER("Worker"),

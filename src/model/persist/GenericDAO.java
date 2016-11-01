@@ -4,9 +4,8 @@ package model.persist;
  * Interface for a generic data access object
  * @param <T> type of the underlying data object
  * @param <PK> primary key of the object
- * @author Max Yang
  */
-public interface IDao<T,PK> {
+public interface GenericDAO<T,PK> {
     /**
      * Adds a new object to the database
      * @param newObj the object to be added

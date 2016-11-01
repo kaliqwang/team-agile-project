@@ -6,12 +6,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 import model.User;
-import model.persist.IDao;
+import model.persist.GenericDAO;
 
 /**
- * Created by Max Yang on 10/25/2016.
+ * Created by kaliq on 10/31/2016.
  */
-public class ProfileChangeController {
+public class UserEditController {
     @FXML
     private TextField firstNameField;
 
@@ -26,7 +26,7 @@ public class ProfileChangeController {
 
     private Stage _dialogStage;
 
-    private IDao<User, String> _users;
+    private GenericDAO<User, String> _users;
 
     private User _currUser;
 
@@ -48,7 +48,7 @@ public class ProfileChangeController {
         _dialogStage = dialogStage;
     }
 
-    public void setUserDao(IDao<User, String> dao) { _users = dao; }
+    public void setUserDao(GenericDAO<User, String> dao) { _users = dao; }
 
     public void setCurrUser(User currUser) {
         _currUser = currUser;
@@ -58,7 +58,7 @@ public class ProfileChangeController {
     }
 
     @FXML
-    private void handleSaveButton() {
+    private void handleOKPressed() {
         if (firstNameField.getText().length() == 0 ||
                 lastNameField.getText().length() == 0 ||
                 emailField.getText().length() == 0) {
@@ -70,6 +70,11 @@ public class ProfileChangeController {
             _users.update(_currUser.getUsername(), _currUser);
             _dialogStage.close();
         }
+    }
+
+    @FXML
+    private void handleCancelPressed() {
+        _dialogStage.close();
     }
 
 }

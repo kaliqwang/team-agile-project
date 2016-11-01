@@ -6,13 +6,13 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.AuthLevel;
 import model.User;
-import model.persist.IDao;
+import model.persist.GenericDAO;
 
 
 /**
- * Controller for the registration screen.
+ * Created by kaliq on 10/31/2016.
  */
-public class RegistrationController {
+public class UserCreateController {
     private boolean passwordMatches = true;
     private boolean passwordLengthValid = true;
     private boolean usernameInUse = false;
@@ -45,7 +45,7 @@ public class RegistrationController {
 
     private Stage _dialogStage;
 
-    private IDao<User, String> _users;
+    private GenericDAO<User, String> _users;
 
     @FXML
     private void initialize() {
@@ -61,7 +61,7 @@ public class RegistrationController {
         _dialogStage = dialogStage;
     }
 
-    public void setUserDao(IDao<User, String> dao) { _users = dao; }
+    public void setUserDao(GenericDAO<User, String> dao) { _users = dao; }
 
     public User getUser() {
         if (validateInputs()) {
@@ -78,21 +78,26 @@ public class RegistrationController {
     }
 
     @FXML
-    private void handleRegisterButton() {
+    private void handleOKPressed() {
         if (validateInputs()) {
             _users.persist(getUser());
             _dialogStage.close();
         }
     }
 
+    @FXML
+    private void handleCancelPressed() {
+        _dialogStage.close();
+    }
+
     private boolean validateInputs() {
         boolean nameNotEmpty = (firstNameField.getText().length() != 0
-                                && lastNameField.getText().length() != 0);
+                && lastNameField.getText().length() != 0);
         boolean emailNotEmpty = emailField.getText().length() != 0;
         return nameNotEmpty && emailNotEmpty
-                            && !usernameInUse
-                            && passwordLengthValid
-                            && passwordMatches;
+                && !usernameInUse
+                && passwordLengthValid
+                && passwordMatches;
     }
 
     private TextFormatter.Change restrictName(TextFormatter.Change change) {

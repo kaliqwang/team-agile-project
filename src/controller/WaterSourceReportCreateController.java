@@ -23,18 +23,18 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import model.User;
-import model.WaterCondition;
+import model.WaterSourceCondition;
 import model.WaterSourceReport;
-import model.WaterType;
-import model.persist.IDao;
-import model.persist.WaterSourceReportDaoImpl;
+import model.WaterSourceType;
+import model.persist.GenericDAO;
+import model.persist.WaterSourceReportDAO;
 
 import java.util.*;
 
 /**
  * Created by Rayner Kristanto on 10/10/16.
  */
-public class WaterSourceReportController {
+public class WaterSourceReportCreateController {
 
     @FXML
     private TextField waterSearchLocation;
@@ -46,10 +46,10 @@ public class WaterSourceReportController {
     private TextField longitudeField;
 
     @FXML
-    private ComboBox<WaterType> waterTypeField;
+    private ComboBox<WaterSourceType> waterTypeField;
 
     @FXML
-    private ComboBox<WaterCondition> waterConditionField;
+    private ComboBox<WaterSourceCondition> waterConditionField;
 
     @FXML
     private Button WaterSourceReportSubmitButton;
@@ -78,7 +78,7 @@ public class WaterSourceReportController {
 
     private Stage _dialogStage;
 
-    private IDao<WaterSourceReport, Integer> _reportData;
+    private GenericDAO<WaterSourceReport, Integer> _reportData;
 
     private User _currUser;
 
@@ -86,8 +86,8 @@ public class WaterSourceReportController {
 
     @FXML
     private void initialize() {
-        waterTypeField.setItems(FXCollections.observableArrayList(WaterType.values()));
-        waterConditionField.setItems(FXCollections.observableArrayList(WaterCondition.values()));
+        waterTypeField.setItems(FXCollections.observableArrayList(WaterSourceType.values()));
+        waterConditionField.setItems(FXCollections.observableArrayList(WaterSourceCondition.values()));
         lastSearchQuery = "";
         mapView.addMapInializedListener(this::onMapInitialized);
         entryMapping = new HashMap<>();
@@ -98,7 +98,7 @@ public class WaterSourceReportController {
         _dialogStage = dialogStage;
     }
 
-    public void setReportDao(IDao<WaterSourceReport, Integer> dao) { _reportData = dao; }
+    public void setReportDao(GenericDAO<WaterSourceReport, Integer> dao) { _reportData = dao; }
 
     public void setCurrUser(User currUser) { _currUser = currUser; }
 
@@ -116,15 +116,15 @@ public class WaterSourceReportController {
             return;
         }
         try {
-            WaterSourceReportDaoImpl i = (WaterSourceReportDaoImpl) _reportData;
+            WaterSourceReportDAO i = (WaterSourceReportDAO) _reportData;
             WaterSourceReport report = new WaterSourceReport();
             report.setReportNumber(i.nextIndex());
             report.setDate(new Date());
             report.setAuthor(_currUser.getUsername());
             report.setWaterLatitude(lat);
             report.setWaterLongitude(lon);
-            report.setWaterType(waterTypeField.getValue());
-            report.setWaterCondition(waterConditionField.getValue());
+            report.setWaterSourceType(waterTypeField.getValue());
+            report.setWaterSourceCondition(waterConditionField.getValue());
             reportResult = report;
             _reportData.persist(report);
             _dialogStage.close();

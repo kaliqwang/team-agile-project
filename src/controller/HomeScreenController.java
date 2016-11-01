@@ -8,8 +8,8 @@ import fxapp.MainFXApplication;
 import javafx.fxml.FXML;
 import model.User;
 import model.WaterSourceReport;
-import model.persist.IDao;
-import model.persist.WaterSourceReportDaoImpl;
+import model.persist.GenericDAO;
+import model.persist.WaterSourceReportDAO;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,9 +25,9 @@ public class HomeScreenController {
 
     private GeocodingService _geoSrv;
 
-    private IDao<User, String> _userData;
+    private GenericDAO<User, String> _userData;
 
-    private WaterSourceReportDaoImpl _reportData;
+    private WaterSourceReportDAO _reportData;
 
     private Map<WaterSourceReport, Marker> points;
 
@@ -40,40 +40,40 @@ public class HomeScreenController {
     public void setMainApp(MainFXApplication mainFXApplication) {
         mainApplication = mainFXApplication;
     }
-    public void setUserDao(IDao<User,String> dao) {
+    public void setUserDao(GenericDAO<User,String> dao) {
         _userData = dao;
     }
 
-    public void setReportDao(IDao<WaterSourceReport, Integer> dao) {
-        _reportData = (WaterSourceReportDaoImpl) dao;
+    public void setReportDao(GenericDAO<WaterSourceReport, Integer> dao) {
+        _reportData = (WaterSourceReportDAO) dao;
     }
 
     @FXML
     public void logoutPressed() {
-        mainApplication.showWelcomeScreen(mainApplication.getMainScreen());
+        mainApplication.showWelcomeScreen(mainApplication.getMainStage());
     }
 
     @FXML
-    public void editProfilePressed() { mainApplication.showProfileChangeDialog(); }
+    public void showUserEditDialogPressed() { mainApplication.showUserEditDialog(); }
 
     @FXML
-    public void showWaterSourceReportDialogPressed() {
-        WaterSourceReport submitted = mainApplication.showWaterSourceReportDialog();
+    public void showWaterSourceReportCreateDialogPressed() {
+        WaterSourceReport submitted = mainApplication.showWaterSourceReportCreateDialog();
         if (submitted != null)
             addMarkerForReport(submitted);
     }
 
     @FXML
-    public void showWaterPurityReportDialogPressed() {
-        boolean submitted = mainApplication.showWaterPurityReportDialog();
+    public void showWaterPurityReportCreateDialogPressed() {
+        boolean submitted = mainApplication.showWaterPurityReportCreateDialog();
         if (submitted) {
 
         }
     }
 
     @FXML
-    public void showWaterSourceReportsDialogPressed() {
-        mainApplication.showWaterSourceReportsDialog();
+    public void showWaterSourceReportListDialogPressed() {
+        mainApplication.showWaterSourceReportListDialog();
     }
 
     private void addMarkerForReport(final WaterSourceReport r) {
@@ -88,8 +88,8 @@ public class HomeScreenController {
                 windowOptions.content("<h3>Report #" + r.getReportNumber() + "</h3>"
                         + "Date:" + r.getDate() + "<br>"
                         + "Author:" + author.getFirstName() + " " + author.getLastName() + " (" + author.getUsername() + ")<br>"
-                        + "Water Type: " + r.getWaterType().getDisplayText() + "<br>"
-                        + "Water Condition:" + r.getWaterCondition().getDisplayText());
+                        + "Water Type: " + r.getWaterSourceType().getDisplayText() + "<br>"
+                        + "Water Condition:" + r.getWaterSourceCondition().getDisplayText());
                 InfoWindow newInfo = new InfoWindow(windowOptions);
                 newInfo.open(map, newPt);
             }

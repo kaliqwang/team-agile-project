@@ -1,0 +1,77 @@
+.backgroundPaneColor {
+    -fx-background-image: url("background2.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 2560, 1600;
+    -fx-background-position: center, center;
+}
+
+.backgroundPaneGrayscale {
+    -fx-background-image: url("background2-grayscale.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 2560, 1600;
+    -fx-background-position: center, center;
+}
+
+.darkPane {
+    -fx-background-color: #444;
+}
+
+.darkerPane {
+    -fx-background-color: #333;
+}
+
+.transparentPane {
+    -fx-background-color: transparent;
+}
+
+.whiteOutlineButton {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-border-color: transparent;
+}
+.whiteOutlineButton:hover {
+    -fx-cursor: hand;
+    -fx-border-color: white;
+}
+.whiteOutlineButton:pressed {
+    -fx-border-color: white;
+    -fx-background-color: rgb(255,255,255,0.25);
+}
+
+.submitButton {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-border-color: transparent;
+}
+.submitButton:hover {
+    -fx-cursor: hand;
+    -fx-border-color: white;
+}
+.submitButton:pressed {
+    -fx-border-color: white;
+    -fx-background-color: rgb(255,255,255,0.25);
+}
+
+.cancelButton {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-border-color: transparent;
+}
+.cancelButton:hover {
+    -fx-cursor: hand;
+    -fx-border-color: white;
+}
+.cancelButton:pressed {
+    -fx-border-color: white;
+    -fx-background-color: rgb(255,255,255,0.25);
+}
+
+.whiteLabel {
+    -fx-text-fill: white;
+}

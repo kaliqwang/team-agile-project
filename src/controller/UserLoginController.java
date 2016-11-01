@@ -6,10 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.User;
+import model.persist.GenericDAO;
 
-import model.persist.IDao;
-
-public class LoginController {
+/**
+ * Created by kaliq on 10/31/2016.
+ */
+public class UserLoginController {
 
     @FXML
     private TextField usernameField;
@@ -22,22 +24,26 @@ public class LoginController {
 
     private Stage _dialogStage;
 
-    private IDao<User, String> _users;
+    private GenericDAO<User, String> _users;
 
     private User selectedUser = null;
 
-    @FXML
-    private void initialize() {}
 
     public void setDialogStage(Stage dialogStage) {
         _dialogStage = dialogStage;
     }
 
-    public void setUserDao(IDao<User, String> dao) { _users = dao; }
+    public void setUserDao(GenericDAO<User, String> dao) {
+        _users = dao;
+    }
 
     public User getSelectedUser() {
         return selectedUser;
     }
+
+
+    @FXML
+    private void initialize() {}
 
     @FXML
     private void handleOKPressed() {

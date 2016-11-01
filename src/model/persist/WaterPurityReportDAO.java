@@ -1,27 +1,23 @@
 package model.persist;
 
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
-import model.AuthLevel;
-import model.User;
+import model.WaterPurityReport;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import com.google.gson.Gson;
-
-
-/**
- * Created by Max Yang on 10/17/2016.
- */
-public class UserJsonDaoImpl implements IDao<User,String> {
+public class WaterPurityReportDAO implements GenericDAO<WaterPurityReport, Integer> {
 
     private String _fname;
-    private Map<String, User.Data> entries;
+    private Map<Integer, WaterPurityReport.Data> entries;
     private Gson json;
 
-    public UserJsonDaoImpl(String fileName) {
+    public WaterPurityReportDAO(String fileName) {
         entries = new HashMap<>();
         _fname = fileName;
         json = new Gson();
@@ -44,10 +40,11 @@ public class UserJsonDaoImpl implements IDao<User,String> {
             return;
         }
         JsonReader rdr = new JsonReader(in);
-        Map<String, User.Data> newEntries = null;
+        Map<Integer, WaterPurityReport.Data> newEntries = null;
         try {
             newEntries = json.fromJson(rdr,
-                    new TypeToken<Map<String, User.Data>>() {}.getType());
+                    new TypeToken<Map<Integer, WaterPurityReport.Data>>() {}
+                            .getType());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,26 +61,25 @@ public class UserJsonDaoImpl implements IDao<User,String> {
             e.printStackTrace();
             return;
         }
+        String serialized = json.toJson(entries);
         try {
-            String serialized = json.toJson(entries);
             out.write(serialized);
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
-            return;
         }
     }
 
     @Override
-    public boolean persist(User newObj) {
+    public boolean persist(WaterPurityReport newObj) {
         readFile();
-        entries.put(newObj.getUsername(), newObj.getPlainData());
+        entries.put(newObj.getReportNumber(), newObj.getPlainData());
         writeFile();
         return true;
     }
 
     @Override
-    public boolean update(String pKey, User toUpdate) {
+    public boolean update(Integer pKey, WaterPurityReport toUpdate) {
         readFile();
         entries.put(pKey, toUpdate.getPlainData());
         writeFile();
@@ -91,7 +87,7 @@ public class UserJsonDaoImpl implements IDao<User,String> {
     }
 
     @Override
-    public boolean remove(String pKey) {
+    public boolean remove(Integer pKey) {
         readFile();
         if (entries.containsKey(pKey)) {
             entries.remove(pKey);
@@ -101,11 +97,25 @@ public class UserJsonDaoImpl implements IDao<User,String> {
     }
 
     @Override
-    public User get(String pKey) {
+    public WaterPurityReport get(Integer pKey) {
         readFile();
         if (entries.containsKey(pKey))
-            return new User(entries.get(pKey));
+            return new WaterPurityReport(entries.get(pKey));
         else
             return null;
+    }
+
+    public int nextIndex() {
+        readFile();
+        return entries.size() + 1;
+    }
+
+    public List<WaterPurityReport> getAll() {
+        readFile();
+        List<WaterPurityReport> ret = new ArrayList<>();
+        for (WaterPurityReport.Data entry : entries.values()) {
+            ret.add(new WaterPurityReport(entry));
+        }
+        return ret;
     }
 }

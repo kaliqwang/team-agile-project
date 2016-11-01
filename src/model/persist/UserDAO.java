@@ -3,24 +3,19 @@ package model.persist;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
-import model.WaterSourceReport;
+import model.User;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * Created by Rayner Kristanto on 10/11/16.
- */
-public class WaterSourceReportDaoImpl implements IDao<WaterSourceReport, Integer> {
+public class UserDAO implements GenericDAO<User,String> {
 
     private String _fname;
-    private Map<Integer, WaterSourceReport.Data> entries;
+    private Map<String, User.Data> entries;
     private Gson json;
 
-    public WaterSourceReportDaoImpl(String fileName) {
+    public UserDAO(String fileName) {
         entries = new HashMap<>();
         _fname = fileName;
         json = new Gson();
@@ -43,11 +38,10 @@ public class WaterSourceReportDaoImpl implements IDao<WaterSourceReport, Integer
             return;
         }
         JsonReader rdr = new JsonReader(in);
-        Map<Integer, WaterSourceReport.Data> newEntries = null;
+        Map<String, User.Data> newEntries = null;
         try {
             newEntries = json.fromJson(rdr,
-                    new TypeToken<Map<Integer, WaterSourceReport.Data>>() {}
-                            .getType());
+                    new TypeToken<Map<String, User.Data>>() {}.getType());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,25 +58,26 @@ public class WaterSourceReportDaoImpl implements IDao<WaterSourceReport, Integer
             e.printStackTrace();
             return;
         }
-        String serialized = json.toJson(entries);
         try {
+            String serialized = json.toJson(entries);
             out.write(serialized);
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
+            return;
         }
     }
 
     @Override
-    public boolean persist(WaterSourceReport newObj) {
+    public boolean persist(User newObj) {
         readFile();
-        entries.put(newObj.getReportNumber(), newObj.getPlainData());
+        entries.put(newObj.getUsername(), newObj.getPlainData());
         writeFile();
         return true;
     }
 
     @Override
-    public boolean update(Integer pKey, WaterSourceReport toUpdate) {
+    public boolean update(String pKey, User toUpdate) {
         readFile();
         entries.put(pKey, toUpdate.getPlainData());
         writeFile();
@@ -90,7 +85,7 @@ public class WaterSourceReportDaoImpl implements IDao<WaterSourceReport, Integer
     }
 
     @Override
-    public boolean remove(Integer pKey) {
+    public boolean remove(String pKey) {
         readFile();
         if (entries.containsKey(pKey)) {
             entries.remove(pKey);
@@ -100,25 +95,11 @@ public class WaterSourceReportDaoImpl implements IDao<WaterSourceReport, Integer
     }
 
     @Override
-    public WaterSourceReport get(Integer pKey) {
+    public User get(String pKey) {
         readFile();
         if (entries.containsKey(pKey))
-            return new WaterSourceReport(entries.get(pKey));
+            return new User(entries.get(pKey));
         else
             return null;
-    }
-
-    public int nextIndex() {
-        readFile();
-        return entries.size() + 1;
-    }
-
-    public List<WaterSourceReport> getAll() {
-        readFile();
-        List<WaterSourceReport> ret = new ArrayList<>();
-        for (WaterSourceReport.Data entry : entries.values()) {
-            ret.add(new WaterSourceReport(entry));
-        }
-        return ret;
     }
 }

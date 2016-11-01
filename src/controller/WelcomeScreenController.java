@@ -17,19 +17,19 @@ public class WelcomeScreenController {
     }
 
     @FXML
-    public void showSignUpDialogPressed() {
-        boolean userRegistered = mainApplication.showRegistrationDialog();
+    public void showUserCreateDialogPressed() {
+        boolean userRegistered = mainApplication.showUserCreateDialog();
         if (userRegistered) {
             //logged in
-            mainApplication.showHomeScreen(mainApplication.getMainScreen());
+            mainApplication.showHomeScreen(mainApplication.getMainStage());
         }
     }
 
     @FXML
-    public void showLoginDialogPressed() {
-        boolean userLoggedOn = mainApplication.showLoginDialog();
+    public void showUserLoginDialogPressed() {
+        boolean userLoggedOn = mainApplication.showUserLoginDialog();
         if (userLoggedOn) {
-            mainApplication.showHomeScreen(mainApplication.getMainScreen());
+            mainApplication.showHomeScreen(mainApplication.getMainStage());
         }
     }
 
