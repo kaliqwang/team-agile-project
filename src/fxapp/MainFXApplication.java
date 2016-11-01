@@ -1,18 +1,18 @@
 package fxapp;
 
+import model.*;
+import model.persist.*;
 import controller.*;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.User;
-import model.WaterSourceReport;
-import model.persist.GenericDAO;
-import model.persist.UserDAO;
-import model.persist.WaterSourceReportDAO;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -32,14 +32,16 @@ public class MainFXApplication extends Application {
     private BorderPane rootLayout;
 
     private GenericDAO<User, String> usersData;
-    private GenericDAO<WaterSourceReport, Integer> waterData;
+    private GenericDAO<WaterSourceReport, Integer> waterSourceData;
+    private GenericDAO<WaterPurityReport, Integer> waterPurityData;
     private User currUser;
 
     @Override
     public void start(Stage stage) {
         mainStage = stage;
         usersData = new UserDAO("users.json");
-        waterData = new WaterSourceReportDAO("water.json");
+        waterSourceData = new WaterSourceReportDAO("waterSourceReport.json");
+        waterPurityData = new WaterPurityReportDAO("waterPurityReport.json");
         initRootLayout(mainStage);
         showWelcomeScreen(mainStage);
     }
@@ -59,8 +61,7 @@ public class MainFXApplication extends Application {
     private void initRootLayout(Stage mainStage) {
         try {
             // Load root layout from fxml file.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/MainStage.fxml"));
+            FXMLLoader loader = createLoader("../view/MainStage.fxml");
             rootLayout = loader.load();
 
             // Give the controller access to the main app.
@@ -68,7 +69,7 @@ public class MainFXApplication extends Application {
             controller.setMainApp(this);
 
             // Set the Main App title
-            mainStage.setTitle("Water App");
+            mainStage.setTitle("Clean Water Database");
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
@@ -94,21 +95,14 @@ public class MainFXApplication extends Application {
      */
     public void showWelcomeScreen(Stage mainStage) {
         try {
-            // Load course overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/WelcomeScreen.fxml"));
-            AnchorPane welcomeScreen = loader.load();
-
-            // Set person overview into the center of root layout.
-            rootLayout.setCenter(welcomeScreen);
+            FXMLLoader loader = createLoader("../view/WelcomeScreen.fxml");
+            rootLayout.setCenter(loader.load());
 
             // Give the controller access to the main app.
             WelcomeScreenController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
-            //error on load, so log it
-            LOGGER.log(Level.SEVERE, "Failed to find the fxml file for WelcomeScreen!!");
             e.printStackTrace();
         }
 
@@ -116,23 +110,17 @@ public class MainFXApplication extends Application {
 
     public void showHomeScreen(Stage mainStage) {
         try {
-            // Load course overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/HomeScreen.fxml"));
-            AnchorPane homeScreen = loader.load();
-
-            // Set person overview into the center of root layout.
-            rootLayout.setCenter(homeScreen);
+            FXMLLoader loader = createLoader("../view/HomeScreen.fxml");
+            rootLayout.setCenter(loader.load());
 
             // Give the controller access to the main app.
             HomeScreenController controller = loader.getController();
             controller.setMainApp(this);
             controller.setUserDao(usersData);
-            controller.setReportDao(waterData);
+            controller.setSourceReportDao(waterSourceData);
+            controller.setPurityReportDao(waterPurityData);
 
         } catch (IOException e) {
-            //error on load, so log it
-            LOGGER.log(Level.SEVERE, "Failed to find the fxml file for HomeScreen!!");
             e.printStackTrace();
         }
 
@@ -140,18 +128,10 @@ public class MainFXApplication extends Application {
 
     public boolean showUserLoginDialog() {
         try {
-            // Load the fxml file and create a new stage for the popup dialog.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/UserLoginDialog.fxml"));
-            AnchorPane page = loader.load();
+            FXMLLoader loader = createLoader("../view/UserLoginDialog.fxml");
 
-            // Create the dialog Stage.
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("User Login");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(mainStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
+            // Create the dialog Stage
+            Stage dialogStage = createDialogStage("User Login", loader.load());
 
             // Connect dialog stage to controller.
             UserLoginController controller = loader.getController();
@@ -161,7 +141,6 @@ public class MainFXApplication extends Application {
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
             currUser = controller.getSelectedUser();
-
             return (currUser != null);
 
         } catch (IOException e) {
@@ -172,18 +151,10 @@ public class MainFXApplication extends Application {
 
     public boolean showUserCreateDialog() {
         try {
-            // Load the fxml file and create a new stage for the popup dialog.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/UserCreateDialog.fxml"));
-            AnchorPane page = loader.load();
+            FXMLLoader loader = createLoader("../view/UserCreateDialog.fxml");
 
-            // Create the dialog Stage.
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("New User Registration");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(mainStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
+            // Create the dialog Stage
+            Stage dialogStage = createDialogStage("Create User", loader.load());
 
             // Connect dialog stage to controller.
             UserCreateController controller = loader.getController();
@@ -192,9 +163,7 @@ public class MainFXApplication extends Application {
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
-
             currUser = controller.getUser();
-
             return (currUser != null);
 
         } catch (IOException e) {
@@ -205,17 +174,10 @@ public class MainFXApplication extends Application {
 
     public boolean showUserEditDialog() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/UserEditDialog.fxml"));
-            AnchorPane page = loader.load();
+            FXMLLoader loader = createLoader("../view/UserEditDialog.fxml");
 
-            // Create the dialog Stage.
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("User Profile Editor");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(mainStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
+            // Create the dialog Stage
+            Stage dialogStage = createDialogStage("Edit User", loader.load());
 
             UserEditController controller = loader.getController();
             controller.setDialogStage(dialogStage);
@@ -224,7 +186,6 @@ public class MainFXApplication extends Application {
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
-
             return true;
 
         } catch (IOException e) {
@@ -235,29 +196,19 @@ public class MainFXApplication extends Application {
 
     public WaterSourceReport showWaterSourceReportCreateDialog() {
         try {
-            // Load the fxml file and create a new stage for the popup dialog.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/WaterSourceReportCreateDialog.fxml"));
-            AnchorPane page = loader.load();
+            FXMLLoader loader = createLoader("../view/WaterSourceReportCreateDialog.fxml");
 
             // Create the dialog Stage
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Submit Water Source Report");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(mainStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-            dialogStage.setMinHeight(600.0);
+            Stage dialogStage = createDialogStage("Submit Water Source Report", loader.load());
 
             // Connect dialog stage to controller.
             WaterSourceReportCreateController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setReportDao(waterData);
+            controller.setReportDao(waterSourceData);
             controller.setCurrUser(currUser);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
-
             return controller.getWaterSourceReport();
 
         } catch (IOException e) {
@@ -266,73 +217,90 @@ public class MainFXApplication extends Application {
         }
     }
 
-    /**
-     * Displays a dialog which enables the user to read water source reports.
-     */
     public void showWaterSourceReportListDialog() {
         try {
-            // Load the fxml file and create a new stage for the popup dialog.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/WaterSourceReportListDialog.fxml"));
-            AnchorPane page = loader.load();
+            FXMLLoader loader = createLoader("../view/WaterSourceReportListDialog.fxml");
 
             // Create the dialog Stage
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("View Water Source Reports");
-            dialogStage.initModality(Modality.APPLICATION_MODAL);
-            dialogStage.initOwner(mainStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
+            Stage dialogStage = createDialogStage("View Water Source Reports", loader.load());
 
             // Connect dialog stage to controller.
             WaterSourceReportListController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setUserDao(usersData);
-            controller.setReportDao(waterData);
+            controller.setReportDao(waterSourceData);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
 
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
     
-    public boolean showWaterPurityReportCreateDialog() {
+    public WaterPurityReport showWaterPurityReportCreateDialog() {
         try {
-            // Load the fxml file and create a new stage for the popup dialog.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/WaterPurityReportCreateDialog.fxml"));
-            AnchorPane page = loader.load();
+            FXMLLoader loader = createLoader("../view/WaterPurityReportCreateDialog.fxml");
 
             // Create the dialog Stage
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Submit Water Purity Report");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(mainStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
+            Stage dialogStage = createDialogStage("Submit Water Purity Report", loader.load());
 
             // Connect dialog stage to controller.
             WaterPurityReportCreateController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setReportDao(waterData);
+            controller.setReportDao(waterPurityData);
             controller.setCurrUser(currUser);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
-
             return controller.getWaterPurityReport();
 
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
+            return null;
+        }
+    }
+
+    public void showWaterPurityReportListDialog() {
+        try {
+            FXMLLoader loader = createLoader("../view/WaterPurityReportListDialog.fxml");
+
+            // Create the dialog Stage
+            Stage dialogStage = createDialogStage("View Water Purity Reports", loader.load());
+
+            // Connect dialog stage to controller.
+            WaterPurityReportListController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setUserDao(usersData);
+            controller.setReportDao(waterPurityData);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     
-    
     public static void main(String[] args) {
         launch(args);
+    }
+
+    private FXMLLoader createLoader(String fxmlFile) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainFXApplication.class.getResource(fxmlFile));
+        return loader;
+    }
+
+    private Stage createDialogStage(String title, Pane p) {
+        Stage dialogStage = new Stage();
+        Scene scene = new Scene(p);
+        dialogStage.initStyle(StageStyle.UNDECORATED);
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.initOwner(mainStage);
+        dialogStage.setTitle(title);
+        dialogStage.setScene(scene);
+        return dialogStage;
     }
 }

@@ -8,10 +8,6 @@ import model.AuthLevel;
 import model.User;
 import model.persist.GenericDAO;
 
-
-/**
- * Created by kaliq on 10/31/2016.
- */
 public class UserCreateController {
     private boolean passwordMatches = true;
     private boolean passwordLengthValid = true;

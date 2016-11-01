@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="720.0" styleClass="darkPane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WaterPurityReportCreateController">
    <children>
       <VBox alignment="TOP_CENTER" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -88,7 +87,12 @@
                         <Insets top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <Button fx:id="waterPurityReportSubmitButton" mnemonicParsing="false" onAction="#handleWaterSourceReportSubmitButton" styleClass="submitButton" text="Submit" textFill="WHITE">
+                  <Button fx:id="cancelUserEditButton" mnemonicParsing="false" onAction="#handleCancelPressed" styleClass="cancelButton" text="Cancel" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="waterPurityReportSubmitButton" mnemonicParsing="false" onAction="#handleWaterPurityReportSubmitPressed" styleClass="submitButton" text="Submit" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>

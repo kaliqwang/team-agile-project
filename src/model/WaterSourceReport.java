@@ -26,6 +26,7 @@ public class WaterSourceReport {
     public void setWaterLatitude(double latitude) { _waterLatitude.set(latitude); }
     public double getWaterLongitude() { return _waterLongitude.get(); }
     public void setWaterLongitude(double longitude) { _waterLongitude.set(longitude); }
+
     public WaterSourceType getWaterSourceType() { return _waterType.get(); }
     public void setWaterSourceType(WaterSourceType waterType) { _waterType.set(waterType); }
 
@@ -48,13 +49,13 @@ public class WaterSourceReport {
 
     public Data getPlainData() {
         return new Data(
-                _reportNumber.get(),
-                _date.get(),
-                _author.get(),
-                _waterLatitude.get(),
-                _waterLongitude.get(),
-                _waterType.get(),
-                _waterCondition.get()
+            _reportNumber.get(),
+            _date.get(),
+            _author.get(),
+            _waterLatitude.get(),
+            _waterLongitude.get(),
+            _waterType.get(),
+            _waterCondition.get()
         );
     }
 

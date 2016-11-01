@@ -63,7 +63,7 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                        <Button fx:id="submitUserEditButton" mnemonicParsing="false" onAction="#handleOKPressed" styleClass="submitButton" text="Save User" textFill="WHITE">
+                        <Button fx:id="submitUserEditButton" mnemonicParsing="false" onAction="#handleOKPressed" styleClass="submitButton" text="Save" textFill="WHITE">
                             <font>
                                 <Font size="14.0" />
                             </font>

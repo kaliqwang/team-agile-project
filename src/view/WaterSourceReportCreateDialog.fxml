@@ -77,7 +77,12 @@
                         <Insets top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <Button fx:id="waterReportSubmitButton" mnemonicParsing="false" onAction="#handleWaterSourceReportSubmitButton" styleClass="submitButton" text="Submit" textFill="WHITE">
+                  <Button fx:id="cancelUserEditButton" mnemonicParsing="false" onAction="#handleCancelPressed" styleClass="cancelButton" text="Cancel" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="waterSourceReportSubmitButton" mnemonicParsing="false" onAction="#handleWaterSourceReportSubmitPressed" styleClass="submitButton" text="Submit" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>

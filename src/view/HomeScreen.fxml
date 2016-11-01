@@ -17,12 +17,17 @@
                <children>
                   <VBox alignment="BOTTOM_LEFT" layoutY="59.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
+                        <Button fx:id="showDataGraphsDialogButton" mnemonicParsing="false" onAction="#showDataGraphsDialogPressed" styleClass="whiteOutlineButton" text="Data Graphs" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
                         <Button fx:id="showWaterSourceReportListDialogButton" mnemonicParsing="false" onAction="#showWaterSourceReportListDialogPressed" styleClass="whiteOutlineButton" text="Water Source Database" textFill="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="showWaterPurityReportListDialogButton" mnemonicParsing="false" onAction="#showWaterPurityReportCreateDialogPressed" styleClass="whiteOutlineButton" text="Water Purity Database" textFill="WHITE">
+                        <Button fx:id="showWaterPurityReportListDialogButton" mnemonicParsing="false" onAction="#showWaterPurityReportListDialogPressed" styleClass="whiteOutlineButton" text="Water Purity Database" textFill="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -33,6 +38,11 @@
                            </font>
                         </Button>
                         <Button fx:id="showWaterPurityReportCreateDialogButton" mnemonicParsing="false" onAction="#showWaterPurityReportCreateDialogPressed" styleClass="whiteOutlineButton" text="Submit Water Purity Report" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="showManageLocationsDialogButton" mnemonicParsing="false" onAction="#showManageLocationsDialogPressed" styleClass="whiteOutlineButton" text="Manage Locations" textFill="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font>

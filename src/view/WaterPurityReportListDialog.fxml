@@ -14,19 +14,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="720.0" styleClass="darkPane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WaterSourceReportListController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="720.0" styleClass="darkPane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WaterPurityReportListController">
    <children>
       <VBox layoutX="5.0" layoutY="5.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <SplitPane dividerPositions="0.33" VBox.vgrow="ALWAYS">
-              <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <items>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
                         <TableView fx:id="reportTable" layoutX="17.0" layoutY="27.0" prefHeight="411.0" prefWidth="166.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <columns>
-                            <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date" />
-                            <TableColumn fx:id="locationColumn" prefWidth="75.0" text="Location" />
-                          </columns>
+                           <columns>
+                              <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date" />
+                              <TableColumn fx:id="locationColumn" prefWidth="75.0" text="Location" />
+                           </columns>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -36,41 +36,38 @@
                         </TableView>
                      </children>
                   </AnchorPane>
-                <AnchorPane prefHeight="214.0" prefWidth="330.0">
+                  <AnchorPane prefHeight="214.0" prefWidth="330.0">
                      <children>
                         <VBox layoutY="38.0" prefHeight="438.0" prefWidth="437.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="6.0">
                            <children>
-                              <Label text="Water Source Report">
+                              <Label text="Water Purity Report">
                                  <font>
                                     <Font name="System Bold" size="19.0" />
                                  </font>
                               </Label>
                               <GridPane prefHeight="247.0" prefWidth="427.0">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
                                     <RowConstraints minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
                                  <children>
                                     <Label text="Date and Time" />
                                     <Label text="Report Number" GridPane.rowIndex="1" />
                                     <Label text="Name of Reporter" GridPane.rowIndex="2" />
                                     <Label text="Location of Water" GridPane.rowIndex="3" />
-                                    <Label text="Type of Water" GridPane.rowIndex="4" />
-                                    <Label text="Condition of Water" GridPane.rowIndex="5" />
+                                    <Label text="Condition of Water" GridPane.rowIndex="4" />
                                     <Label fx:id="dateAndTimeLabel" GridPane.columnIndex="1" />
                                     <Label fx:id="reportNumberLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <Label fx:id="nameOfReporterLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <Label fx:id="locationOfWaterLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Label fx:id="typeOfWaterLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <Label fx:id="conditionOfWaterLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Label fx:id="conditionOfWaterLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                  </children>
                                  <VBox.margin>
                                     <Insets top="20.0" />
@@ -83,7 +80,7 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-              </items>
+               </items>
             </SplitPane>
             <HBox spacing="30.0">
                <children>

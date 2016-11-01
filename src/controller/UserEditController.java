@@ -8,9 +8,6 @@ import javafx.stage.Stage;
 import model.User;
 import model.persist.GenericDAO;
 
-/**
- * Created by kaliq on 10/31/2016.
- */
 public class UserEditController {
     @FXML
     private TextField firstNameField;

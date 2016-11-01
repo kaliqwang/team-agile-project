@@ -1,5 +1,8 @@
 package controller;
 
+import model.*;
+import model.persist.*;
+
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.javascript.object.*;
 import com.lynden.gmapsfx.service.geocoding.GeocoderAddressComponent;
@@ -22,18 +25,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import model.User;
-import model.WaterSourceCondition;
-import model.WaterSourceReport;
-import model.WaterSourceType;
-import model.persist.GenericDAO;
-import model.persist.WaterSourceReportDAO;
 
 import java.util.*;
 
-/**
- * Created by Rayner Kristanto on 10/10/16.
- */
 public class WaterSourceReportCreateController {
 
     @FXML
@@ -50,9 +44,6 @@ public class WaterSourceReportCreateController {
 
     @FXML
     private ComboBox<WaterSourceCondition> waterConditionField;
-
-    @FXML
-    private Button WaterSourceReportSubmitButton;
 
     @FXML
     private GoogleMapView mapView;
@@ -107,7 +98,7 @@ public class WaterSourceReportCreateController {
     }
 
     @FXML
-    private void handleWaterSourceReportSubmitButton() {
+    private void handleWaterSourceReportSubmitPressed() {
         double lat, lon;
         try {
             lat = Double.parseDouble(latitudeField.getText());
@@ -132,6 +123,9 @@ public class WaterSourceReportCreateController {
 
         }
     }
+
+    @FXML
+    private void handleCancelPressed() { _dialogStage.close(); }
 
     private void onMapInitialized() {
         MapOptions mapOptions = new MapOptions();

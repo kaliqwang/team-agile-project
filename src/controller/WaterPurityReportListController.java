@@ -9,11 +9,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import model.User;
-import model.WaterSourceReport;
+import model.WaterPurityReport;
 import model.persist.GenericDAO;
-import model.persist.WaterSourceReportDAO;
+import model.persist.WaterPurityReportDAO;
 
-public class WaterSourceReportListController {
+public class WaterPurityReportListController {
     @FXML
     private Label dateAndTimeLabel;
 
@@ -33,21 +33,21 @@ public class WaterSourceReportListController {
     private Label conditionOfWaterLabel;
 
     @FXML
-    private TableView<WaterSourceReport> reportTable;
+    private TableView<WaterPurityReport> reportTable;
 
     @FXML
-    private TableColumn<WaterSourceReport, String> dateColumn;
+    private TableColumn<WaterPurityReport, String> dateColumn;
 
     @FXML
-    private TableColumn<WaterSourceReport, String> locationColumn;
+    private TableColumn<WaterPurityReport, String> locationColumn;
 
     private Stage _dialogStage;
 
     private GenericDAO<User, String> _userData;
 
-    private WaterSourceReportDAO _reportData;
+    private WaterPurityReportDAO _reportData;
 
-    private ObservableList<WaterSourceReport> members = FXCollections.emptyObservableList();
+    private ObservableList<WaterPurityReport> members = FXCollections.emptyObservableList();
 
     @FXML
     private void initialize() {
@@ -69,13 +69,13 @@ public class WaterSourceReportListController {
         _userData = dao;
     }
 
-    public void setReportDao(GenericDAO<WaterSourceReport, Integer> dao) {
-        _reportData = (WaterSourceReportDAO) dao;
+    public void setReportDao(GenericDAO<WaterPurityReport, Integer> dao) {
+        _reportData = (WaterPurityReportDAO) dao;
         members = FXCollections.observableArrayList(_reportData.getAll());
         reportTable.setItems(members);
     }
 
-    public void showReportDetails(WaterSourceReport report) {
+    public void showReportDetails(WaterPurityReport report) {
         dateAndTimeLabel.setText(report.getDate().toString());
         reportNumberLabel.setText(report.getReportNumber().toString());
         User reportingUser = _userData.get(report.getAuthor());
@@ -83,7 +83,6 @@ public class WaterSourceReportListController {
                                     + reportingUser.getLastName() + " ("
                                     + reportingUser.getUsername() + ")");
         locationOfWaterLabel.setText("("+report.getWaterLatitude()+","+report.getWaterLongitude()+")");
-        typeOfWaterLabel.setText(report.getWaterSourceType().getDisplayText());
-        conditionOfWaterLabel.setText(report.getWaterSourceCondition().getDisplayText());
+        conditionOfWaterLabel.setText(report.getWaterPurityCondition().getDisplayText());
     }
 }

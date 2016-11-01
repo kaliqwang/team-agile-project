@@ -6,10 +6,8 @@ import com.lynden.gmapsfx.javascript.object.*;
 import com.lynden.gmapsfx.service.geocoding.GeocodingService;
 import fxapp.MainFXApplication;
 import javafx.fxml.FXML;
-import model.User;
-import model.WaterSourceReport;
-import model.persist.GenericDAO;
-import model.persist.WaterSourceReportDAO;
+import model.*;
+import model.persist.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,14 +25,17 @@ public class HomeScreenController {
 
     private GenericDAO<User, String> _userData;
 
-    private WaterSourceReportDAO _reportData;
+    private WaterSourceReportDAO _sourceReportData;
+    private WaterPurityReportDAO _purityReportData;
 
-    private Map<WaterSourceReport, Marker> points;
+    private Map<WaterSourceReport, Marker> waterSourcePoints;
+    private Map<WaterPurityReport, Marker> waterPurityPoints;
 
     @FXML
     private void initialize() {
         mapView.addMapInializedListener(this::onMapInitialized);
-        points = new HashMap<>();
+        waterSourcePoints = new HashMap<>();
+        waterPurityPoints = new HashMap<>();
     }
 
     public void setMainApp(MainFXApplication mainFXApplication) {
@@ -44,30 +45,32 @@ public class HomeScreenController {
         _userData = dao;
     }
 
-    public void setReportDao(GenericDAO<WaterSourceReport, Integer> dao) {
-        _reportData = (WaterSourceReportDAO) dao;
+    public void setSourceReportDao(GenericDAO<WaterSourceReport, Integer> dao) {
+        _sourceReportData = (WaterSourceReportDAO) dao;
+    }
+
+    public void setPurityReportDao(GenericDAO<WaterPurityReport, Integer> dao) {
+        _purityReportData = (WaterPurityReportDAO) dao;
     }
 
     @FXML
-    public void logoutPressed() {
-        mainApplication.showWelcomeScreen(mainApplication.getMainStage());
-    }
+    public void showDataGraphsDialogPressed() {
 
-    @FXML
-    public void showUserEditDialogPressed() { mainApplication.showUserEditDialog(); }
+    }
 
     @FXML
     public void showWaterSourceReportCreateDialogPressed() {
         WaterSourceReport submitted = mainApplication.showWaterSourceReportCreateDialog();
-        if (submitted != null)
-            addMarkerForReport(submitted);
+        if (submitted != null) {
+            addMarkerForSourceReport(submitted);
+        }
     }
 
     @FXML
     public void showWaterPurityReportCreateDialogPressed() {
-        boolean submitted = mainApplication.showWaterPurityReportCreateDialog();
-        if (submitted) {
-
+        WaterPurityReport submitted = mainApplication.showWaterPurityReportCreateDialog();
+        if (submitted != null) {
+            addMarkerForPurityReport(submitted);
         }
     }
 
@@ -76,14 +79,32 @@ public class HomeScreenController {
         mainApplication.showWaterSourceReportListDialog();
     }
 
-    private void addMarkerForReport(final WaterSourceReport r) {
+    @FXML
+    public void showWaterPurityReportListDialogPressed() {
+        mainApplication.showWaterPurityReportListDialog();
+    }
+
+    @FXML
+    public void showManageLocationsDialogPressed() {
+
+    }
+
+    @FXML
+    public void showUserEditDialogPressed() { mainApplication.showUserEditDialog(); }
+
+    @FXML
+    public void logoutPressed() {
+        mainApplication.showWelcomeScreen(mainApplication.getMainStage());
+    }
+
+    private void addMarkerForSourceReport(final WaterSourceReport r) {
         LatLong coords = new LatLong(r.getWaterLatitude(), r.getWaterLongitude());
         final Marker newPt = new Marker(new MarkerOptions().position(coords));
         map.addMarker(newPt);
-        points.put(r, newPt);
+        waterSourcePoints.put(r, newPt);
         User author = _userData.get(r.getAuthor());
         map.addUIEventHandler(newPt, UIEventType.click, jsObject -> {
-            if (points.get(r).equals(newPt)) {
+            if (waterSourcePoints.get(r).equals(newPt)) {
                 InfoWindowOptions windowOptions = new InfoWindowOptions();
                 windowOptions.content("<h3>Report #" + r.getReportNumber() + "</h3>"
                         + "Date:" + r.getDate() + "<br>"
@@ -95,8 +116,26 @@ public class HomeScreenController {
             }
         });
     }
-    
-    
+
+    private void addMarkerForPurityReport(final WaterPurityReport r) {
+        LatLong coords = new LatLong(r.getWaterLatitude(), r.getWaterLongitude());
+        final Marker newPt = new Marker(new MarkerOptions().position(coords));
+        map.addMarker(newPt);
+        waterPurityPoints.put(r, newPt);
+        User author = _userData.get(r.getAuthor());
+        map.addUIEventHandler(newPt, UIEventType.click, jsObject -> {
+            if (waterPurityPoints.get(r).equals(newPt)) {
+                InfoWindowOptions windowOptions = new InfoWindowOptions();
+                windowOptions.content("<h3>Report #" + r.getReportNumber() + "</h3>"
+                        + "Date:" + r.getDate() + "<br>"
+                        + "Author:" + author.getFirstName() + " " + author.getLastName() + " (" + author.getUsername() + ")<br>"
+                        + "Water Condition:" + r.getWaterPurityCondition().getDisplayText());
+                InfoWindow newInfo = new InfoWindow(windowOptions);
+                newInfo.open(map, newPt);
+            }
+        });
+    }
+
     private void onMapInitialized() {
         MapOptions mapOptions = new MapOptions();
         mapOptions.center(new LatLong(33.7490, -84.3880))
@@ -111,8 +150,11 @@ public class HomeScreenController {
 
         map = mapView.createMap(mapOptions);
         _geoSrv = new GeocodingService();
-        for (WaterSourceReport r : _reportData.getAll()) {
-            addMarkerForReport(r);
+        for (WaterSourceReport r : _sourceReportData.getAll()) {
+            addMarkerForSourceReport(r);
+        }
+        for (WaterPurityReport r : _purityReportData.getAll()) {
+            addMarkerForPurityReport(r);
         }
     }
 }
