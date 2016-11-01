@@ -1,0 +1,1 @@
+{"1":{"rptNum":1,"rptDate":"Nov 1, 2016 10:28:45 AM","author":"manager","location":{"_pk":{"name":"","value":3,"valid":false},"_name":{"name":"","value":"Temp Location 3","valid":true},"_latitude":{"name":"","value":40.2594846,"valid":true},"_longitude":{"name":"","value":-89.23342359999998,"valid":true}},"virusPPM":12.0,"contaminantPPM":12.0,"waterPurityCondition":"TREATABLE"}}

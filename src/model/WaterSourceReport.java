@@ -8,8 +8,9 @@ public class WaterSourceReport {
     private final IntegerProperty _reportNumber = new SimpleIntegerProperty();
     private final ObjectProperty<Date> _date = new SimpleObjectProperty<>();
     private final StringProperty _author = new SimpleStringProperty();
-    private final DoubleProperty _waterLatitude = new SimpleDoubleProperty();
-    private final DoubleProperty _waterLongitude = new SimpleDoubleProperty();
+    private final ObjectProperty<Location> _location = new SimpleObjectProperty<>();
+    //    private final DoubleProperty _waterLatitude = new SimpleDoubleProperty();
+    //    private final DoubleProperty _waterLongitude = new SimpleDoubleProperty();
     private final ObjectProperty<WaterSourceType> _waterType = new SimpleObjectProperty<>();
     private final ObjectProperty<WaterSourceCondition> _waterCondition = new SimpleObjectProperty<>();
 
@@ -22,10 +23,13 @@ public class WaterSourceReport {
     public String getAuthor() { return _author.get(); }
     public void setAuthor(String author) { _author.set(author); }
 
-    public double getWaterLatitude() { return _waterLatitude.get(); }
-    public void setWaterLatitude(double latitude) { _waterLatitude.set(latitude); }
-    public double getWaterLongitude() { return _waterLongitude.get(); }
-    public void setWaterLongitude(double longitude) { _waterLongitude.set(longitude); }
+    public Location getLocation() { return _location.get(); }
+    public void setLocation(Location location) { _location.set(location); }
+//
+//    public double getWaterLatitude() { return _waterLatitude.get(); }
+//    public void setWaterLatitude(double latitude) { _waterLatitude.set(latitude); }
+//    public double getWaterLongitude() { return _waterLongitude.get(); }
+//    public void setWaterLongitude(double longitude) { _waterLongitude.set(longitude); }
 
     public WaterSourceType getWaterSourceType() { return _waterType.get(); }
     public void setWaterSourceType(WaterSourceType waterType) { _waterType.set(waterType); }
@@ -41,8 +45,9 @@ public class WaterSourceReport {
         _reportNumber.set(plainData.rptNum);
         _date.set(plainData.rptDate);
         _author.set(plainData.author);
-        _waterLatitude.set(plainData.latitude);
-        _waterLongitude.set(plainData.longitude);
+        _location.set(plainData.location);
+//        _waterLatitude.set(plainData.latitude);
+//        _waterLongitude.set(plainData.longitude);
         _waterType.set(plainData.waterType);
         _waterCondition.set(plainData.waterCondition);
     }
@@ -52,8 +57,9 @@ public class WaterSourceReport {
             _reportNumber.get(),
             _date.get(),
             _author.get(),
-            _waterLatitude.get(),
-            _waterLongitude.get(),
+            _location.get(),
+//            _waterLatitude.get(),
+//            _waterLongitude.get(),
             _waterType.get(),
             _waterCondition.get()
         );
@@ -63,8 +69,9 @@ public class WaterSourceReport {
         private int rptNum;
         private Date rptDate;
         private String author;
-        private double latitude;
-        private double longitude;
+        private Location location;
+//        private double latitude;
+//        private double longitude;
         private WaterSourceType waterType;
         private WaterSourceCondition waterCondition;
 
@@ -72,16 +79,18 @@ public class WaterSourceReport {
                 int reportNum,
                 Date reportDate,
                 String auth,
-                double latitude,
-                double longitude,
+                Location location,
+//                double latitude,
+//                double longitude,
                 WaterSourceType type,
                 WaterSourceCondition condition
         ) {
             this.rptNum = reportNum;
             this.rptDate = reportDate;
             this.author = auth;
-            this.latitude = latitude;
-            this.longitude = longitude;
+            this.location = location;
+//            this.latitude = latitude;
+//            this.longitude = longitude;
             this.waterType = type;
             this.waterCondition = condition;
         }

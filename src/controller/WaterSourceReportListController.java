@@ -82,7 +82,7 @@ public class WaterSourceReportListController {
         nameOfReporterLabel.setText(reportingUser.getFirstName() + " "
                                     + reportingUser.getLastName() + " ("
                                     + reportingUser.getUsername() + ")");
-        locationOfWaterLabel.setText("("+report.getWaterLatitude()+","+report.getWaterLongitude()+")");
+        locationOfWaterLabel.setText("("+report.getLocation().getLatitude()+","+report.getLocation().getLongitude()+")");
         typeOfWaterLabel.setText(report.getWaterSourceType().getDisplayText());
         conditionOfWaterLabel.setText(report.getWaterSourceCondition().getDisplayText());
     }

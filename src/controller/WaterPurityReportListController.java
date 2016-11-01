@@ -82,7 +82,7 @@ public class WaterPurityReportListController {
         nameOfReporterLabel.setText(reportingUser.getFirstName() + " "
                                     + reportingUser.getLastName() + " ("
                                     + reportingUser.getUsername() + ")");
-        locationOfWaterLabel.setText("("+report.getWaterLatitude()+","+report.getWaterLongitude()+")");
+        locationOfWaterLabel.setText("("+report.getLocation().getLatitude()+","+report.getLocation().getLongitude()+")");
         conditionOfWaterLabel.setText(report.getWaterPurityCondition().getDisplayText());
     }
 }

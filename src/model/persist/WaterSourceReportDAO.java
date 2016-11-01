@@ -3,9 +3,11 @@ package model.persist;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import model.Location;
 import model.WaterSourceReport;
 
 import java.io.*;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,9 +44,7 @@ public class WaterSourceReportDAO implements GenericDAO<WaterSourceReport, Integ
         JsonReader rdr = new JsonReader(in);
         Map<Integer, WaterSourceReport.Data> newEntries = null;
         try {
-            newEntries = json.fromJson(rdr,
-                    new TypeToken<Map<Integer, WaterSourceReport.Data>>() {}
-                            .getType());
+            newEntries = json.fromJson(rdr, new TypeToken<Map<Integer, WaterSourceReport.Data>>() {}.getType());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -115,6 +115,30 @@ public class WaterSourceReportDAO implements GenericDAO<WaterSourceReport, Integ
         List<WaterSourceReport> ret = new ArrayList<>();
         for (WaterSourceReport.Data entry : entries.values()) {
             ret.add(new WaterSourceReport(entry));
+        }
+        return ret;
+    }
+
+    public List<WaterSourceReport> getAllByLocation(Location l) {
+        readFile();
+        List<WaterSourceReport> ret = new ArrayList<>();
+        for (WaterSourceReport.Data entry : entries.values()) {
+            WaterSourceReport temp = new WaterSourceReport(entry);
+            if (temp.getLocation().equals(l)) {
+                ret.add(new WaterSourceReport(entry));
+            }
+        }
+        return ret;
+    }
+
+    public List<WaterSourceReport> getAllByYear(Integer y) {
+        readFile();
+        List<WaterSourceReport> ret = new ArrayList<>();
+        for (WaterSourceReport.Data entry : entries.values()) {
+            WaterSourceReport temp = new WaterSourceReport(entry);
+            if (temp.getDate().toInstant().atZone(ZoneId.of("EST")).toLocalDate().getYear() == y) {
+                ret.add(new WaterSourceReport(entry));
+            }
         }
         return ret;
     }

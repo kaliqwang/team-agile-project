@@ -4,12 +4,17 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import model.WaterPurityReport;
+import model.Location;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import java.util.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 public class WaterPurityReportDAO implements GenericDAO<WaterPurityReport, Integer> {
 
@@ -42,9 +47,7 @@ public class WaterPurityReportDAO implements GenericDAO<WaterPurityReport, Integ
         JsonReader rdr = new JsonReader(in);
         Map<Integer, WaterPurityReport.Data> newEntries = null;
         try {
-            newEntries = json.fromJson(rdr,
-                    new TypeToken<Map<Integer, WaterPurityReport.Data>>() {}
-                            .getType());
+            newEntries = json.fromJson(rdr, new TypeToken<Map<Integer, WaterPurityReport.Data>>() {}.getType());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -117,5 +120,33 @@ public class WaterPurityReportDAO implements GenericDAO<WaterPurityReport, Integ
             ret.add(new WaterPurityReport(entry));
         }
         return ret;
+    }
+
+    public List<WaterPurityReport> getAllByLocation(Location l) {
+        readFile();
+        List<WaterPurityReport> ret = new ArrayList<>();
+        for (WaterPurityReport.Data entry : entries.values()) {
+            WaterPurityReport temp = new WaterPurityReport(entry);
+            if (temp.getLocation().equals(l)) {
+                ret.add(new WaterPurityReport(entry));
+            }
+        }
+        return ret;
+    }
+
+    public List<WaterPurityReport> getAllByYear(Integer y) {
+        readFile();
+        List<WaterPurityReport> ret = new ArrayList<>();
+        for (WaterPurityReport.Data entry : entries.values()) {
+            WaterPurityReport temp = new WaterPurityReport(entry);
+            if (temp.getDate().toInstant().atZone(ZoneId.of("EST")).toLocalDate().getYear() == y) {
+                ret.add(new WaterPurityReport(entry));
+            }
+        }
+        return ret;
+    }
+
+    public int getCount() {
+        return entries.size();
     }
 }

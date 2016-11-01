@@ -31,17 +31,19 @@ public class MainFXApplication extends Application {
     /** the main layout for the main window */
     private BorderPane rootLayout;
 
-    private GenericDAO<User, String> usersData;
+    private GenericDAO<User, String> userData;
     private GenericDAO<WaterSourceReport, Integer> waterSourceData;
     private GenericDAO<WaterPurityReport, Integer> waterPurityData;
+    private LocationDAO locationData;
     private User currUser;
 
     @Override
     public void start(Stage stage) {
         mainStage = stage;
-        usersData = new UserDAO("users.json");
+        userData = new UserDAO("users.json");
         waterSourceData = new WaterSourceReportDAO("waterSourceReport.json");
         waterPurityData = new WaterPurityReportDAO("waterPurityReport.json");
+        locationData = new LocationDAO("location.json");
         initRootLayout(mainStage);
         showWelcomeScreen(mainStage);
     }
@@ -116,7 +118,7 @@ public class MainFXApplication extends Application {
             // Give the controller access to the main app.
             HomeScreenController controller = loader.getController();
             controller.setMainApp(this);
-            controller.setUserDao(usersData);
+            controller.setUserDao(userData);
             controller.setSourceReportDao(waterSourceData);
             controller.setPurityReportDao(waterPurityData);
 
@@ -131,12 +133,12 @@ public class MainFXApplication extends Application {
             FXMLLoader loader = createLoader("../view/UserLoginDialog.fxml");
 
             // Create the dialog Stage
-            Stage dialogStage = createDialogStage("User Login", loader.load());
+            Stage dialogStage = createDialogStage("User Login", loader.load(), true);
 
             // Connect dialog stage to controller.
             UserLoginController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setUserDao(usersData);
+            controller.setUserDao(userData);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -154,12 +156,12 @@ public class MainFXApplication extends Application {
             FXMLLoader loader = createLoader("../view/UserCreateDialog.fxml");
 
             // Create the dialog Stage
-            Stage dialogStage = createDialogStage("Create User", loader.load());
+            Stage dialogStage = createDialogStage("Create User", loader.load(), true);
 
             // Connect dialog stage to controller.
             UserCreateController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setUserDao(usersData);
+            controller.setUserDao(userData);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -177,11 +179,11 @@ public class MainFXApplication extends Application {
             FXMLLoader loader = createLoader("../view/UserEditDialog.fxml");
 
             // Create the dialog Stage
-            Stage dialogStage = createDialogStage("Edit User", loader.load());
+            Stage dialogStage = createDialogStage("Edit User", loader.load(), true);
 
             UserEditController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setUserDao(usersData);
+            controller.setUserDao(userData);
             controller.setCurrUser(currUser);
 
             // Show the dialog and wait until the user closes it
@@ -199,13 +201,15 @@ public class MainFXApplication extends Application {
             FXMLLoader loader = createLoader("../view/WaterSourceReportCreateDialog.fxml");
 
             // Create the dialog Stage
-            Stage dialogStage = createDialogStage("Submit Water Source Report", loader.load());
+            Stage dialogStage = createDialogStage("Submit Water Source Report", loader.load(), false);
 
             // Connect dialog stage to controller.
             WaterSourceReportCreateController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setReportDao(waterSourceData);
+            controller.setLocationDao(locationData);
             controller.setCurrUser(currUser);
+            controller.initializeLocations();
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -222,12 +226,12 @@ public class MainFXApplication extends Application {
             FXMLLoader loader = createLoader("../view/WaterSourceReportListDialog.fxml");
 
             // Create the dialog Stage
-            Stage dialogStage = createDialogStage("View Water Source Reports", loader.load());
+            Stage dialogStage = createDialogStage("View Water Source Reports", loader.load(), false);
 
             // Connect dialog stage to controller.
             WaterSourceReportListController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setUserDao(usersData);
+            controller.setUserDao(userData);
             controller.setReportDao(waterSourceData);
 
             // Show the dialog and wait until the user closes it
@@ -244,13 +248,15 @@ public class MainFXApplication extends Application {
             FXMLLoader loader = createLoader("../view/WaterPurityReportCreateDialog.fxml");
 
             // Create the dialog Stage
-            Stage dialogStage = createDialogStage("Submit Water Purity Report", loader.load());
+            Stage dialogStage = createDialogStage("Submit Water Purity Report", loader.load(), false);
 
             // Connect dialog stage to controller.
             WaterPurityReportCreateController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setReportDao(waterPurityData);
+            controller.setLocationDao(locationData);
             controller.setCurrUser(currUser);
+            controller.initializeLocations();
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -267,13 +273,58 @@ public class MainFXApplication extends Application {
             FXMLLoader loader = createLoader("../view/WaterPurityReportListDialog.fxml");
 
             // Create the dialog Stage
-            Stage dialogStage = createDialogStage("View Water Purity Reports", loader.load());
+            Stage dialogStage = createDialogStage("View Water Purity Reports", loader.load(), false);
 
             // Connect dialog stage to controller.
             WaterPurityReportListController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setUserDao(usersData);
+            controller.setUserDao(userData);
             controller.setReportDao(waterPurityData);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showDataGraphDialog() {
+        try {
+            FXMLLoader loader = createLoader("../view/DataGraphDialog.fxml");
+
+            // Create the dialog Stage
+            Stage dialogStage = createDialogStage("View Data Graph", loader.load(), false);
+
+            // Connect dialog stage to controller.
+            DataGraphController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setPurityReportDao(waterPurityData);
+            controller.setLocationDao(locationData);
+            controller.initializeLocations();
+            controller.initializeYears();
+            controller.initializeData();
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showAddLocationDialog() {
+        try {
+            FXMLLoader loader = createLoader("../view/AddLocationDialog.fxml");
+
+            // Create the dialog Stage
+            Stage dialogStage = createDialogStage("AddLocation", loader.load(), false);
+
+            // Connect dialog stage to controller.
+            AddLocationController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setLocationDao(locationData);
+            controller.setCurrUser(currUser);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -293,10 +344,12 @@ public class MainFXApplication extends Application {
         return loader;
     }
 
-    private Stage createDialogStage(String title, Pane p) {
+    private Stage createDialogStage(String title, Pane p, boolean borderless) {
         Stage dialogStage = new Stage();
         Scene scene = new Scene(p);
-        dialogStage.initStyle(StageStyle.UNDECORATED);
+        if (borderless) {
+            dialogStage.initStyle(StageStyle.UNDECORATED);
+        }
         dialogStage.initModality(Modality.WINDOW_MODAL);
         dialogStage.initOwner(mainStage);
         dialogStage.setTitle(title);

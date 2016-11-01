@@ -1,13 +1,15 @@
 package controller;
 
+import model.*;
+import model.persist.*;
+
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
 import com.lynden.gmapsfx.service.geocoding.GeocodingService;
+
 import fxapp.MainFXApplication;
 import javafx.fxml.FXML;
-import model.*;
-import model.persist.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,8 +56,8 @@ public class HomeScreenController {
     }
 
     @FXML
-    public void showDataGraphsDialogPressed() {
-
+    public void showDataGraphDialogPressed() {
+        mainApplication.showDataGraphDialog();
     }
 
     @FXML
@@ -85,7 +87,11 @@ public class HomeScreenController {
     }
 
     @FXML
+    public void showAddLocationDialogPressed() { mainApplication.showAddLocationDialog(); }
+
+    @FXML
     public void showManageLocationsDialogPressed() {
+
 
     }
 
@@ -98,7 +104,7 @@ public class HomeScreenController {
     }
 
     private void addMarkerForSourceReport(final WaterSourceReport r) {
-        LatLong coords = new LatLong(r.getWaterLatitude(), r.getWaterLongitude());
+        LatLong coords = new LatLong(r.getLocation().getLatitude(), r.getLocation().getLongitude());
         final Marker newPt = new Marker(new MarkerOptions().position(coords));
         map.addMarker(newPt);
         waterSourcePoints.put(r, newPt);
@@ -118,7 +124,7 @@ public class HomeScreenController {
     }
 
     private void addMarkerForPurityReport(final WaterPurityReport r) {
-        LatLong coords = new LatLong(r.getWaterLatitude(), r.getWaterLongitude());
+        LatLong coords = new LatLong(r.getLocation().getLatitude(), r.getLocation().getLongitude());
         final Marker newPt = new Marker(new MarkerOptions().position(coords));
         map.addMarker(newPt);
         waterPurityPoints.put(r, newPt);
