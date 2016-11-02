@@ -121,6 +121,7 @@ public class MainFXApplication extends Application {
             controller.setUserDao(userData);
             controller.setSourceReportDao(waterSourceData);
             controller.setPurityReportDao(waterPurityData);
+            controller.setCurrUser(currUser);
 
         } catch (IOException e) {
             e.printStackTrace();

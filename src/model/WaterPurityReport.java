@@ -9,8 +9,6 @@ public class WaterPurityReport {
     private final ObjectProperty<Date> _date = new SimpleObjectProperty<>();
     private final StringProperty _author = new SimpleStringProperty();
     private final ObjectProperty<Location> _location = new SimpleObjectProperty<>();
-//    private final DoubleProperty _waterLatitude = new SimpleDoubleProperty();
-//    private final DoubleProperty _waterLongitude = new SimpleDoubleProperty();
     private final DoubleProperty _virusPPM = new SimpleDoubleProperty();
     private final DoubleProperty _contaminantPPM = new SimpleDoubleProperty();
     private final ObjectProperty<WaterPurityCondition> _waterPurityCondition = new SimpleObjectProperty<>();
@@ -27,11 +25,6 @@ public class WaterPurityReport {
 
     public Location getLocation() { return _location.get(); }
     public void setLocation(Location location) { _location.set(location); }
-//
-//    public double getWaterLatitude() { return _waterLatitude.get(); }
-//    public void setWaterLatitude(double latitude) { _waterLatitude.set(latitude); }
-//    public double getWaterLongitude() { return _waterLongitude.get(); }
-//    public void setWaterLongitude(double longitude) { _waterLongitude.set(longitude); }
 
     public WaterPurityCondition getWaterPurityCondition() { return _waterPurityCondition.get(); }
     public void setWaterPurityCondition(WaterPurityCondition waterPurityCondition) { _waterPurityCondition.set(waterPurityCondition); }
@@ -52,9 +45,7 @@ public class WaterPurityReport {
         _reportNumber.set(plainData.rptNum);
         _date.set(plainData.rptDate);
         _author.set(plainData.author);
-        _location.set(plainData.location);
-//        _waterLatitude.set(plainData.latitude);
-//        _waterLongitude.set(plainData.longitude);
+        _location.set(new Location(plainData.location));
         _virusPPM.set(plainData.virusPPM);
         _contaminantPPM.set(plainData.contaminantPPM);
         _waterPurityCondition.set(plainData.waterPurityCondition);
@@ -66,8 +57,6 @@ public class WaterPurityReport {
             _date.get(),
             _author.get(),
             _location.get(),
-//            _waterLatitude.get(),
-//            _waterLongitude.get(),
             _virusPPM.get(),
             _contaminantPPM.get(),
             _waterPurityCondition.get()
@@ -78,9 +67,7 @@ public class WaterPurityReport {
         private int rptNum;
         private Date rptDate;
         private String author;
-        private Location location;
-//        private double latitude;
-//        private double longitude;
+        private Location.Data location;
         private double virusPPM;
         private double contaminantPPM;
         private WaterPurityCondition waterPurityCondition;
@@ -90,8 +77,6 @@ public class WaterPurityReport {
                 Date reportDate,
                 String auth,
                 Location location,
-//                double latitude,
-//                double longitude,
                 double virusPPM,
                 double contaminantPPM,
                 WaterPurityCondition condition
@@ -99,9 +84,7 @@ public class WaterPurityReport {
             this.rptNum = reportNum;
             this.rptDate = reportDate;
             this.author = auth;
-            this.location = location;
-//            this.latitude = latitude;
-//            this.longitude = longitude;
+            this.location = location.getPlainData();
             this.virusPPM = virusPPM;
             this.contaminantPPM = contaminantPPM;
             this.waterPurityCondition = condition;

@@ -14,9 +14,25 @@ import javafx.fxml.FXML;
 import java.util.HashMap;
 import java.util.Map;
 
+import javafx.scene.control.Button;
+
 public class HomeScreenController {
 
     private MainFXApplication mainApplication;
+
+    private User _currUser;
+
+    @FXML
+    private Button showDataGraphDialogButton;
+
+    @FXML
+    private Button showWaterSourceReportListDialogButton;
+
+    @FXML
+    private Button showWaterPurityReportListDialogButton;
+
+    @FXML
+    private Button showWaterPurityReportCreateDialogButton;
 
     @FXML
     private GoogleMapView mapView;
@@ -38,11 +54,17 @@ public class HomeScreenController {
         mapView.addMapInializedListener(this::onMapInitialized);
         waterSourcePoints = new HashMap<>();
         waterPurityPoints = new HashMap<>();
+
+        showDataGraphDialogButton.setDisable(true);
+        showWaterSourceReportListDialogButton.setDisable(true);
+        showWaterPurityReportListDialogButton.setDisable(true);
+        showWaterPurityReportCreateDialogButton.setDisable(true);
     }
 
     public void setMainApp(MainFXApplication mainFXApplication) {
         mainApplication = mainFXApplication;
     }
+
     public void setUserDao(GenericDAO<User,String> dao) {
         _userData = dao;
     }
@@ -53,6 +75,21 @@ public class HomeScreenController {
 
     public void setPurityReportDao(GenericDAO<WaterPurityReport, Integer> dao) {
         _purityReportData = (WaterPurityReportDAO) dao;
+    }
+
+    public void setCurrUser(User currUser) {
+        _currUser = currUser;
+
+        if (currUser.getAuthorization() == AuthLevel.MANAGER) {
+            showDataGraphDialogButton.setDisable(false);
+            showWaterSourceReportListDialogButton.setDisable(false);
+            showWaterPurityReportListDialogButton.setDisable(false);
+            showWaterPurityReportCreateDialogButton.setDisable(false);
+        }
+        if (currUser.getAuthorization() == AuthLevel.WORKER) {
+            showWaterPurityReportCreateDialogButton.setDisable(false);
+        }
+
     }
 
     @FXML
