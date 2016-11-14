@@ -8,6 +8,10 @@ public class MainStageController {
 
     private MainFXApplication mainApplication;
 
+    /**
+     * This method sets the Main Application
+     * @param main the application to be set as the Main FX Application
+     */
     public void setMainApp(MainFXApplication main) {
         mainApplication = main;
     }

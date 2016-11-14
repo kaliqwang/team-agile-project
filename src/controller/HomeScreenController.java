@@ -61,22 +61,45 @@ public class HomeScreenController {
         showWaterPurityReportCreateDialogButton.setDisable(true);
     }
 
+    /**
+     * This method sets the Main Application
+     * @param mainFXApplication the application to be used as the Main Fx Application
+     */
     public void setMainApp(MainFXApplication mainFXApplication) {
         mainApplication = mainFXApplication;
     }
 
+    /**
+     * This method takes in a data access object and assigns
+     * it to be the User dao.
+     * @param dao the data access object to be passed in.
+     */
     public void setUserDao(GenericDAO<User,String> dao) {
         _userData = dao;
     }
 
+    /**
+     * This method takes in a data access object and assigns
+     * it to be the Source Report dao.
+     * @param dao the data access object to be passed in.
+     */
     public void setSourceReportDao(GenericDAO<WaterSourceReport, Integer> dao) {
         _sourceReportData = (WaterSourceReportDAO) dao;
     }
 
+    /**
+     * This method takes in a data access object and assigns
+     * it to be the Purity Report dao.
+     * @param dao the data access object to be passed in.
+     */
     public void setPurityReportDao(GenericDAO<WaterPurityReport, Integer> dao) {
         _purityReportData = (WaterPurityReportDAO) dao;
     }
 
+    /**
+     * This method takes in a user and sets them as the current user
+     * @param currUser the user object that's going to be assigned as the current user
+     */
     public void setCurrUser(User currUser) {
         _currUser = currUser;
 
@@ -93,11 +116,17 @@ public class HomeScreenController {
     }
 
     @FXML
+    /**
+     * This method shows the Data Graph Dialog when its called.
+     */
     public void showDataGraphDialogPressed() {
         mainApplication.showDataGraphDialog();
     }
 
     @FXML
+    /**
+     * This method shows the Source Report Creation Dialog when called.
+     */
     public void showWaterSourceReportCreateDialogPressed() {
         WaterSourceReport submitted = mainApplication.showWaterSourceReportCreateDialog();
         if (submitted != null) {
@@ -106,6 +135,9 @@ public class HomeScreenController {
     }
 
     @FXML
+    /**
+     * This method shows the Water Purity Report Creation Dialog when called.
+     */
     public void showWaterPurityReportCreateDialogPressed() {
         WaterPurityReport submitted = mainApplication.showWaterPurityReportCreateDialog();
         if (submitted != null) {
@@ -114,28 +146,46 @@ public class HomeScreenController {
     }
 
     @FXML
+    /**
+     * This method shows the Water Source Report list Dialog when called.
+     */
     public void showWaterSourceReportListDialogPressed() {
         mainApplication.showWaterSourceReportListDialog();
     }
 
     @FXML
+    /**
+     * This method shows the Purity Report List Dialog when called.
+     */
     public void showWaterPurityReportListDialogPressed() {
         mainApplication.showWaterPurityReportListDialog();
     }
 
     @FXML
+    /**
+     * This method shows the Add Location Dialog when called.
+     */
     public void showAddLocationDialogPressed() { mainApplication.showAddLocationDialog(); }
 
     @FXML
+    /**
+     * This method shows Manage Locations Dialog when called.
+     */
     public void showManageLocationsDialogPressed() {
 
 
     }
 
     @FXML
+    /**
+     * This method shows the User Edit Dialog when called.
+     */
     public void showUserEditDialogPressed() { mainApplication.showUserEditDialog(); }
 
     @FXML
+    /**
+     * This method logs out the user and returns to the user to the Welcome Screen.
+     */
     public void logoutPressed() {
         mainApplication.showWelcomeScreen(mainApplication.getMainStage());
     }

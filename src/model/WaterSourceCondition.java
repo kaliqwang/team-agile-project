@@ -12,8 +12,17 @@ public enum WaterSourceCondition {
         displayText = dispText;
     }
 
+    /**
+     * This method displays text.
+     * @return the text to be displayed.
+     */
     public String getDisplayText() { return displayText; }
 
+    /**
+     * This method gets the level of Water Source Condition from a string.
+     * @param str the string that translates into levels of Water Condition.
+     * @return   the water condition level of the water.
+     */
     public static WaterSourceCondition getFromString(String str) {
         if (WaterSourceCondition.WASTE.displayText.equals(str))
             return WaterSourceCondition.WASTE;

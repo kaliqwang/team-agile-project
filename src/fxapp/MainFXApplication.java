@@ -110,6 +110,10 @@ public class MainFXApplication extends Application {
 
     }
 
+    /**
+     * This method shows the Home screen where most operations will be done from.
+     * @param mainStage the stage that the home screen will be shown on.
+     */
     public void showHomeScreen(Stage mainStage) {
         try {
             FXMLLoader loader = createLoader("../view/HomeScreen.fxml");
@@ -129,6 +133,10 @@ public class MainFXApplication extends Application {
 
     }
 
+    /**
+     * This method checks if a user is logged in.
+     * @return true if a user is logged in false other wise.
+     */
     public boolean showUserLoginDialog() {
         try {
             FXMLLoader loader = createLoader("../view/UserLoginDialog.fxml");
@@ -152,6 +160,10 @@ public class MainFXApplication extends Application {
         }
     }
 
+    /**
+     * This method shows the User Creation dialog
+     * @return returns true if a user is created false other wise
+     */
     public boolean showUserCreateDialog() {
         try {
             FXMLLoader loader = createLoader("../view/UserCreateDialog.fxml");
@@ -175,6 +187,10 @@ public class MainFXApplication extends Application {
         }
     }
 
+    /**
+     * This method shows the User Edit dialog
+     * @return returns true if a user is edited false other wise
+     */
     public boolean showUserEditDialog() {
         try {
             FXMLLoader loader = createLoader("../view/UserEditDialog.fxml");
@@ -197,6 +213,10 @@ public class MainFXApplication extends Application {
         }
     }
 
+    /**
+     * This method shows the Water Source Report Creation Dialog
+     * @return the Water Source report that was created else returns null
+     */
     public WaterSourceReport showWaterSourceReportCreateDialog() {
         try {
             FXMLLoader loader = createLoader("../view/WaterSourceReportCreateDialog.fxml");
@@ -222,6 +242,9 @@ public class MainFXApplication extends Application {
         }
     }
 
+    /**
+     * This method shows the Water Source Report List Dialog when called.
+     */
     public void showWaterSourceReportListDialog() {
         try {
             FXMLLoader loader = createLoader("../view/WaterSourceReportListDialog.fxml");
@@ -243,7 +266,11 @@ public class MainFXApplication extends Application {
         }
 
     }
-    
+
+    /**
+     * This method shows the Water Purity Report Creation Dialog
+     * @return the Water Purity report that was created else returns null
+     */
     public WaterPurityReport showWaterPurityReportCreateDialog() {
         try {
             FXMLLoader loader = createLoader("../view/WaterPurityReportCreateDialog.fxml");
@@ -269,6 +296,9 @@ public class MainFXApplication extends Application {
         }
     }
 
+    /**
+     * This method shows the Water Purity Report List Dialog when called.
+     */
     public void showWaterPurityReportListDialog() {
         try {
             FXMLLoader loader = createLoader("../view/WaterPurityReportListDialog.fxml");
@@ -290,6 +320,9 @@ public class MainFXApplication extends Application {
         }
     }
 
+    /**
+     * This method shows the Data Graph Dialog when called.
+     */
     public void showDataGraphDialog() {
         try {
             FXMLLoader loader = createLoader("../view/DataGraphDialog.fxml");
@@ -314,6 +347,9 @@ public class MainFXApplication extends Application {
         }
     }
 
+    /**
+     * This method shows the Add Location Dialog when called.
+     */
     public void showAddLocationDialog() {
         try {
             FXMLLoader loader = createLoader("../view/AddLocationDialog.fxml");
@@ -334,7 +370,11 @@ public class MainFXApplication extends Application {
             e.printStackTrace();
         }
     }
-    
+
+    /**
+     * This method takes in arguments and runs the application
+     * @param args arguments that are used to run the application
+     */
     public static void main(String[] args) {
         launch(args);
     }

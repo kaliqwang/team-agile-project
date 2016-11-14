@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * This class is a enum for Water Purity Condition
+ */
 public enum WaterPurityCondition {
     SAFE("Safe"),
     TREATABLE("Treatable"),
@@ -11,8 +14,17 @@ public enum WaterPurityCondition {
         displayText = dispText;
     }
 
+    /**
+     * This method displays text.
+     * @return the text to be displayed.
+     */
     public String getDisplayText() { return displayText; }
 
+    /**
+     * This method gets the level of Water Purity from a string.
+     * @param str the string that translates into levels of Water Purity.
+     * @return   the water purity level of the water.
+     */
     public static WaterPurityCondition getFromString(String str) {
         if (WaterPurityCondition.SAFE.displayText.equals(str))
             return WaterPurityCondition.SAFE;

@@ -73,10 +73,16 @@ public class DataGraphController {
 
     private boolean dataPointsDirty;
 
+    /**
+     * This method initializes all the locations onto the combo box
+     */
     public void initializeLocations() {
         dataGraphLocation.setItems(FXCollections.observableArrayList(_locationData.getAll()));
     }
 
+    /**
+     * This method initializes all the years onto the combo box
+     */
     public void initializeYears() {
         int j, k;
         WaterPurityReport earliest = _purityReportData.get(1);
@@ -94,16 +100,34 @@ public class DataGraphController {
         }
     }
 
+    /**
+     * This method initializes all the data onto the combo box
+     */
     public void initializeData() {
         _currentDataAll = _purityReportData.getAll();
     }
 
+    /**
+     * This method sets the stage passed in as the Dialog Stage
+     * @param dialogStage the stage that will be set as the dialog stage
+     */
     public void setDialogStage(Stage dialogStage) {
         _dialogStage = dialogStage;
     }
 
+
+    /**
+     * This method takes in a data access object and assigns
+     * it to be the purity report dao.
+     * @param dao the generic dao to be passed in to be used for the purity reports
+     */
     public void setPurityReportDao(GenericDAO<WaterPurityReport, Integer> dao) { _purityReportData = (WaterPurityReportDAO) dao; }
 
+    /**
+     * This method takes in a data access object and assigns
+     * it to be the location dao.
+     * @param dao the location data access object to be passed in.
+     */
     public void setLocationDao(LocationDAO dao) { _locationData = dao; }
 
     @FXML

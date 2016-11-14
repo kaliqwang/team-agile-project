@@ -19,6 +19,10 @@ public class WaterSourceReportDAO implements GenericDAO<WaterSourceReport, Integ
     private Map<Integer, WaterSourceReport.Data> entries;
     private Gson json;
 
+    /**
+     * This creates a WaterSourceReportDAO with the specified file name
+     * @param fileName the fileName of the file used for the DAO
+     */
     public WaterSourceReportDAO(String fileName) {
         entries = new HashMap<>();
         _fname = fileName;
@@ -105,11 +109,19 @@ public class WaterSourceReportDAO implements GenericDAO<WaterSourceReport, Integ
             return null;
     }
 
+    /**
+     * This method get the next index in the file.
+     * @return the next index
+     */
     public int nextIndex() {
         readFile();
         return entries.size() + 1;
     }
 
+    /**
+     * This method gets all the entries.
+     * @return array list of all the entries.
+     */
     public List<WaterSourceReport> getAll() {
         readFile();
         List<WaterSourceReport> ret = new ArrayList<>();
@@ -119,6 +131,11 @@ public class WaterSourceReportDAO implements GenericDAO<WaterSourceReport, Integ
         return ret;
     }
 
+    /**
+     * This method gets all the entries by location.
+     * @param l location input to find entries at that location.
+     * @return array list of all the entries by location.
+     */
     public List<WaterSourceReport> getAllByLocation(Location l) {
         readFile();
         List<WaterSourceReport> ret = new ArrayList<>();
@@ -131,6 +148,11 @@ public class WaterSourceReportDAO implements GenericDAO<WaterSourceReport, Integ
         return ret;
     }
 
+    /**
+     * This method gets all the entries by year.
+     * @param y year input to find entries at that year.
+     * @return array list of all the entries by year.
+     */
     public List<WaterSourceReport> getAllByYear(Integer y) {
         readFile();
         List<WaterSourceReport> ret = new ArrayList<>();

@@ -41,12 +41,25 @@ public class UserEditController {
         return change;
     }
 
+    /**
+     * This method sets the Dialog Stage
+     * @param dialogStage the stage passed in to be the Dialog Stage
+     */
     public void setDialogStage(Stage dialogStage) {
         _dialogStage = dialogStage;
     }
 
+    /**
+     * This method takes in a data access object and assigns
+     * it to be the User dao.
+     * @param dao the data access object to be passed in.
+     */
     public void setUserDao(GenericDAO<User, String> dao) { _users = dao; }
 
+    /**
+     * This method sets the current user
+     * @param currUser the user object passed in that's going to be the new current user
+     */
     public void setCurrUser(User currUser) {
         _currUser = currUser;
         firstNameField.setText(_currUser.getFirstName());

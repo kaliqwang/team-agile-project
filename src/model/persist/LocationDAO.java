@@ -19,6 +19,10 @@ public class LocationDAO implements GenericDAO<Location, Integer>{
     private Map<Integer, Location.Data> entries;
     private Gson json;
 
+    /**
+     * This creates a LocationDAO with the specified file name
+     * @param fileName the fileName of the file used for the DAO
+     */
     public LocationDAO(String fileName) {
         entries = new HashMap<>();
         _fname = fileName;
@@ -107,11 +111,19 @@ public class LocationDAO implements GenericDAO<Location, Integer>{
             return null;
     }
 
+    /**
+     * This method get the next index in the file.
+     * @return the next index
+     */
     public int nextIndex() {
         readFile();
         return entries.size() + 1;
     }
 
+    /**
+     * This method gets all the entries.
+     * @return array list of all the entries.
+     */
     public List<Location> getAll() {
         readFile();
         List<Location> ret = new ArrayList<>();

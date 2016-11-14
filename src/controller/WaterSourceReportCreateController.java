@@ -86,20 +86,45 @@ public class WaterSourceReportCreateController {
         waterConditionField.setItems(FXCollections.observableArrayList(WaterSourceCondition.values()));
     }
 
+    /**
+     * This method sets the Dialog Stage
+     * @param dialogStage the stage passed in to be the Dialog Stage
+     */
     public void setDialogStage(Stage dialogStage) {
         _dialogStage = dialogStage;
     }
 
+    /**
+     * This method takes in a data access object and assigns
+     * it to be the Report dao.
+     * @param dao the data access object to be passed in.
+     */
     public void setReportDao(GenericDAO<WaterSourceReport, Integer> dao) { _reportData = dao; }
 
+    /**
+     * This method takes in a data access object and assigns
+     * it to be the Location dao.
+     * @param dao the data access object to be passed in.
+     */
     public void setLocationDao(LocationDAO dao) { _locationData = dao; }
 
+    /**
+     * This method sets the current user
+     * @param currUser the user object passed in that will be assigned as the current user.
+     */
     public void setCurrUser(User currUser) { _currUser = currUser; }
 
+    /**
+     * this method initializes the Locations onto the combo box
+     */
     public void initializeLocations() {
         locationField.setItems(FXCollections.observableArrayList(_locationData.getAll()));
     }
 
+    /**
+     * This method gets the Water Purity report
+     * @return the water purity report of the object this method was called on
+     */
     public WaterSourceReport getWaterSourceReport() {
         return reportResult;
     }

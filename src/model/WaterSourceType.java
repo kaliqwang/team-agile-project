@@ -14,10 +14,19 @@ public enum WaterSourceType {
         displayText = dispText;
     }
 
+    /**
+     * This method displays text.
+     * @return the text to be displayed.
+     */
     public String getDisplayText() {
         return displayText;
     }
 
+    /**
+     * This method gets the level of Water Source Type from a string.
+     * @param str the string that translates into levels of Water Type.
+     * @return   the water type level  of the water.
+     */
     public static WaterSourceType getFromString(String str) {
         if (WaterSourceType.BOTTLED.displayText.equals(str))
             return WaterSourceType.BOTTLED;

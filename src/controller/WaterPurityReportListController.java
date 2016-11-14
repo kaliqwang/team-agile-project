@@ -61,20 +61,38 @@ public class WaterPurityReportListController {
     @FXML
     private void handleCancelPressed() { _dialogStage.close(); }
 
+    /**
+     * This method sets the Dialog Stage
+     * @param dialogStage the stage passed in to be the Dialog Stage
+     */
     public void setDialogStage(Stage dialogStage) {
         _dialogStage = dialogStage;
     }
 
+    /**
+     * This method takes in a data access object and assigns
+     * it to be the User dao.
+     * @param dao the data access object to be passed in.
+     */
     public void setUserDao(GenericDAO<User,String> dao) {
         _userData = dao;
     }
 
+    /**
+     * This method takes in a data access object and assigns
+     * it to be the Report dao.
+     * @param dao the data access object to be passed in.
+     */
     public void setReportDao(GenericDAO<WaterPurityReport, Integer> dao) {
         _reportData = (WaterPurityReportDAO) dao;
         members = FXCollections.observableArrayList(_reportData.getAll());
         reportTable.setItems(members);
     }
 
+    /**
+     * This method shows the report details of the object passed in
+     * @param report the report object passed in whose details will be shown
+     */
     public void showReportDetails(WaterPurityReport report) {
         dateAndTimeLabel.setText(report.getDate().toString());
         reportNumberLabel.setText(report.getReportNumber().toString());

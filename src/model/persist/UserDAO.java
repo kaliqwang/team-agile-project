@@ -15,6 +15,10 @@ public class UserDAO implements GenericDAO<User,String> {
     private Map<String, User.Data> entries;
     private Gson json;
 
+    /**
+     * This creates a UserDAO with the specified file name
+     * @param fileName the fileName of the file used for the DAO
+     */
     public UserDAO(String fileName) {
         entries = new HashMap<>();
         _fname = fileName;

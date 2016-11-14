@@ -53,12 +53,25 @@ public class UserCreateController {
         userTypeField.setItems(FXCollections.observableArrayList(AuthLevel.values()));
     }
 
+    /**
+     * This method sets the Dialog Stage
+     * @param dialogStage the stage passed in to be the Dialog Stage
+     */
     public void setDialogStage(Stage dialogStage) {
         _dialogStage = dialogStage;
     }
 
+    /**
+     * This method takes in a data access object and assigns
+     * it to be the User dao.
+     * @param dao the data access object to be passed in.
+     */
     public void setUserDao(GenericDAO<User, String> dao) { _users = dao; }
 
+    /**
+     * This method gets the User of the object it is called on
+     * @return the newUser if it was a valid input else null.
+     */
     public User getUser() {
         if (validateInputs()) {
             User newUser = new User(usernameField.getText(),

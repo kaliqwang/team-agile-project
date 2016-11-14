@@ -12,28 +12,82 @@ public class WaterSourceReport {
     private final ObjectProperty<WaterSourceType> _waterType = new SimpleObjectProperty<>();
     private final ObjectProperty<WaterSourceCondition> _waterCondition = new SimpleObjectProperty<>();
 
+    /**
+     * This method is a getter for the Date.
+     * @return The date associated with the Water Source Report
+     */
     public Date getDate() { return _date.get(); }
+
+    /**
+     * This method is a setter for the Date.
+     * @param theDate the Date associated with the Water Source Report
+     */
     public void setDate(Date theDate) { _date.set(theDate); }
 
+
+    /**
+     * This method is a getter for the Report Number.
+     * @return The Report Number associated with the Water Source Report
+     */
     public Integer getReportNumber() { return _reportNumber.get(); }
+
+    /**
+     * This method is the setter for the Report Number.
+     * @param reportNumber the author associated with the Water Source Report
+     */
     public void setReportNumber(int reportNumber) { _reportNumber.set(reportNumber);}
 
+    /**
+     * This method is a getter for the Author.
+     * @return The Author associated with the Water Source Report
+     */
     public String getAuthor() { return _author.get(); }
+
+    /**
+     * This method is the setter for the Author.
+     * @param author the author associated with the Water Source Report
+     */
     public void setAuthor(String author) { _author.set(author); }
 
+    /**
+     * This method is a getter for the Location.
+     * @return The Location associated with the Water Source Report
+     */
     public Location getLocation() { return _location.get(); }
+
+    /**
+     * This method is the setter for the Location.
+     * @param location the location associated with the Water Source Report
+     */
     public void setLocation(Location location) { _location.set(location); }
 
     public WaterSourceType getWaterSourceType() { return _waterType.get(); }
     public void setWaterSourceType(WaterSourceType waterType) { _waterType.set(waterType); }
 
+    /**
+     * This method is the getter for the Water Source Condition.
+     * @return the Water Source Condition associated with the Water Source Report.
+     */
     public WaterSourceCondition getWaterSourceCondition() { return _waterCondition.get(); }
+
+    /**
+     * This method is a setter for the Water Source Condition.
+     * @param waterCondition the Water Source Condition associated with the Water Source Report.
+     */
     public void setWaterSourceCondition(WaterSourceCondition waterCondition) { _waterCondition.set(waterCondition); }
 
+    /**
+     * This method initializes a Water Source Report with no Data
+     */
     public WaterSourceReport() {
 
     }
 
+
+    /**
+     * This method creates a Water Source report with plain data
+     * @param plainData the data to be assigned to the water source report
+     */
     public WaterSourceReport(Data plainData) {
         _reportNumber.set(plainData.rptNum);
         _date.set(plainData.rptDate);
@@ -43,6 +97,10 @@ public class WaterSourceReport {
         _waterCondition.set(plainData.waterCondition);
     }
 
+    /**
+     * This method returns the Plain Data
+     * @return a data object with the attributes of the object passed in.
+     */
     public Data getPlainData() {
         return new Data(
             _reportNumber.get(),
@@ -54,6 +112,9 @@ public class WaterSourceReport {
         );
     }
 
+    /**
+     * This is the class that defines a data object and its creation
+     */
     public class Data {
         private int rptNum;
         private Date rptDate;
@@ -62,6 +123,15 @@ public class WaterSourceReport {
         private WaterSourceType waterType;
         private WaterSourceCondition waterCondition;
 
+        /**
+         *
+         * @param reportNum the report number of the Data.
+         * @param reportDate the report date of the Data.
+         * @param auth the Authorization level of the Data.
+         * @param location the Location of the Data.
+         * @param type the water type of the Data
+         * @param condition the condition of the Data.
+         */
         public Data(
                 int reportNum,
                 Date reportDate,

@@ -29,6 +29,7 @@ import javafx.stage.Stage;
 import java.util.*;
 
 /**
+ * This class creates an AddLocationController
  * Created by kaliq on 11/1/2016.
  */
 public class AddLocationController {
@@ -83,14 +84,31 @@ public class AddLocationController {
         mapMarkers = new HashMap<>();
     }
 
+    /**
+     * Method to set the stage passed in as the dialogStage
+     * @param dialogStage the stage that is passed in to be assigned
+     */
     public void setDialogStage(Stage dialogStage) {
         _dialogStage = dialogStage;
     }
 
+    /**
+     * This method takes in a data access object and assigns
+     * it to be the location dao.
+     * @param dao the data access object to be passed in.
+     */
     public void setLocationDao(GenericDAO<Location, Integer> dao) { _locationData = dao; }
 
+    /**
+     * This method sets the user inputted as the current user.
+     * @param currUser the user that is passed in to be the current user.
+     */
     public void setCurrUser(User currUser) { _currUser = currUser; }
 
+    /**
+     * This method returns the location of the the object it's called on
+     * @return locationResult the location of the object it was called on
+     */
     public Location getLocation() {
         return locationResult;
     }
