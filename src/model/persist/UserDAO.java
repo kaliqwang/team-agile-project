@@ -93,6 +93,8 @@ public class UserDAO implements GenericDAO<User,String> {
         readFile();
         if (entries.containsKey(pKey)) {
             entries.remove(pKey);
+        } else {
+            return false;
         }
         writeFile();
         return true;
