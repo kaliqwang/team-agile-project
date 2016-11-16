@@ -12,7 +12,7 @@ import model.persist.UserDAO;
  */
 public class UserDAOTest {
     private UserDAO userDAO;
-    private User TestUser1, TestUser2, TestUser3;
+    private User TestUser1, TestUser2, TestUser3, TestUser4, TestUser5;
 
     @Before
     public void setUp() throws Exception {
@@ -41,32 +41,45 @@ public class UserDAOTest {
         TestUser3.setAuthorization(AuthLevel.MANAGER);
         TestUser3.setPassword("5678");
 
+        TestUser4 = new User();
+        TestUser4.setUsername("hanh14");
+        TestUser4.setFirstName("Hanh");
+        TestUser4.setLastName("Pham");
+        TestUser4.setEmail("hanh14@gmail.com");
+        TestUser4.setAuthorization(AuthLevel.USER);
+        TestUser4.setPassword("8765");
+
+        TestUser5 = new User();
+        TestUser5.setUsername("wanderson43");
+        TestUser5.setFirstName("William");
+        TestUser5.setLastName("Anderson");
+        TestUser5.setEmail("wanderson43@gmail.com");
+        TestUser5.setAuthorization(AuthLevel.MANAGER);
+        TestUser5.setPassword("2130");
+
+
+
         userDAO.persist(TestUser1);
         userDAO.persist(TestUser2);
         userDAO.persist(TestUser3);
+        userDAO.persist(TestUser4);
+        userDAO.persist(TestUser5);
     }
 
     @Test
     public void get() throws Exception {
-        User try0 = userDAO.get("wsmith13");
-        User try1 = userDAO.get("bnye21");
-        User try2 = userDAO.get("jdepp8");
-        User try3 = userDAO.get("wandy18");
+        User attempt1 = userDAO.get("wsmith13");
+        User attempt2 = userDAO.get("bnye21");
+        User attempt3 = userDAO.get("jdepp8");
+        User attempt4 = userDAO.get("hanh14");
+        User attempt5 = userDAO.get("wanderson43");
+        User attempt6 = userDAO.get("wandy18");
 
-        assertEquals(try0, "wsmith13");
-        assertEquals(try1, "bnye21");
-        assertEquals(try2, "jdepp8");
-        assertEquals(try3, null);
-        /*
-        boolean try4 = userDAO.remove("wsmith13");
-        boolean try5 = userDAO.remove("bnye21");
-        boolean try6 = userDAO.remove("jdepp8");
-        boolean try7 = userDAO.remove("wandy18");
-
-        assertEquals(try4, true);
-        assertEquals(try5, true);
-        assertEquals(try6, true);
-        assertEquals(try7, false);
-        */
+        assertEquals(attempt1, "wsmith13");
+        assertEquals(attempt2, "bnye21");
+        assertEquals(attempt3, "jdepp8");
+        assertEquals(attempt4, "hanh14");
+        assertEquals(attempt5, "wanderson43");
+        assertEquals(attempt6, null);
     }
 }
