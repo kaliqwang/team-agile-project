@@ -18,6 +18,13 @@ import javafx.stage.Stage;
 
 import java.util.*;
 
+import com.lynden.gmapsfx.GoogleMapView;
+import com.lynden.gmapsfx.javascript.object.*;
+import com.lynden.gmapsfx.service.geocoding.GeocoderAddressComponent;
+import com.lynden.gmapsfx.service.geocoding.GeocoderStatus;
+import com.lynden.gmapsfx.service.geocoding.GeocodingResult;
+import com.lynden.gmapsfx.service.geocoding.GeocodingService;
+
 /**
  * This class creates an AddLocationController
  * Created by Kaliq on 11/1/2016.

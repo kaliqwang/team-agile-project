@@ -12,6 +12,10 @@ import java.util.Map;
 import java.time.ZoneId;
 import java.util.stream.Collectors;
 
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+
 public class WaterPurityReportDAO implements GenericDAO<WaterPurityReport, Integer> {
 
     private final String _fname;

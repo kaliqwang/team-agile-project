@@ -9,6 +9,10 @@ import javafx.fxml.FXML;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.lynden.gmapsfx.GoogleMapView;
+import com.lynden.gmapsfx.javascript.event.UIEventType;
+import com.lynden.gmapsfx.javascript.object.*;
+
 import javafx.scene.control.Button;
 
 public class HomeScreenController {
@@ -162,7 +166,7 @@ public class HomeScreenController {
      */
     public void showAddLocationDialogPressed() { mainApplication.showAddLocationDialog(); }
 
-    @FXML
+//    @FXML
     /*
       This method shows Manage Locations Dialog when called.
      */

@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+
 public class WaterSourceReportDAO implements GenericDAO<WaterSourceReport, Integer> {
 
     private final String _fname;

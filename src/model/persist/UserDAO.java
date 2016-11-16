@@ -6,6 +6,10 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+
 public class UserDAO implements GenericDAO<User,String> {
 
     private final String _fname;
