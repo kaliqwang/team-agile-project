@@ -116,12 +116,12 @@ public class WaterSourceReport {
      * This is the class that defines a data object and its creation
      */
     public class Data {
-        private int rptNum;
-        private Date rptDate;
-        private String author;
-        private Location.Data location;
-        private WaterSourceType waterType;
-        private WaterSourceCondition waterCondition;
+        private final int rptNum;
+        private final Date rptDate;
+        private final String author;
+        private final Location.Data location;
+        private final WaterSourceType waterType;
+        private final WaterSourceCondition waterCondition;
 
         /**
          *

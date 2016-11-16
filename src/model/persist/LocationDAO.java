@@ -11,26 +11,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by kaliq on 11/1/2016.
- */
+
 public class LocationDAO implements GenericDAO<Location, Integer>{
-    private String _fname;
-    private Map<Integer, Location.Data> entries;
-    private Gson json;
+    private final String _fname;
+    private final Map<Integer, Location.Data> entries;
+    private final Gson json;
 
     /**
-     * This creates a LocationDAO with the specified file name
-     * @param fileName the fileName of the file used for the DAO
-     */
-    public LocationDAO(String fileName) {
-        entries = new HashMap<>();
-        _fname = fileName;
-        json = new Gson();
-        File source = new File(_fname);
-        try {
-            if (!source.exists()) {
-                source.createNewFile();
+                * This creates a LocationDAO with the specified file name
+                        * @param fileName the fileName of the file used for the DAO
+                */
+                public LocationDAO(String fileName) {
+                    entries = new HashMap<>();
+                    _fname = fileName;
+                    json = new Gson();
+                    File source = new File(_fname);
+                    try {
+                        if (!source.exists()) {
+                            source.createNewFile();
             }
         } catch (IOException e) {
             e.printStackTrace();

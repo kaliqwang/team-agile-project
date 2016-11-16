@@ -45,7 +45,7 @@ public class WaterPurityReportListController {
 
     private GenericDAO<User, String> _userData;
 
-    private WaterPurityReportDAO _reportData;
+    WaterPurityReportDAO _reportData;
 
     private ObservableList<WaterPurityReport> members = FXCollections.emptyObservableList();
 

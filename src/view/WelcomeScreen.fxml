@@ -7,29 +7,32 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1600.0" maxWidth="2560.0" minHeight="400.0" minWidth="600.0" prefHeight="800.0" prefWidth="1200.0" styleClass="backgroundPaneGrayscale" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WelcomeScreenController">
-   <children>
-      <Label layoutX="10.0" layoutY="10.0" text="Clean Water Database" textFill="WHITE" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0">
-         <font>
-            <Font size="32.0" />
-         </font>
-      </Label>
-      <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <children>
-            <Button fx:id="showUserCreateDialogButton" mnemonicParsing="false" onAction="#showUserCreateDialogPressed" styleClass="whiteOutlineButton" text="New User" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="showUserLoginDialogButton" mnemonicParsing="false" onAction="#showUserLoginDialogPressed" styleClass="whiteOutlineButton" text="User Login" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-         </children>
-         <padding>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-         </padding>
-      </HBox>
-   </children>
+<AnchorPane maxHeight="1600.0" maxWidth="2560.0" minHeight="400.0" minWidth="600.0" prefHeight="800.0"
+            prefWidth="1200.0" styleClass="backgroundPaneGrayscale" stylesheets="@style.css"
+            xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.WelcomeScreenController">
+    <Label layoutX="10.0" layoutY="10.0" text="Clean Water Database" textFill="WHITE" AnchorPane.bottomAnchor="30.0"
+           AnchorPane.leftAnchor="30.0">
+        <font>
+          <Font size="32.0"/>
+        </font>
+    </Label>
+    <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0">
+        <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+        </padding>
+        <Button fx:id="showUserCreateDialogButton" mnemonicParsing="false" onAction="#showUserCreateDialogPressed"
+                styleClass="whiteOutlineButton" text="New User" textFill="WHITE">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Button>
+        <Button fx:id="showUserLoginDialogButton" mnemonicParsing="false" onAction="#showUserLoginDialogPressed"
+                styleClass="whiteOutlineButton" text="User Login" textFill="WHITE">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Button>
+    </HBox>
 </AnchorPane>

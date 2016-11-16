@@ -146,12 +146,12 @@ public class User {
      * This is the class that defines a data object and its creation
      */
     public class Data {
-        private String username;
-        private String password;
-        private AuthLevel authLevel;
-        private String email;
-        private String firstName;
-        private String lastName;
+        private final String username;
+        private final String password;
+        private final AuthLevel authLevel;
+        private final String email;
+        private final String firstName;
+        private final String lastName;
 
         /**
          * This method creates a data object

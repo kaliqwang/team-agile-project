@@ -9,12 +9,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="lib" level="project" />
-    <orderEntry type="library" name="GMapsFX-2.0.9" level="project" />
-    <orderEntry type="library" name="GMapsFX-2.0.9-javadoc" level="project" />
-    <orderEntry type="library" name="GMapsFX-2.0.9" level="project" />
-    <orderEntry type="library" name="gson-2.7" level="project" />
-    <orderEntry type="library" name="gson-2.7-javadoc" level="project" />
-    <orderEntry type="library" name="GMapsFX-2.0.9-javadoc" level="project" />
     <orderEntry type="module-library" scope="TEST">
       <library name="JUnit4">
         <CLASSES>

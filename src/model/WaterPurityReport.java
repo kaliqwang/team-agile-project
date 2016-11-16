@@ -156,13 +156,13 @@ public class WaterPurityReport {
      * This is the class that defines a data object and its creation
      */
     public class Data {
-        private int rptNum;
-        private Date rptDate;
-        private String author;
-        private Location.Data location;
-        private double virusPPM;
-        private double contaminantPPM;
-        private WaterPurityCondition waterPurityCondition;
+        private final int rptNum;
+        private final Date rptDate;
+        private final String author;
+        private final Location.Data location;
+        private final double virusPPM;
+        private final double contaminantPPM;
+        private final WaterPurityCondition waterPurityCondition;
 
         /**
          *

@@ -20,7 +20,7 @@ public class HomeScreenController {
 
     private MainFXApplication mainApplication;
 
-    private User _currUser;
+    User _currUser;
 
     @FXML
     private Button showDataGraphDialogButton;
@@ -39,7 +39,7 @@ public class HomeScreenController {
 
     private GoogleMap map;
 
-    private GeocodingService _geoSrv;
+    GeocodingService _geoSrv;
 
     private GenericDAO<User, String> _userData;
 

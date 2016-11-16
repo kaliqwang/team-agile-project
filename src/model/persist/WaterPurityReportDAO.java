@@ -12,15 +12,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import java.util.Date;
-import java.time.LocalDate;
 import java.time.ZoneId;
 
 public class WaterPurityReportDAO implements GenericDAO<WaterPurityReport, Integer> {
 
-    private String _fname;
-    private Map<Integer, WaterPurityReport.Data> entries;
-    private Gson json;
+    private final String _fname;
+    private final Map<Integer, WaterPurityReport.Data> entries;
+    private final Gson json;
 
     /**
      * This creates a WaterPurityReportDAO with the specified file name
