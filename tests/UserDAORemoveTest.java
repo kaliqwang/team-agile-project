@@ -9,9 +9,6 @@ import java.io.FileReader;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Rayner Kristanto on 11/15/16.
- */
 public class UserDAORemoveTest {
 
 

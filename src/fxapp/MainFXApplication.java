@@ -44,7 +44,7 @@ public class MainFXApplication extends Application {
         waterPurityData = new WaterPurityReportDAO("waterPurityReport.json");
         locationData = new LocationDAO("location.json");
         initRootLayout(mainStage);
-        showWelcomeScreen(mainStage);
+        showWelcomeScreen();
     }
 
     /**
@@ -89,12 +89,11 @@ public class MainFXApplication extends Application {
      * Setup our default application view that is shown on application startup
      * This is displayed in the startup window
      *
-     * precondition - the main stage is already initialized and showing (initRootLayout has been called)
-     * postcondition - the view is initialized and displayed
+     * pre-condition - the main stage is already initialized and showing (initRootLayout has been called)
+     * post-condition - the view is initialized and displayed
      *
-     * @param mainStage  the main stage to show this view in
      */
-    public void showWelcomeScreen(Stage mainStage) {
+    public void showWelcomeScreen() {
         try {
             FXMLLoader loader = createLoader("../view/WelcomeScreen.fxml");
             rootLayout.setCenter(loader.load());
@@ -111,9 +110,8 @@ public class MainFXApplication extends Application {
 
     /**
      * This method shows the Home screen where most operations will be done from.
-     * @param mainStage the stage that the home screen will be shown on.
      */
-    public void showHomeScreen(Stage mainStage) {
+    public void showHomeScreen() {
         try {
             FXMLLoader loader = createLoader("../view/HomeScreen.fxml");
             rootLayout.setCenter(loader.load());

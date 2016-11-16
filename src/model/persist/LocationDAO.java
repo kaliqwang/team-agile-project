@@ -1,15 +1,12 @@
 package model.persist;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import model.Location;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 public class LocationDAO implements GenericDAO<Location, Integer>{
@@ -18,18 +15,16 @@ public class LocationDAO implements GenericDAO<Location, Integer>{
     private final Gson json;
 
     /**
-                * This creates a LocationDAO with the specified file name
-                        * @param fileName the fileName of the file used for the DAO
-                */
-                public LocationDAO(String fileName) {
-                    entries = new HashMap<>();
-                    _fname = fileName;
-                    json = new Gson();
-                    File source = new File(_fname);
-                    try {
-                        if (!source.exists()) {
-                            source.createNewFile();
-            }
+     * This creates a LocationDAO with the specified file name
+     * @param fileName the fileName of the file used for the DAO
+     */
+    public LocationDAO(String fileName) {
+        entries = new HashMap<>();
+        _fname = fileName;
+        json = new Gson();
+        File source = new File(_fname);
+        try {
+            source.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -124,11 +119,7 @@ public class LocationDAO implements GenericDAO<Location, Integer>{
      */
     public List<Location> getAll() {
         readFile();
-        List<Location> ret = new ArrayList<>();
-        for (Location.Data entry : entries.values()) {
-            ret.add(new Location(entry));
-        }
-        return ret;
+        return entries.values().stream().map(Location::new).collect(Collectors.toList());
     }
 
 }

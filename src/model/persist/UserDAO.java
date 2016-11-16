@@ -1,8 +1,5 @@
 package model.persist;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import model.User;
 
 import java.io.*;
@@ -25,9 +22,7 @@ public class UserDAO implements GenericDAO<User,String> {
         json = new Gson();
         File source = new File(_fname);
         try {
-            if (!source.exists()) {
-                source.createNewFile();
-            }
+            source.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }

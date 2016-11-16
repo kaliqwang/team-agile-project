@@ -6,64 +6,59 @@ import static org.junit.Assert.assertEquals;
 import model.User;
 import model.persist.UserDAO;
 
-
-/**
- * Created by William Anderson on 11/15/2016.
- */
 public class UserDAOTest {
     private UserDAO userDAO;
-    private User TestUser1, TestUser2, TestUser3, TestUser4, TestUser5;
 
     @Before
     public void setUp() throws Exception {
         userDAO = new UserDAO("user_test.json");
-        TestUser1 = new User();
-        TestUser1.setUsername("wsmith13");
-        TestUser1.setFirstName("Will");
-        TestUser1.setLastName("Smith");
-        TestUser1.setEmail("wsmith13@gmail.com");
-        TestUser1.setAuthorization(AuthLevel.WORKER);
-        TestUser1.setPassword("1234");
+        User testUser1 = new User();
+        testUser1.setUsername("wsmith13");
+        testUser1.setFirstName("Will");
+        testUser1.setLastName("Smith");
+        testUser1.setEmail("wsmith13@gmail.com");
+        testUser1.setAuthorization(AuthLevel.WORKER);
+        testUser1.setPassword("1234");
 
-        TestUser2 = new User();
-        TestUser2.setUsername("bnye21");
-        TestUser2.setFirstName("Bill");
-        TestUser2.setLastName("Nye");
-        TestUser2.setEmail("bnye21@gmail.com");
-        TestUser2.setAuthorization(AuthLevel.ADMINISTRATOR);
-        TestUser2.setPassword("4321");
+        User testUser2 = new User();
+        testUser2.setUsername("bnye21");
+        testUser2.setFirstName("Bill");
+        testUser2.setLastName("Nye");
+        testUser2.setEmail("bnye21@gmail.com");
+        testUser2.setAuthorization(AuthLevel.ADMINISTRATOR);
+        testUser2.setPassword("4321");
 
-        TestUser3 = new User();
-        TestUser3.setUsername("jdepp8");
-        TestUser3.setFirstName("Johnny");
-        TestUser3.setLastName("Depp");
-        TestUser3.setEmail("jdepp8@gmail.com");
-        TestUser3.setAuthorization(AuthLevel.MANAGER);
-        TestUser3.setPassword("5678");
+        User testUser3 = new User();
+        testUser3.setUsername("jdepp8");
+        testUser3.setFirstName("Johnny");
+        testUser3.setLastName("Depp");
+        testUser3.setEmail("jdepp8@gmail.com");
+        testUser3.setAuthorization(AuthLevel.MANAGER);
+        testUser3.setPassword("5678");
 
-        TestUser4 = new User();
-        TestUser4.setUsername("hanh14");
-        TestUser4.setFirstName("Hanh");
-        TestUser4.setLastName("Pham");
-        TestUser4.setEmail("hanh14@gmail.com");
-        TestUser4.setAuthorization(AuthLevel.USER);
-        TestUser4.setPassword("8765");
+        User testUser4 = new User();
+        testUser4.setUsername("hanh14");
+        testUser4.setFirstName("Hanh");
+        testUser4.setLastName("Pham");
+        testUser4.setEmail("hanh14@gmail.com");
+        testUser4.setAuthorization(AuthLevel.USER);
+        testUser4.setPassword("8765");
 
-        TestUser5 = new User();
-        TestUser5.setUsername("wanderson43");
-        TestUser5.setFirstName("William");
-        TestUser5.setLastName("Anderson");
-        TestUser5.setEmail("wanderson43@gmail.com");
-        TestUser5.setAuthorization(AuthLevel.MANAGER);
-        TestUser5.setPassword("2130");
+        User testUser5 = new User();
+        testUser5.setUsername("wanderson43");
+        testUser5.setFirstName("William");
+        testUser5.setLastName("Anderson");
+        testUser5.setEmail("wanderson43@gmail.com");
+        testUser5.setAuthorization(AuthLevel.MANAGER);
+        testUser5.setPassword("2130");
 
 
 
-        userDAO.persist(TestUser1);
-        userDAO.persist(TestUser2);
-        userDAO.persist(TestUser3);
-        userDAO.persist(TestUser4);
-        userDAO.persist(TestUser5);
+        userDAO.persist(testUser1);
+        userDAO.persist(testUser2);
+        userDAO.persist(testUser3);
+        userDAO.persist(testUser4);
+        userDAO.persist(testUser5);
     }
 
     @Test
@@ -75,11 +70,11 @@ public class UserDAOTest {
         User attempt5 = userDAO.get("wanderson43");
         User attempt6 = userDAO.get("wandy18");
 
-        assertEquals(attempt1, "wsmith13");
-        assertEquals(attempt2, "bnye21");
-        assertEquals(attempt3, "jdepp8");
-        assertEquals(attempt4, "hanh14");
-        assertEquals(attempt5, "wanderson43");
+        assertEquals(attempt1.getUsername(), "wsmith13");
+        assertEquals(attempt2.getUsername(), "bnye21");
+        assertEquals(attempt3.getUsername(), "jdepp8");
+        assertEquals(attempt4.getUsername(), "hanh14");
+        assertEquals(attempt5.getUsername(), "wanderson43");
         assertEquals(attempt6, null);
     }
 }

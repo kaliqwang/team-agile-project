@@ -52,8 +52,8 @@ public class UserLoginController {
     }
 
 
-    @FXML
-    private void initialize() {}
+//    @FXML
+//    private void initialize() {}
 
     @FXML
     private void handleOKPressed() {

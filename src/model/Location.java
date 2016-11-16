@@ -79,7 +79,7 @@ public class Location {
 
     /**
      * This method takes the plain data and returns its different attributes
-     * @return the different attriubutes of the data
+     * @return the different attributes of the data
      */
     public Data getPlainData() {
         return new Data(_pk.get(), _name.get(), _latitude.get(), _longitude.get());

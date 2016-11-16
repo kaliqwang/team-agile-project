@@ -137,13 +137,7 @@ public class DataGraphController {
     private void handleDataGraphLocationSelected() {
         Location selectedLocation = dataGraphLocation.getValue();
         if (selectedLocation != null) {
-            List<WaterPurityReport> temp = new ArrayList<>();
-            for (WaterPurityReport r : _currentDataAll) {
-                if (r.getLocation().equals(selectedLocation)) {
-                    temp.add(r);
-                }
-            }
-            _currentDataLocation = temp;
+            _currentDataLocation = _currentDataAll.stream().filter(r -> r.getLocation().equals(selectedLocation)).collect(Collectors.toList());
             currentDataLocationInitialized = true;
             initializeYears();
             handleDataGraphYearSelected();

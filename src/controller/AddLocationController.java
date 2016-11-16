@@ -3,16 +3,9 @@ package controller;
 import model.*;
 import model.persist.*;
 
-import com.lynden.gmapsfx.GoogleMapView;
-import com.lynden.gmapsfx.javascript.object.*;
-import com.lynden.gmapsfx.service.geocoding.GeocoderAddressComponent;
-import com.lynden.gmapsfx.service.geocoding.GeocoderStatus;
-import com.lynden.gmapsfx.service.geocoding.GeocodingResult;
-import com.lynden.gmapsfx.service.geocoding.GeocodingService;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -27,7 +20,7 @@ import java.util.*;
 
 /**
  * This class creates an AddLocationController
- * Created by kaliq on 11/1/2016.
+ * Created by Kaliq on 11/1/2016.
  */
 public class AddLocationController {
 
@@ -69,7 +62,7 @@ public class AddLocationController {
 
     private GenericDAO<Location, Integer> _locationData;
 
-    User _currUser;
+    private User _currUser;
 
     private GeocodingService _geoSrv;
 
@@ -77,8 +70,8 @@ public class AddLocationController {
     private void initialize() {
         lastSearchQuery = "";
         mapView.addMapInializedListener(this::onMapInitialized);
-        entryMapping = new HashMap<>();
-        mapMarkers = new HashMap<>();
+        entryMapping = new HashMap<VBox, GeocodingResult>();
+        mapMarkers = new HashMap<GeocodingResult, Marker>();
     }
 
     /**
@@ -221,6 +214,7 @@ public class AddLocationController {
                 map.addMarker(mapMarkers.get(g));
             }
         } else {
+            System.out.println("Error Placeholder");
             //TODO: this shouldn't normally happen
         }
     }
@@ -257,11 +251,7 @@ public class AddLocationController {
 
     private void onSelectEntry(MouseEvent evt) {
         Object vboxSelected = evt.getSource();
-        for (Node entry : mapResults.getChildren()) {
-            if (entry instanceof VBox) {
-                ((VBox) entry).setBackground(Background.EMPTY);
-            }
-        }
+        mapResults.getChildren().stream().filter(entry -> entry instanceof VBox).forEach(entry -> ((VBox) entry).setBackground(Background.EMPTY));
         if (vboxSelected instanceof VBox) {
             ((VBox) vboxSelected).setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
             GeocodingResult selected = entryMapping.get(vboxSelected);

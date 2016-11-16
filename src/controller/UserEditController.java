@@ -29,8 +29,8 @@ public class UserEditController {
 
     @FXML
     private void initialize() {
-        firstNameField.setTextFormatter(new TextFormatter<String>((change)->restrictName(change)));
-        lastNameField.setTextFormatter(new TextFormatter<String>((change)->restrictName(change)));
+        firstNameField.setTextFormatter(new TextFormatter<String>(this::restrictName));
+        lastNameField.setTextFormatter(new TextFormatter<String>(this::restrictName));
     }
 
     private TextFormatter.Change restrictName(TextFormatter.Change change) {

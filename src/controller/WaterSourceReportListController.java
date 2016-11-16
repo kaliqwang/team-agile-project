@@ -45,7 +45,7 @@ public class WaterSourceReportListController {
 
     private GenericDAO<User, String> _userData;
 
-    WaterSourceReportDAO _reportData;
+    private WaterSourceReportDAO _reportData;
 
     private ObservableList<WaterSourceReport> members = FXCollections.emptyObservableList();
 
@@ -93,7 +93,7 @@ public class WaterSourceReportListController {
      * This method shows the report details of the object passed in
      * @param report the report object passed in whose details will be shown
      */
-    public void showReportDetails(WaterSourceReport report) {
+    private void showReportDetails(WaterSourceReport report) {
         dateAndTimeLabel.setText(report.getDate().toString());
         reportNumberLabel.setText(report.getReportNumber().toString());
         User reportingUser = _userData.get(report.getAuthor());

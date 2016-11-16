@@ -3,11 +3,6 @@ package controller;
 import model.*;
 import model.persist.*;
 
-import com.lynden.gmapsfx.GoogleMapView;
-import com.lynden.gmapsfx.javascript.event.UIEventType;
-import com.lynden.gmapsfx.javascript.object.*;
-import com.lynden.gmapsfx.service.geocoding.GeocodingService;
-
 import fxapp.MainFXApplication;
 import javafx.fxml.FXML;
 
@@ -20,7 +15,7 @@ public class HomeScreenController {
 
     private MainFXApplication mainApplication;
 
-    User _currUser;
+    private User _currUser;
 
     @FXML
     private Button showDataGraphDialogButton;
@@ -39,7 +34,7 @@ public class HomeScreenController {
 
     private GoogleMap map;
 
-    GeocodingService _geoSrv;
+//    GeocodingService _geoSrv;
 
     private GenericDAO<User, String> _userData;
 
@@ -52,8 +47,8 @@ public class HomeScreenController {
     @FXML
     private void initialize() {
         mapView.addMapInializedListener(this::onMapInitialized);
-        waterSourcePoints = new HashMap<>();
-        waterPurityPoints = new HashMap<>();
+        waterSourcePoints = new HashMap<WaterSourceReport, Marker>();
+        waterPurityPoints = new HashMap<WaterPurityReport, Marker>();
 
         showDataGraphDialogButton.setDisable(true);
         showWaterSourceReportListDialogButton.setDisable(true);
@@ -116,16 +111,16 @@ public class HomeScreenController {
     }
 
     @FXML
-    /**
-     * This method shows the Data Graph Dialog when its called.
+    /*
+      This method shows the Data Graph Dialog when its called.
      */
     public void showDataGraphDialogPressed() {
         mainApplication.showDataGraphDialog();
     }
 
     @FXML
-    /**
-     * This method shows the Source Report Creation Dialog when called.
+    /*
+      This method shows the Source Report Creation Dialog when called.
      */
     public void showWaterSourceReportCreateDialogPressed() {
         WaterSourceReport submitted = mainApplication.showWaterSourceReportCreateDialog();
@@ -135,8 +130,8 @@ public class HomeScreenController {
     }
 
     @FXML
-    /**
-     * This method shows the Water Purity Report Creation Dialog when called.
+    /*
+      This method shows the Water Purity Report Creation Dialog when called.
      */
     public void showWaterPurityReportCreateDialogPressed() {
         WaterPurityReport submitted = mainApplication.showWaterPurityReportCreateDialog();
@@ -146,53 +141,53 @@ public class HomeScreenController {
     }
 
     @FXML
-    /**
-     * This method shows the Water Source Report list Dialog when called.
+    /*
+      This method shows the Water Source Report list Dialog when called.
      */
     public void showWaterSourceReportListDialogPressed() {
         mainApplication.showWaterSourceReportListDialog();
     }
 
     @FXML
-    /**
-     * This method shows the Purity Report List Dialog when called.
+    /*
+      This method shows the Purity Report List Dialog when called.
      */
     public void showWaterPurityReportListDialogPressed() {
         mainApplication.showWaterPurityReportListDialog();
     }
 
     @FXML
-    /**
-     * This method shows the Add Location Dialog when called.
+    /*
+      This method shows the Add Location Dialog when called.
      */
     public void showAddLocationDialogPressed() { mainApplication.showAddLocationDialog(); }
 
     @FXML
-    /**
-     * This method shows Manage Locations Dialog when called.
+    /*
+      This method shows Manage Locations Dialog when called.
      */
-    public void showManageLocationsDialogPressed() {
-
-
-    }
+//    public void showManageLocationsDialogPressed() {
+//
+//
+//    }
 
     @FXML
-    /**
-     * This method shows the User Edit Dialog when called.
+    /*
+      This method shows the User Edit Dialog when called.
      */
     public void showUserEditDialogPressed() { mainApplication.showUserEditDialog(); }
 
     @FXML
-    /**
-     * This method logs out the user and returns to the user to the Welcome Screen.
+    /*
+      This method logs out the user and returns to the user to the Welcome Screen.
      */
     public void logoutPressed() {
-        mainApplication.showWelcomeScreen(mainApplication.getMainStage());
+        mainApplication.showWelcomeScreen();
     }
 
     private void addMarkerForSourceReport(final WaterSourceReport r) {
-        LatLong coords = new LatLong(r.getLocation().getLatitude(), r.getLocation().getLongitude());
-        final Marker newPt = new Marker(new MarkerOptions().position(coords));
+        LatLong coordinates = new LatLong(r.getLocation().getLatitude(), r.getLocation().getLongitude());
+        final Marker newPt = new Marker(new MarkerOptions().position(coordinates));
         map.addMarker(newPt);
         waterSourcePoints.put(r, newPt);
         User author = _userData.get(r.getAuthor());
@@ -211,8 +206,8 @@ public class HomeScreenController {
     }
 
     private void addMarkerForPurityReport(final WaterPurityReport r) {
-        LatLong coords = new LatLong(r.getLocation().getLatitude(), r.getLocation().getLongitude());
-        final Marker newPt = new Marker(new MarkerOptions().position(coords));
+        LatLong coordinates = new LatLong(r.getLocation().getLatitude(), r.getLocation().getLongitude());
+        final Marker newPt = new Marker(new MarkerOptions().position(coordinates));
         map.addMarker(newPt);
         waterPurityPoints.put(r, newPt);
         User author = _userData.get(r.getAuthor());
@@ -242,12 +237,8 @@ public class HomeScreenController {
                 .zoom(12);
 
         map = mapView.createMap(mapOptions);
-        _geoSrv = new GeocodingService();
-        for (WaterSourceReport r : _sourceReportData.getAll()) {
-            addMarkerForSourceReport(r);
-        }
-        for (WaterPurityReport r : _purityReportData.getAll()) {
-            addMarkerForPurityReport(r);
-        }
+//        _geoSrv = new GeocodingService();
+        _sourceReportData.getAll().forEach(this::addMarkerForSourceReport);
+        _purityReportData.getAll().forEach(this::addMarkerForPurityReport);
     }
 }

@@ -89,15 +89,14 @@ public class User {
      * This method creates a User with default Username and Password.
      */
     public User() {
-        this("Username", "Password");
+        this("Username", "Password", AuthLevel.USER);
     }
 
     /**
      * This method creates a User with the inputted data.
-     * @param username the username of the User
      * @param password the password of the User
      */
-    public User(String username, String password) {
+    private User(String username, String password) {
         this(username, password, AuthLevel.USER);
     }
 
@@ -136,9 +135,7 @@ public class User {
         if (!(o instanceof User))
             return false;
         User b = (User) o;
-        if (this == b)
-            return true;
-        return this._username.equals(b._username);
+        return this == b || this._username.equals(b._username);
 
     }
 

@@ -1,8 +1,5 @@
 package model.persist;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import model.WaterPurityReport;
 import model.Location;
 
@@ -13,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import java.time.ZoneId;
+import java.util.stream.Collectors;
 
 public class WaterPurityReportDAO implements GenericDAO<WaterPurityReport, Integer> {
 
@@ -30,9 +28,7 @@ public class WaterPurityReportDAO implements GenericDAO<WaterPurityReport, Integ
         json = new Gson();
         File source = new File(_fname);
         try {
-            if (!source.exists()) {
-                source.createNewFile();
-            }
+            source.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -125,11 +121,7 @@ public class WaterPurityReportDAO implements GenericDAO<WaterPurityReport, Integ
      */
     public List<WaterPurityReport> getAll() {
         readFile();
-        List<WaterPurityReport> ret = new ArrayList<>();
-        for (WaterPurityReport.Data entry : entries.values()) {
-            ret.add(new WaterPurityReport(entry));
-        }
-        return ret;
+        return entries.values().stream().map(WaterPurityReport::new).collect(Collectors.toList());
     }
 
     /**

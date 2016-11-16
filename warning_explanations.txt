@@ -1,0 +1,18 @@
+Class structure
+- Field can be local (5 warnings) - the variables are currently not used, but in the future they will need to be instance variables (not local)
+
+Declaration redundancy
+- Actual method parameter is the same constant (2 warnings) - although in practice, the fileName is always the same, in principle, we wish to make the class more versatile by allowing DAOs with any class name to be constructed.
+- Declaration can have a final modifier (51 warnings) - although in practice, most of these instance variables never change, in principle they should NOT be final because more advanced features (not implemented yet) would change them
+- Method can be void (3 warnings) - although we never use the return value in our code, more advanced implementations could use the return value
+- Method returns the same value (3 warnings) - although all of our implementations (simplified) always return true, other (more robust) implementations of this 'general-purpose' interface may return true or false depending on success
+- Unused declaration (54 warnings) - all of these variable and method declarations are merely placeholders for future use (it's just that the features that use them have not been implemented in code yet)
+
+JavaFX
+- Unresolved fx:id attribute reference (28 warnings) - all of these fx:id values are simply placeholders; they are not referenced atm because the code is unfinished, but all of them will be referenced when the code is finished (hypothetically)
+
+Probable bugs
+- Result of method call ignored (4 warninggs) - the method call is needed (createNewFile()), but the return value is simply not needed
+
+Spelling
+- Typo (23 typos) - custom variable names; can be fixed by adding them to the intelliJ dictionary

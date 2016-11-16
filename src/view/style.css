@@ -5,7 +5,7 @@
     -fx-background-position: center, center;
 }
 
-.backgroundPaneGrayscale {
+.backgroundPaneGrayScale {
     -fx-background-image: url("background2-grayscale.jpg");
     -fx-background-repeat: stretch;
     -fx-background-size: 2560, 1600;

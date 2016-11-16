@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="1600.0" maxWidth="2560.0" minHeight="400.0" minWidth="600.0" prefHeight="800.0"
-            prefWidth="1200.0" styleClass="backgroundPaneGrayscale" stylesheets="@style.css"
+            prefWidth="1200.0" styleClass="backgroundPaneGrayScale" stylesheets="@style.css"
             xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controller.WelcomeScreenController">
     <Label layoutX="10.0" layoutY="10.0" text="Clean Water Database" textFill="WHITE" AnchorPane.bottomAnchor="30.0"

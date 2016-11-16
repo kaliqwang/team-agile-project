@@ -45,8 +45,8 @@ public class UserCreateController {
 
     @FXML
     private void initialize() {
-        firstNameField.setTextFormatter(new TextFormatter<String>((change)->restrictName(change)));
-        lastNameField.setTextFormatter(new TextFormatter<String>((change)->restrictName(change)));
+        firstNameField.setTextFormatter(new TextFormatter<String>(this::restrictName));
+        lastNameField.setTextFormatter(new TextFormatter<String>(this::restrictName));
         usernameField.textProperty().addListener((event) -> handleUsernameChanged() );
         passwordField.textProperty().addListener((event) -> handlePasswordChanged() );
         verifyPassField.textProperty().addListener((event) -> handleVerifyPassword() );
