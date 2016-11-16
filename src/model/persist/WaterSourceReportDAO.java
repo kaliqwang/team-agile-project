@@ -15,9 +15,9 @@ import java.util.Map;
 
 public class WaterSourceReportDAO implements GenericDAO<WaterSourceReport, Integer> {
 
-    private String _fname;
-    private Map<Integer, WaterSourceReport.Data> entries;
-    private Gson json;
+    private final String _fname;
+    private final Map<Integer, WaterSourceReport.Data> entries;
+    private final Gson json;
 
     /**
      * This creates a WaterSourceReportDAO with the specified file name

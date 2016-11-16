@@ -6,7 +6,7 @@ import javafx.scene.control.Alert;
 
 public class MainStageController {
 
-    private MainFXApplication mainApplication;
+    MainFXApplication mainApplication;
 
     /**
      * This method sets the Main Application

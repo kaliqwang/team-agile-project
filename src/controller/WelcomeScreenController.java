@@ -2,8 +2,6 @@ package controller;
 
 import fxapp.MainFXApplication;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import model.User;
 
 public class WelcomeScreenController {
 

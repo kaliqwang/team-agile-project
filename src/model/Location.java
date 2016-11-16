@@ -2,9 +2,7 @@ package model;
 
 import javafx.beans.property.*;
 
-/**
- * Created by kaliq on 11/1/2016.
- */
+
 public class Location {
 
     private final IntegerProperty _pk = new SimpleIntegerProperty();
@@ -91,10 +89,10 @@ public class Location {
      * This is the class that defines a data object and its creation
      */
     public class Data {
-        private int pk;
-        private String name;
-        private double latitude;
-        private double longitude;
+        private final int pk;
+        private final String name;
+        private final double latitude;
+        private final double longitude;
 
         public Data(int pk, String name, double latitude, double longitude) {
             this.pk = pk;
@@ -110,8 +108,7 @@ public class Location {
         if (other == this) return true;
         if (!(other instanceof Location))return false;
         Location that = (Location) other;
-        if (that._pk == this._pk) return true;
-        return false;
+        return (that._pk == this._pk);
     }
 
     @Override

@@ -11,9 +11,9 @@ import java.util.Map;
 
 public class UserDAO implements GenericDAO<User,String> {
 
-    private String _fname;
-    private Map<String, User.Data> entries;
-    private Gson json;
+    private final String _fname;
+    private final Map<String, User.Data> entries;
+    private final Gson json;
 
     /**
      * This creates a UserDAO with the specified file name
@@ -68,7 +68,6 @@ public class UserDAO implements GenericDAO<User,String> {
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
-            return;
         }
     }
 
@@ -93,8 +92,6 @@ public class UserDAO implements GenericDAO<User,String> {
         readFile();
         if (entries.containsKey(pKey)) {
             entries.remove(pKey);
-        } else {
-            return false;
         }
         writeFile();
         return true;

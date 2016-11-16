@@ -45,7 +45,7 @@ public class WaterSourceReportListController {
 
     private GenericDAO<User, String> _userData;
 
-    private WaterSourceReportDAO _reportData;
+    WaterSourceReportDAO _reportData;
 
     private ObservableList<WaterSourceReport> members = FXCollections.emptyObservableList();
 

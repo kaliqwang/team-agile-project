@@ -3,37 +3,25 @@ package controller;
 import javafx.collections.FXCollections;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
 import model.*;
 import model.persist.*;
 
-import fxapp.MainFXApplication;
 import javafx.fxml.FXML;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.chart.XYChart.Data;
 import javafx.stage.Stage;
 
-import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Observable;
-
-import javafx.collections.ObservableList;
-import javafx.beans.property.SimpleListProperty;
 
 import java.util.stream.IntStream;
 import java.util.stream.Collectors;
 
 
-/**
- * Created by kaliq on 11/1/2016.
- */
 public class DataGraphController {
 
     @FXML
@@ -198,7 +186,7 @@ public class DataGraphController {
             updateDataGraph();
         }
     }
-
+    @SuppressWarnings("unchecked")
     private void cleanDataPoints() {
         dataPoints1 = new ArrayList();
         dataPoints2 = new ArrayList();
@@ -224,7 +212,7 @@ public class DataGraphController {
         }
         dataPointsDirty = false;
     }
-
+    @SuppressWarnings("unchecked")
     private void updateDataGraph() {
         Series s1 = new Series();
         s1.setName("Contaminants");

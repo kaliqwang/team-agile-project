@@ -9,13 +9,10 @@ import com.lynden.gmapsfx.service.geocoding.GeocoderAddressComponent;
 import com.lynden.gmapsfx.service.geocoding.GeocoderStatus;
 import com.lynden.gmapsfx.service.geocoding.GeocodingResult;
 import com.lynden.gmapsfx.service.geocoding.GeocodingService;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -72,7 +69,7 @@ public class AddLocationController {
 
     private GenericDAO<Location, Integer> _locationData;
 
-    private User _currUser;
+    User _currUser;
 
     private GeocodingService _geoSrv;
 
@@ -133,6 +130,7 @@ public class AddLocationController {
             _locationData.persist(locationResult);
             _dialogStage.close();
         } catch (NullPointerException e) {
+            e.printStackTrace();
 
         }
     }
@@ -225,7 +223,6 @@ public class AddLocationController {
         } else {
             //TODO: this shouldn't normally happen
         }
-        return;
     }
 
     private void onEnterLatLong() {
