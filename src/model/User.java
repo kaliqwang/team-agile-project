@@ -21,7 +21,7 @@ public class User {
 
     /**
      * This method is the setter for the Username.
-     * @param name the Username of the User. 
+     * @param name the Username of the User.
      */
     public void setUsername(String name) { _username.set(name); }
 
