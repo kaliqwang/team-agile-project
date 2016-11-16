@@ -1,14 +1,9 @@
-import model.AuthLevel;
-import model.Location;
-import model.User;
-import model.WaterPurityReport;
-import model.persist.UserDAO;
+
 import org.junit.Before;
 import org.junit.Test;
 import model.persist.WaterPurityReportDAO;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 
 public class WaterPurityReportTest {
