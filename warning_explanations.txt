@@ -1,8 +1,8 @@
 Class structure
-- Field can be local (5 warnings) - the variables are currently not used, but in the future they will need to be instance variables (not local)
+- Field can be local (5 warnings) - in the application's current state, the variables are currently not used, but the variables will need to be instance variables (not local) in the application's final state (referenced by multiple methods)
 
 Declaration redundancy
-- Actual method parameter is the same constant (2 warnings) - although in practice, the fileName is always the same, in principle, we wish to make the class more versatile by allowing DAOs with any class name to be constructed.
+- Actual method parameter is the same constant (2 warnings) - although in practice, the fileName is always the same, in principle, we wish to make the class more versatile by allowing DAOs with any fileName to be constructed.
 - Declaration can have a final modifier (51 warnings) - although in practice, most of these instance variables never change, in principle they should NOT be final because more advanced features (not implemented yet) would change them
 - Method can be void (3 warnings) - although we never use the return value in our code, more advanced implementations could use the return value
 - Method returns the same value (3 warnings) - although all of our implementations (simplified) always return true, other (more robust) implementations of this 'general-purpose' interface may return true or false depending on success
