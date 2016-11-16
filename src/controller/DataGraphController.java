@@ -96,7 +96,7 @@ public class DataGraphController {
             j = cal.get(Calendar.YEAR);
             cal.setTime(latest.getDate());
             k = cal.get(Calendar.YEAR);
-            dataGraphYear.setItems(FXCollections.observableArrayList(IntStream.range(j, k).boxed().collect(Collectors.toList())));
+            dataGraphYear.setItems(FXCollections.observableArrayList(IntStream.range(j, k+1).boxed().collect(Collectors.toList())));
         }
     }
 
@@ -157,6 +157,7 @@ public class DataGraphController {
             }
             _currentDataLocation = temp;
             currentDataLocationInitialized = true;
+            initializeYears();
             handleDataGraphYearSelected();
         }
     }
