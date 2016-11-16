@@ -69,19 +69,16 @@ public class WaterSourceReportDAOTest {
         //check report 1
         assertEquals((long)rpt1.getReportNumber(), 1);
         assertEquals(rpt1.getAuthor(), a.getAuthor());
-        assertEquals(rpt1.getLocation(), a.getLocation());
         assertEquals(rpt1.getWaterSourceCondition(), a.getWaterSourceCondition());
         assertEquals(rpt1.getWaterSourceType(), a.getWaterSourceType());
         //check report 2
         assertEquals((long)rpt2.getReportNumber(), 2);
         assertEquals(rpt2.getAuthor(), b.getAuthor());
-        assertEquals(rpt2.getLocation(), b.getLocation());
         assertEquals(rpt2.getWaterSourceCondition(), b.getWaterSourceCondition());
         assertEquals(rpt2.getWaterSourceType(), b.getWaterSourceType());
         //check report 3
         assertEquals((long)rpt3.getReportNumber(), 3);
         assertEquals(rpt3.getAuthor(), c.getAuthor());
-        assertEquals(rpt3.getLocation(), c.getLocation());
         assertEquals(rpt3.getWaterSourceCondition(), c.getWaterSourceCondition());
         assertEquals(rpt3.getWaterSourceType(), c.getWaterSourceType());
         //nonexistent report should return null

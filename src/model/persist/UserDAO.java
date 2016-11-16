@@ -89,11 +89,13 @@ public class UserDAO implements GenericDAO<User,String> {
     @Override
     public boolean remove(String pKey) {
         readFile();
+        boolean removed = false;
         if (entries.containsKey(pKey)) {
             entries.remove(pKey);
+            removed = true;
         }
         writeFile();
-        return true;
+        return removed;
     }
 
     @Override

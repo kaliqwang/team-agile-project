@@ -94,11 +94,13 @@ public class WaterPurityReportDAO implements GenericDAO<WaterPurityReport, Integ
     @Override
     public boolean remove(Integer pKey) {
         readFile();
+        boolean removed = false;
         if (entries.containsKey(pKey)) {
             entries.remove(pKey);
+            removed = true;
         }
         writeFile();
-        return true;
+        return removed;
     }
 
     @Override
