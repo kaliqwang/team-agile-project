@@ -12,14 +12,14 @@ public class Location {
 
 
     /**
-     * This method is a getter for the pk.
-     * @return the pk of the location.
+     * This method is a getter for the locationId.
+     * @return the locationId of the location.
      */
     public int getPK() { return _pk.get(); }
 
     /**
-     * this method is a setter for the pk.
-     * @param pk the pk that is going to be set for a location object.
+     * this method is a setter for the locationId.
+     * @param pk the locationId that is going to be set for a location object.
      */
     public void setPK(int pk) { _pk.set(pk); }
 
@@ -60,7 +60,7 @@ public class Location {
     public void setLongitude(double longitude) { _longitude.set(longitude); }
 
     /**
-     * This method initializes a location with a pk of -1
+     * This method initializes a location with a locationId of -1
      */
     public Location() {
         _pk.set(-1);
@@ -71,7 +71,7 @@ public class Location {
      * @param plainData the data to be assigned to the location
      */
     public Location (Data plainData) {
-        _pk.set(plainData.pk);
+        _pk.set(plainData.locationId);
         _name.set(plainData.name);
         _latitude.set(plainData.latitude);
         _longitude.set(plainData.longitude);
@@ -89,13 +89,13 @@ public class Location {
      * This is the class that defines a data object and its creation
      */
     public class Data {
-        private final int pk;
+        private final int locationId;
         private final String name;
         private final double latitude;
         private final double longitude;
 
-        public Data(int pk, String name, double latitude, double longitude) {
-            this.pk = pk;
+        public Data(int locationId, String name, double latitude, double longitude) {
+            this.locationId = locationId;
             this.name = name;
             this.latitude = latitude;
             this.longitude = longitude;

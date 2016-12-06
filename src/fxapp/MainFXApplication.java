@@ -39,7 +39,7 @@ public class MainFXApplication extends Application {
     @Override
     public void start(Stage stage) {
         mainStage = stage;
-        userData = new UserDAO("users.json");
+        userData = new UserNetDAO("http://localhost:2340/user");
         waterSourceData = new WaterSourceReportDAO("waterSourceReport.json");
         waterPurityData = new WaterPurityReportDAO("waterPurityReport.json");
         locationData = new LocationDAO("location.json");

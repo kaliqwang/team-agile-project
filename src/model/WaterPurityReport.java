@@ -127,7 +127,7 @@ public class WaterPurityReport {
      * @param plainData the data to be assigned to the water purity report
      */
     public WaterPurityReport(Data plainData) {
-        _reportNumber.set(plainData.rptNum);
+        _reportNumber.set(plainData.rptId);
         _date.set(plainData.rptDate);
         _author.set(plainData.author);
         _location.set(new Location(plainData.location));
@@ -156,7 +156,7 @@ public class WaterPurityReport {
      * This is the class that defines a data object and its creation
      */
     public class Data {
-        private final int rptNum;
+        private final int rptId;
         private final Date rptDate;
         private final String author;
         private final Location.Data location;
@@ -183,7 +183,7 @@ public class WaterPurityReport {
                 double contaminantPPM,
                 WaterPurityCondition condition
         ) {
-            this.rptNum = reportNum;
+            this.rptId = reportNum;
             this.rptDate = reportDate;
             this.author = auth;
             this.location = location.getPlainData();

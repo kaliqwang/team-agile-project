@@ -19,5 +19,12 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="GMapsFX-2.0.9" level="project" />
+    <orderEntry type="library" name="gson-2.7" level="project" />
+    <orderEntry type="library" name="gson-2.7-javadoc" level="project" />
+    <orderEntry type="library" name="commons-logging-1.2" level="project" />
+    <orderEntry type="library" name="httpclient-4.5.2" level="project" />
+    <orderEntry type="library" name="httpcore-4.4.4" level="project" />
+    <orderEntry type="library" name="httpmime-4.5.2" level="project" />
   </component>
 </module>

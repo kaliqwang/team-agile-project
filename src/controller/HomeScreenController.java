@@ -166,14 +166,15 @@ public class HomeScreenController {
      */
     public void showAddLocationDialogPressed() { mainApplication.showAddLocationDialog(); }
 
-//    @FXML
+
     /*
       This method shows Manage Locations Dialog when called.
      */
-//    public void showManageLocationsDialogPressed() {
-//
-//
-//    }
+    @FXML
+    public void showManageLocationsDialogPressed() {
+
+
+    }
 
     @FXML
     /*
