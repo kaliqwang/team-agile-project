@@ -1,19 +1,20 @@
 package controller;
 
-import model.*;
-import model.persist.*;
-
-import fxapp.MainFXApplication;
-import javafx.fxml.FXML;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
-
+import fxapp.MainFXApplication;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import model.AuthLevel;
+import model.User;
+import model.WaterPurityReport;
+import model.WaterSourceReport;
+import model.persist.IGenericDAO;
+import model.persist.IQueryableReportDAO;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class HomeScreenController {
 
@@ -40,10 +41,10 @@ public class HomeScreenController {
 
 //    GeocodingService _geoSrv;
 
-    private GenericDAO<User, String> _userData;
+    private IGenericDAO<User, String> _userData;
 
-    private WaterSourceReportDAO _sourceReportData;
-    private WaterPurityReportDAO _purityReportData;
+    private IQueryableReportDAO<WaterSourceReport, Integer> _sourceReportData;
+    private IQueryableReportDAO<WaterPurityReport, Integer> _purityReportData;
 
     private Map<WaterSourceReport, Marker> waterSourcePoints;
     private Map<WaterPurityReport, Marker> waterPurityPoints;
@@ -51,8 +52,8 @@ public class HomeScreenController {
     @FXML
     private void initialize() {
         mapView.addMapInializedListener(this::onMapInitialized);
-        waterSourcePoints = new HashMap<WaterSourceReport, Marker>();
-        waterPurityPoints = new HashMap<WaterPurityReport, Marker>();
+        waterSourcePoints = new HashMap<>();
+        waterPurityPoints = new HashMap<>();
 
         showDataGraphDialogButton.setDisable(true);
         showWaterSourceReportListDialogButton.setDisable(true);
@@ -73,7 +74,7 @@ public class HomeScreenController {
      * it to be the User dao.
      * @param dao the data access object to be passed in.
      */
-    public void setUserDao(GenericDAO<User,String> dao) {
+    public void setUserDao(IGenericDAO<User,String> dao) {
         _userData = dao;
     }
 
@@ -82,8 +83,8 @@ public class HomeScreenController {
      * it to be the Source Report dao.
      * @param dao the data access object to be passed in.
      */
-    public void setSourceReportDao(GenericDAO<WaterSourceReport, Integer> dao) {
-        _sourceReportData = (WaterSourceReportDAO) dao;
+    public void setSourceReportDao(IQueryableReportDAO<WaterSourceReport, Integer> dao) {
+        _sourceReportData = dao;
     }
 
     /**
@@ -91,8 +92,8 @@ public class HomeScreenController {
      * it to be the Purity Report dao.
      * @param dao the data access object to be passed in.
      */
-    public void setPurityReportDao(GenericDAO<WaterPurityReport, Integer> dao) {
-        _purityReportData = (WaterPurityReportDAO) dao;
+    public void setPurityReportDao(IQueryableReportDAO<WaterPurityReport, Integer> dao) {
+        _purityReportData = dao;
     }
 
     /**

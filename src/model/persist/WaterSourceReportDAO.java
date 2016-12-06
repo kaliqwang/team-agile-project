@@ -1,5 +1,8 @@
 package model.persist;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 import model.Location;
 import model.WaterSourceReport;
 
@@ -11,11 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-
-public class WaterSourceReportDAO implements GenericDAO<WaterSourceReport, Integer> {
+public class WaterSourceReportDAO implements IGenericDAO<WaterSourceReport, Integer> {
 
     private final String _fname;
     private final Map<Integer, WaterSourceReport.Data> entries;

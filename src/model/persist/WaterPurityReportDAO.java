@@ -1,22 +1,20 @@
 package model.persist;
 
-import model.WaterPurityReport;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 import model.Location;
+import model.WaterPurityReport;
 
 import java.io.*;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import java.time.ZoneId;
 import java.util.stream.Collectors;
 
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-
-public class WaterPurityReportDAO implements GenericDAO<WaterPurityReport, Integer> {
+public class WaterPurityReportDAO implements IGenericDAO<WaterPurityReport, Integer> {
 
     private final String _fname;
     private final Map<Integer, WaterPurityReport.Data> entries;

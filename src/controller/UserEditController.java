@@ -6,7 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 import model.User;
-import model.persist.GenericDAO;
+import model.persist.IGenericDAO;
 
 public class UserEditController {
     @FXML
@@ -23,7 +23,7 @@ public class UserEditController {
 
     private Stage _dialogStage;
 
-    private GenericDAO<User, String> _users;
+    private IGenericDAO<User, String> _users;
 
     private User _currUser;
 
@@ -54,7 +54,7 @@ public class UserEditController {
      * it to be the User dao.
      * @param dao the data access object to be passed in.
      */
-    public void setUserDao(GenericDAO<User, String> dao) { _users = dao; }
+    public void setUserDao(IGenericDAO<User, String> dao) { _users = dao; }
 
     /**
      * This method sets the current user

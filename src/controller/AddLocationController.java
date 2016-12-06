@@ -1,8 +1,11 @@
 package controller;
 
-import model.*;
-import model.persist.*;
-
+import com.lynden.gmapsfx.GoogleMapView;
+import com.lynden.gmapsfx.javascript.object.*;
+import com.lynden.gmapsfx.service.geocoding.GeocoderAddressComponent;
+import com.lynden.gmapsfx.service.geocoding.GeocoderStatus;
+import com.lynden.gmapsfx.service.geocoding.GeocodingResult;
+import com.lynden.gmapsfx.service.geocoding.GeocodingService;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,20 +13,21 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import model.Location;
+import model.User;
+import model.persist.IGenericDAO;
 
-import java.util.*;
-
-import com.lynden.gmapsfx.GoogleMapView;
-import com.lynden.gmapsfx.javascript.object.*;
-import com.lynden.gmapsfx.service.geocoding.GeocoderAddressComponent;
-import com.lynden.gmapsfx.service.geocoding.GeocoderStatus;
-import com.lynden.gmapsfx.service.geocoding.GeocodingResult;
-import com.lynden.gmapsfx.service.geocoding.GeocodingService;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class creates an AddLocationController
@@ -67,7 +71,7 @@ public class AddLocationController {
 
     private Stage _dialogStage;
 
-    private GenericDAO<Location, Integer> _locationData;
+    private IGenericDAO<Location, Integer> _locationData;
 
     private User _currUser;
 
@@ -77,8 +81,8 @@ public class AddLocationController {
     private void initialize() {
         lastSearchQuery = "";
         mapView.addMapInializedListener(this::onMapInitialized);
-        entryMapping = new HashMap<VBox, GeocodingResult>();
-        mapMarkers = new HashMap<GeocodingResult, Marker>();
+        entryMapping = new HashMap<>();
+        mapMarkers = new HashMap<>();
     }
 
     /**
@@ -94,7 +98,7 @@ public class AddLocationController {
      * it to be the location dao.
      * @param dao the data access object to be passed in.
      */
-    public void setLocationDao(GenericDAO<Location, Integer> dao) { _locationData = dao; }
+    public void setLocationDao(IGenericDAO<Location, Integer> dao) { _locationData = dao; }
 
     /**
      * This method sets the user inputted as the current user.
@@ -120,9 +124,7 @@ public class AddLocationController {
             return;
         }
         try {
-            LocationDAO i = (LocationDAO) _locationData;
             Location location = new Location();
-            location.setPK(i.nextIndex());
             location.setName(nameField.getText());
             location.setLatitude(lat);
             location.setLongitude(lon);

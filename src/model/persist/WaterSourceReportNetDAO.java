@@ -3,7 +3,7 @@ package model.persist;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import model.Location;
-import model.WaterPurityReport;
+import model.WaterSourceReport;
 import net.RESTClient;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpResponseException;
@@ -17,33 +17,33 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class WaterPurityReportNetDAO implements IQueryableReportDAO<WaterPurityReport, Integer> {
+public class WaterSourceReportNetDAO implements IQueryableReportDAO<WaterSourceReport, Integer> {
 
-    private final Map<Integer, WaterPurityReport.Data> cache;
-    private RESTClient<WaterPurityReport.Data> client;
+    private final Map<Integer, WaterSourceReport.Data> cache;
+    private RESTClient<WaterSourceReport.Data> client;
     private JsonParser parser;
 
     /**
      * Creates a new instance of a WaterPurityReportNetDAO.
      * @param url the url of the service
      */
-    public WaterPurityReportNetDAO(String url) {
-        client = new RESTClient<>(url, WaterPurityReport.Data.class);
+    public WaterSourceReportNetDAO(String url) {
+        client = new RESTClient<>(url, WaterSourceReport.Data.class);
         cache = new HashMap<>();
         parser = new JsonParser();
     }
 
     private void tryUpdateAll() {
-        List<WaterPurityReport.Data> newData = client.get();
+        List<WaterSourceReport.Data> newData = client.get();
         if (newData != null) {
-            for (WaterPurityReport.Data entry : newData) {
+            for (WaterSourceReport.Data entry : newData) {
                 cache.put(entry.getRptId(), entry);
             }
         }
     }
 
     @Override
-    public boolean persist(WaterPurityReport newObj) {
+    public boolean persist(WaterSourceReport newObj) {
         Integer userId = client.post(newObj.getPlainData(), (httpResponse) -> {
             StatusLine header = httpResponse.getStatusLine();
             if (header.getStatusCode() >= 300) {
@@ -62,7 +62,7 @@ public class WaterPurityReportNetDAO implements IQueryableReportDAO<WaterPurityR
     }
 
     @Override
-    public boolean update(Integer pKey, WaterPurityReport toUpdate) {
+    public boolean update(Integer pKey, WaterSourceReport toUpdate) {
         if (client.put(pKey.toString(), toUpdate.getPlainData())) {
             cache.put(pKey, toUpdate.getPlainData());
             return true;
@@ -80,47 +80,43 @@ public class WaterPurityReportNetDAO implements IQueryableReportDAO<WaterPurityR
     }
 
     @Override
-    public WaterPurityReport get(Integer pKey) {
-        WaterPurityReport.Data fetch = client.get(pKey.toString());
+    public WaterSourceReport get(Integer pKey) {
+        WaterSourceReport.Data fetch = client.get(pKey.toString());
         if (fetch != null) {
             cache.put(pKey, fetch);
         }
         if (cache.containsKey(pKey))
-            return new WaterPurityReport(cache.get(pKey));
+            return new WaterSourceReport(cache.get(pKey));
         else
             return null;
     }
 
-    @Override
-    public List<WaterPurityReport> getAll() {
+    public List<WaterSourceReport> getAll() {
         tryUpdateAll();
-        return cache.values().stream().map(WaterPurityReport::new).collect(Collectors.toList());
+        return cache.values().stream().map(WaterSourceReport::new).collect(Collectors.toList());
     }
 
-    @Override
-    public List<WaterPurityReport> getAllByYear(Integer y) {
+    public List<WaterSourceReport> getAllByLocation(Location l) {
         tryUpdateAll();
-        List<WaterPurityReport> ret = new ArrayList<>();
-        for (WaterPurityReport.Data entry : cache.values()) {
-            WaterPurityReport temp = new WaterPurityReport(entry);
-            if (temp.getDate().toInstant().atZone(ZoneId.of("EST")).toLocalDate().getYear() == y) {
-                ret.add(new WaterPurityReport(entry));
-            }
-        }
-        return ret;
-    }
-
-    @Override
-    public List<WaterPurityReport> getAllByLocation(Location l) {
-        tryUpdateAll();
-        List<WaterPurityReport> ret = new ArrayList<>();
-        for (WaterPurityReport.Data entry : cache.values()) {
-            WaterPurityReport temp = new WaterPurityReport(entry);
+        List<WaterSourceReport> ret = new ArrayList<>();
+        for (WaterSourceReport.Data entry : cache.values()) {
+            WaterSourceReport temp = new WaterSourceReport(entry);
             if (temp.getLocation().equals(l)) {
-                ret.add(new WaterPurityReport(entry));
+                ret.add(new WaterSourceReport(entry));
             }
         }
         return ret;
     }
 
+    public List<WaterSourceReport> getAllByYear(Integer y) {
+        tryUpdateAll();
+        List<WaterSourceReport> ret = new ArrayList<>();
+        for (WaterSourceReport.Data entry : cache.values()) {
+            WaterSourceReport temp = new WaterSourceReport(entry);
+            if (temp.getDate().toInstant().atZone(ZoneId.of("EST")).toLocalDate().getYear() == y) {
+                ret.add(new WaterSourceReport(entry));
+            }
+        }
+        return ret;
+    }
 }

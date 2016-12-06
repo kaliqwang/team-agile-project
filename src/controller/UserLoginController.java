@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.User;
-import model.persist.GenericDAO;
+import model.persist.IGenericDAO;
 
 public class UserLoginController {
 
@@ -21,7 +21,7 @@ public class UserLoginController {
 
     private Stage _dialogStage;
 
-    private GenericDAO<User, String> _users;
+    private IGenericDAO<User, String> _users;
 
     private User selectedUser = null;
 
@@ -39,7 +39,7 @@ public class UserLoginController {
      * it to be the User dao.
      * @param dao the data access object to be passed in.
      */
-    public void setUserDao(GenericDAO<User, String> dao) {
+    public void setUserDao(IGenericDAO<User, String> dao) {
         _users = dao;
     }
 

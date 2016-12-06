@@ -1,11 +1,13 @@
 package model.persist;
 
+import java.util.List;
+
 /**
  * Interface for a generic data access object
  * @param <T> type of the underlying data object
  * @param <PK> primary key of the object
  */
-public interface GenericDAO<T,PK> {
+public interface IGenericDAO<T,PK> {
     /**
      * Adds a new object to the database
      * @param newObj the object to be added
@@ -34,6 +36,11 @@ public interface GenericDAO<T,PK> {
      * @return the object that was retrieved
      */
     T get(PK pKey);
+    /**
+     * Gets all objects in the database.
+     * @return array list of all the entries.
+     */
+    public List<T> getAll();
 
 
 }

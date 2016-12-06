@@ -10,8 +10,8 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import model.User;
 import model.WaterSourceReport;
-import model.persist.GenericDAO;
-import model.persist.WaterSourceReportDAO;
+import model.persist.IGenericDAO;
+import model.persist.IQueryableReportDAO;
 
 public class WaterSourceReportListController {
     @FXML
@@ -43,9 +43,9 @@ public class WaterSourceReportListController {
 
     private Stage _dialogStage;
 
-    private GenericDAO<User, String> _userData;
+    private IGenericDAO<User, String> _userData;
 
-    private WaterSourceReportDAO _reportData;
+    private IQueryableReportDAO<WaterSourceReport,Integer> _reportData;
 
     private ObservableList<WaterSourceReport> members = FXCollections.emptyObservableList();
 
@@ -74,7 +74,7 @@ public class WaterSourceReportListController {
      * it to be the User dao.
      * @param dao the data access object to be passed in.
      */
-    public void setUserDao(GenericDAO<User,String> dao) {
+    public void setUserDao(IGenericDAO<User,String> dao) {
         _userData = dao;
     }
 
@@ -83,8 +83,8 @@ public class WaterSourceReportListController {
      * it to be the Report dao.
      * @param dao the data access object to be passed in.
      */
-    public void setReportDao(GenericDAO<WaterSourceReport, Integer> dao) {
-        _reportData = (WaterSourceReportDAO) dao;
+    public void setReportDao(IQueryableReportDAO<WaterSourceReport, Integer> dao) {
+        _reportData = dao;
         members = FXCollections.observableArrayList(_reportData.getAll());
         reportTable.setItems(members);
     }

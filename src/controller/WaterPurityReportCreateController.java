@@ -1,23 +1,25 @@
 package controller;
 
-import model.*;
-import model.persist.*;
-
-import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
-
-import java.util.*;
-
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
 import com.lynden.gmapsfx.javascript.object.InfoWindow;
 import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.service.geocoding.GeocodingResult;
 import com.lynden.gmapsfx.service.geocoding.GeocodingService;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import model.Location;
+import model.User;
+import model.WaterPurityCondition;
+import model.WaterPurityReport;
+import model.persist.IGenericDAO;
+
+import java.util.Date;
+import java.util.Map;
 
 public class WaterPurityReportCreateController {
 
@@ -66,9 +68,9 @@ public class WaterPurityReportCreateController {
 
     private Stage _dialogStage;
 
-    private GenericDAO<WaterPurityReport, Integer> _reportData;
+    private IGenericDAO<WaterPurityReport, Integer> _reportData;
 
-    private LocationDAO _locationData;
+    private IGenericDAO<Location, Integer> _locationData;
 
     private User _currUser;
 
@@ -92,14 +94,14 @@ public class WaterPurityReportCreateController {
      * it to be the Report dao.
      * @param dao the data access object to be passed in.
      */
-    public void setReportDao(GenericDAO<WaterPurityReport, Integer> dao) { _reportData = dao; }
+    public void setReportDao(IGenericDAO<WaterPurityReport, Integer> dao) { _reportData = dao; }
 
     /**
      * This method takes in a data access object and assigns
      * it to be the Location dao.
      * @param dao the data access object to be passed in.
      */
-    public void setLocationDao(LocationDAO dao) { _locationData = dao; }
+    public void setLocationDao(IGenericDAO<Location, Integer> dao) { _locationData = dao; }
 
     /**
      * This method sets the current user
@@ -132,9 +134,7 @@ public class WaterPurityReportCreateController {
             return;
         }
         try {
-            WaterPurityReportDAO i = (WaterPurityReportDAO) _reportData;
             WaterPurityReport report = new WaterPurityReport();
-            report.setReportNumber(i.nextIndex());
             report.setDate(new Date());
             report.setAuthor(_currUser.getUsername());
             report.setLocation(locationField.getValue());

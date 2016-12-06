@@ -174,6 +174,10 @@ public class User {
             this.firstName = fName;
             this.lastName = lName;
         }
+
+        public String getUsername() {
+            return this.username;
+        }
     }
 
     /**

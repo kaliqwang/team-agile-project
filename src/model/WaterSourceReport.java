@@ -93,8 +93,8 @@ public class WaterSourceReport {
         _date.set(plainData.rptDate);
         _author.set(plainData.author);
         _location.set(new Location(plainData.location));
-        _waterType.set(plainData.waterType);
-        _waterCondition.set(plainData.waterCondition);
+        _waterType.set(plainData.sourceType);
+        _waterCondition.set(plainData.sourceCondition);
     }
 
     /**
@@ -120,8 +120,8 @@ public class WaterSourceReport {
         private final Date rptDate;
         private final String author;
         private final Location.Data location;
-        private final WaterSourceType waterType;
-        private final WaterSourceCondition waterCondition;
+        private final WaterSourceType sourceType;
+        private final WaterSourceCondition sourceCondition;
 
         /**
          *
@@ -144,8 +144,12 @@ public class WaterSourceReport {
             this.rptDate = reportDate;
             this.author = auth;
             this.location = location.getPlainData();
-            this.waterType = type;
-            this.waterCondition = condition;
+            this.sourceType = type;
+            this.sourceCondition = condition;
+        }
+
+        public int getRptId() {
+            return this.rptId;
         }
     }
 

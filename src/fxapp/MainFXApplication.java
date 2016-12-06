@@ -1,17 +1,19 @@
 package fxapp;
 
-import model.*;
-import model.persist.*;
 import controller.*;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Location;
+import model.User;
+import model.WaterPurityReport;
+import model.WaterSourceReport;
+import model.persist.*;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -30,19 +32,19 @@ public class MainFXApplication extends Application {
     /** the main layout for the main window */
     private BorderPane rootLayout;
 
-    private GenericDAO<User, String> userData;
-    private GenericDAO<WaterSourceReport, Integer> waterSourceData;
-    private GenericDAO<WaterPurityReport, Integer> waterPurityData;
-    private LocationDAO locationData;
+    private IGenericDAO<User, String> userData;
+    private IQueryableReportDAO<WaterSourceReport, Integer> waterSourceData;
+    private IQueryableReportDAO<WaterPurityReport, Integer> waterPurityData;
+    private IGenericDAO<Location, Integer> locationData;
     private User currUser;
 
     @Override
     public void start(Stage stage) {
         mainStage = stage;
         userData = new UserNetDAO("http://localhost:2340/user");
-        waterSourceData = new WaterSourceReportDAO("waterSourceReport.json");
-        waterPurityData = new WaterPurityReportDAO("waterPurityReport.json");
-        locationData = new LocationDAO("location.json");
+        waterSourceData = new WaterSourceReportNetDAO("http://localhost:2340/srcrpt");
+        waterPurityData = new WaterPurityReportNetDAO("http://localhost:2340/purityrpt");
+        locationData = new LocationNetDAO("http://localhost:2340/location");
         initRootLayout(mainStage);
         showWelcomeScreen();
     }

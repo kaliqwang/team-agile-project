@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 
-public class LocationDAO implements GenericDAO<Location, Integer>{
+public class LocationDAO implements IGenericDAO<Location, Integer> {
     private final String _fname;
     private final Map<Integer, Location.Data> entries;
     private final Gson json;

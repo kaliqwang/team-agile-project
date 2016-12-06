@@ -6,7 +6,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.AuthLevel;
 import model.User;
-import model.persist.GenericDAO;
+import model.persist.IGenericDAO;
 
 public class UserCreateController {
     private boolean passwordMatches = true;
@@ -41,7 +41,7 @@ public class UserCreateController {
 
     private Stage _dialogStage;
 
-    private GenericDAO<User, String> _users;
+    private IGenericDAO<User, String> _users;
 
     @FXML
     private void initialize() {
@@ -66,7 +66,7 @@ public class UserCreateController {
      * it to be the User dao.
      * @param dao the data access object to be passed in.
      */
-    public void setUserDao(GenericDAO<User, String> dao) { _users = dao; }
+    public void setUserDao(IGenericDAO<User, String> dao) { _users = dao; }
 
     /**
      * This method gets the User of the object it is called on

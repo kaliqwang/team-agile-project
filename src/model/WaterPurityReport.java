@@ -191,6 +191,10 @@ public class WaterPurityReport {
             this.contaminantPPM = contaminantPPM;
             this.waterPurityCondition = condition;
         }
+
+        public int getRptId() {
+            return this.rptId;
+        }
     }
 
 }

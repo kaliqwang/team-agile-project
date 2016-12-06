@@ -100,6 +100,10 @@ public class Location {
             this.latitude = latitude;
             this.longitude = longitude;
         }
+
+        public int getLocationId() {
+            return this.locationId;
+        }
     }
 
     @Override

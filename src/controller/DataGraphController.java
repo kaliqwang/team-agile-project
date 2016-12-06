@@ -1,25 +1,24 @@
 package controller;
 
 import javafx.collections.FXCollections;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import model.*;
-import model.persist.*;
-
 import javafx.fxml.FXML;
-
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart.Series;
 import javafx.scene.chart.XYChart.Data;
+import javafx.scene.chart.XYChart.Series;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
+import model.Location;
+import model.WaterPurityReport;
+import model.persist.IGenericDAO;
+import model.persist.IQueryableReportDAO;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.ArrayList;
-
-import java.util.stream.IntStream;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 public class DataGraphController {
@@ -41,9 +40,9 @@ public class DataGraphController {
 
     private Stage _dialogStage;
 
-    private WaterPurityReportDAO _purityReportData;
+    private IQueryableReportDAO<WaterPurityReport, Integer> _purityReportData;
 
-    private LocationDAO _locationData;
+    private IGenericDAO<Location, Integer> _locationData;
 
     private List<WaterPurityReport> _currentDataAll;
 
@@ -74,7 +73,7 @@ public class DataGraphController {
     public void initializeYears() {
         int j, k;
         WaterPurityReport earliest = _purityReportData.get(1);
-        WaterPurityReport latest = _purityReportData.get(_purityReportData.getCount());
+        WaterPurityReport latest = _purityReportData.get(_purityReportData.getAll().size());
         if (earliest != null) {
 //            j = earliest.getDate().toInstant().atZone(ZoneId.of("EST")).toLocalDate().getYear();
 //            k = latest.getDate().toInstant().atZone(ZoneId.of("EST")).toLocalDate().getYear();
@@ -109,14 +108,14 @@ public class DataGraphController {
      * it to be the purity report dao.
      * @param dao the generic dao to be passed in to be used for the purity reports
      */
-    public void setPurityReportDao(GenericDAO<WaterPurityReport, Integer> dao) { _purityReportData = (WaterPurityReportDAO) dao; }
+    public void setPurityReportDao(IQueryableReportDAO<WaterPurityReport, Integer> dao) { _purityReportData = dao; }
 
     /**
      * This method takes in a data access object and assigns
      * it to be the location dao.
      * @param dao the location data access object to be passed in.
      */
-    public void setLocationDao(LocationDAO dao) { _locationData = dao; }
+    public void setLocationDao(IGenericDAO<Location, Integer> dao) { _locationData = dao; }
 
     @FXML
     private void initialize() {

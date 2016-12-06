@@ -1,17 +1,14 @@
 package model.persist;
 
 import model.User;
-
-import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import net.RESTClient;
 
-public class UserNetDAO implements GenericDAO<User,String> {
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class UserNetDAO implements IGenericDAO<User,String> {
 
     private final Map<String, User.Data> cache;
     private RESTClient<User.Data> client;
@@ -62,5 +59,17 @@ public class UserNetDAO implements GenericDAO<User,String> {
             return new User(cache.get(pKey));
         else
             return null;
+    }
+
+    @Override
+    public List<User> getAll() {
+        List<User.Data> newData = client.get();
+        if (newData != null) {
+            for (User.Data entry : newData) {
+                cache.put(entry.getUsername(), entry);
+            }
+        }
+        return cache.values().stream().map(User::new).collect(Collectors.toList());
+
     }
 }
