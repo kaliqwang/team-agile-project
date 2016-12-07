@@ -36,6 +36,8 @@ public class MainFXApplication extends Application {
     private IQueryableReportDAO<WaterSourceReport, Integer> waterSourceData;
     private IQueryableReportDAO<WaterPurityReport, Integer> waterPurityData;
     private IGenericDAO<Location, Integer> locationData;
+
+    private ControllerFactory factory;
     private User currUser;
 
     @Override
@@ -45,6 +47,7 @@ public class MainFXApplication extends Application {
         waterSourceData = new WaterSourceReportNetDAO("http://localhost:2340/srcrpt");
         waterPurityData = new WaterPurityReportNetDAO("http://localhost:2340/purityrpt");
         locationData = new LocationNetDAO("http://localhost:2340/location");
+        factory = new ControllerFactory(userData, waterSourceData, waterPurityData, locationData);
         initRootLayout(mainStage);
         showWelcomeScreen();
     }
@@ -142,13 +145,7 @@ public class MainFXApplication extends Application {
 
             // Create the dialog Stage
             Stage dialogStage = createDialogStage("User Login", loader.load(), true);
-
-            // Connect dialog stage to controller.
-            UserLoginController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setUserDao(userData);
-
-            // Show the dialog and wait until the user closes it
+            UserLoginController controller = factory.createUserLoginController(loader, dialogStage);
             dialogStage.showAndWait();
             currUser = controller.getSelectedUser();
             return (currUser != null);
@@ -169,13 +166,7 @@ public class MainFXApplication extends Application {
 
             // Create the dialog Stage
             Stage dialogStage = createDialogStage("Create User", loader.load(), true);
-
-            // Connect dialog stage to controller.
-            UserCreateController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setUserDao(userData);
-
-            // Show the dialog and wait until the user closes it
+            UserCreateController controller = factory.createUserCreateController(loader, dialogStage);
             dialogStage.showAndWait();
             currUser = controller.getUser();
             return (currUser != null);
@@ -196,13 +187,8 @@ public class MainFXApplication extends Application {
 
             // Create the dialog Stage
             Stage dialogStage = createDialogStage("Edit User", loader.load(), true);
-
-            UserEditController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setUserDao(userData);
-            controller.setCurrUser(currUser);
-
-            // Show the dialog and wait until the user closes it
+            UserEditController controller =
+                    factory.createUserEditController(loader, dialogStage, currUser);
             dialogStage.showAndWait();
             return true;
 
@@ -222,16 +208,8 @@ public class MainFXApplication extends Application {
 
             // Create the dialog Stage
             Stage dialogStage = createDialogStage("Submit Water Source Report", loader.load(), false);
-
-            // Connect dialog stage to controller.
-            WaterSourceReportCreateController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setReportDao(waterSourceData);
-            controller.setLocationDao(locationData);
-            controller.setCurrUser(currUser);
-            controller.initializeLocations();
-
-            // Show the dialog and wait until the user closes it
+            WaterSourceReportCreateController controller =
+                    factory.createSourceReportCreateController(loader, dialogStage, currUser);
             dialogStage.showAndWait();
             return controller.getWaterSourceReport();
 
@@ -250,14 +228,8 @@ public class MainFXApplication extends Application {
 
             // Create the dialog Stage
             Stage dialogStage = createDialogStage("View Water Source Reports", loader.load(), false);
-
-            // Connect dialog stage to controller.
-            WaterSourceReportListController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setUserDao(userData);
-            controller.setReportDao(waterSourceData);
-
-            // Show the dialog and wait until the user closes it
+            WaterSourceReportListController controller =
+                    factory.createSourceReportListController(loader, dialogStage);
             dialogStage.showAndWait();
 
         } catch (IOException e) {
@@ -276,16 +248,8 @@ public class MainFXApplication extends Application {
 
             // Create the dialog Stage
             Stage dialogStage = createDialogStage("Submit Water Purity Report", loader.load(), false);
-
-            // Connect dialog stage to controller.
-            WaterPurityReportCreateController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setReportDao(waterPurityData);
-            controller.setLocationDao(locationData);
-            controller.setCurrUser(currUser);
-            controller.initializeLocations();
-
-            // Show the dialog and wait until the user closes it
+            WaterPurityReportCreateController controller =
+                    factory.createPurityReportCreateController(loader, dialogStage, currUser);
             dialogStage.showAndWait();
             return controller.getWaterPurityReport();
 
@@ -304,14 +268,8 @@ public class MainFXApplication extends Application {
 
             // Create the dialog Stage
             Stage dialogStage = createDialogStage("View Water Purity Reports", loader.load(), false);
-
-            // Connect dialog stage to controller.
-            WaterPurityReportListController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setUserDao(userData);
-            controller.setReportDao(waterPurityData);
-
-            // Show the dialog and wait until the user closes it
+            WaterPurityReportListController controller
+                    = factory.createPurityReportListController(loader, dialogStage);
             dialogStage.showAndWait();
 
         } catch (IOException e) {
@@ -328,17 +286,7 @@ public class MainFXApplication extends Application {
 
             // Create the dialog Stage
             Stage dialogStage = createDialogStage("View Data Graph", loader.load(), false);
-
-            // Connect dialog stage to controller.
-            DataGraphController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setPurityReportDao(waterPurityData);
-            controller.setLocationDao(locationData);
-            controller.initializeLocations();
-            controller.initializeYears();
-            controller.initializeData();
-
-            // Show the dialog and wait until the user closes it
+            DataGraphController controller = factory.createDataGraphController(loader, dialogStage);
             dialogStage.showAndWait();
 
         } catch (IOException e) {
@@ -355,14 +303,7 @@ public class MainFXApplication extends Application {
 
             // Create the dialog Stage
             Stage dialogStage = createDialogStage("AddLocation", loader.load(), false);
-
-            // Connect dialog stage to controller.
-            AddLocationController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setLocationDao(locationData);
-            controller.setCurrUser(currUser);
-
-            // Show the dialog and wait until the user closes it
+            AddLocationController controller = factory.createAddLocationController(loader, dialogStage, currUser);
             dialogStage.showAndWait();
 
         } catch (IOException e) {

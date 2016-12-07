@@ -133,7 +133,7 @@ public class WaterPurityReport {
         _location.set(new Location(plainData.location));
         _virusPPM.set(plainData.virusPPM);
         _contaminantPPM.set(plainData.contaminantPPM);
-        _waterPurityCondition.set(plainData.waterPurityCondition);
+        _waterPurityCondition.set(plainData.purityCondition);
     }
 
     /**
@@ -162,7 +162,7 @@ public class WaterPurityReport {
         private final Location.Data location;
         private final double virusPPM;
         private final double contaminantPPM;
-        private final WaterPurityCondition waterPurityCondition;
+        private final WaterPurityCondition purityCondition;
 
         /**
          *
@@ -189,7 +189,7 @@ public class WaterPurityReport {
             this.location = location.getPlainData();
             this.virusPPM = virusPPM;
             this.contaminantPPM = contaminantPPM;
-            this.waterPurityCondition = condition;
+            this.purityCondition = condition;
         }
 
         public int getRptId() {

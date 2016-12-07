@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,6 +26,9 @@ public class WaterSourceReportListController {
 
     @FXML
     private Label locationOfWaterLabel;
+
+    @FXML
+    private Label latLongLabel;
 
     @FXML
     private Label typeOfWaterLabel;
@@ -53,7 +57,7 @@ public class WaterSourceReportListController {
     private void initialize() {
         reportTable.setItems(members);
         dateColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getDate().toString()));
-        //locationColumn.setCellValueFactory(cellData -> cellData.getValue().getWaterLocationProperty());
+        locationColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getLocation().getName()));
         reportTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showReportDetails(newValue));
     }
@@ -100,7 +104,8 @@ public class WaterSourceReportListController {
         nameOfReporterLabel.setText(reportingUser.getFirstName() + " "
                                     + reportingUser.getLastName() + " ("
                                     + reportingUser.getUsername() + ")");
-        locationOfWaterLabel.setText("("+report.getLocation().getLatitude()+","+report.getLocation().getLongitude()+")");
+        locationOfWaterLabel.setText(report.getLocation().getName());
+        latLongLabel.setText("Lat: "+report.getLocation().getLatitude()+", Lon: "+report.getLocation().getLongitude());
         typeOfWaterLabel.setText(report.getWaterSourceType().getDisplayText());
         conditionOfWaterLabel.setText(report.getWaterSourceCondition().getDisplayText());
     }
