@@ -44,9 +44,9 @@ public class ControllerFactory {
         controller.setDialogStage(dialogStage);
         controller.setPurityReportDao(waterPurityData);
         controller.setLocationDao(locationData);
+        controller.initializeData();
         controller.initializeLocations();
         controller.initializeYears();
-        controller.initializeData();
         return controller;
     }
 

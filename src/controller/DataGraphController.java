@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 
 public class DataGraphController {
@@ -71,19 +70,18 @@ public class DataGraphController {
      * This method initializes all the years onto the combo box
      */
     public void initializeYears() {
-        int j, k;
-        WaterPurityReport earliest = _purityReportData.get(1);
-        WaterPurityReport latest = _purityReportData.get(_purityReportData.getAll().size());
-        if (earliest != null) {
-//            j = earliest.getDate().toInstant().atZone(ZoneId.of("EST")).toLocalDate().getYear();
-//            k = latest.getDate().toInstant().atZone(ZoneId.of("EST")).toLocalDate().getYear();
-
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(earliest.getDate());
-            j = cal.get(Calendar.YEAR);
-            cal.setTime(latest.getDate());
-            k = cal.get(Calendar.YEAR);
-            dataGraphYear.setItems(FXCollections.observableArrayList(IntStream.range(j, k+1).boxed().collect(Collectors.toList())));
+        if (currentDataLocationInitialized) {
+            dataGraphYear.setItems(FXCollections.observableArrayList(
+                    _currentDataLocation.stream()
+                                        .mapToInt((data) ->  {
+                                            Calendar c = Calendar.getInstance();
+                                            c.setTime(data.getDate());
+                                            return c.get(Calendar.YEAR);
+                                        })
+                                        .boxed()
+                                        .collect(Collectors.toList())));
+        } else {
+            dataGraphYear.setItems(FXCollections.emptyObservableList());
         }
     }
 
@@ -139,7 +137,6 @@ public class DataGraphController {
             _currentDataLocation = _currentDataAll.stream().filter(r -> r.getLocation().equals(selectedLocation)).collect(Collectors.toList());
             currentDataLocationInitialized = true;
             initializeYears();
-            handleDataGraphYearSelected();
         }
     }
 
@@ -200,8 +197,8 @@ public class DataGraphController {
             count2[m] += 1;
         }
         for (int i = 1; i < 13; i++) {
-            dataPoints1.add(new Data(i, data1[i]/count1[i]));
-            dataPoints2.add(new Data(i, data2[i]/count2[i]));
+            dataPoints1.add(new Data(i, (float)data1[i]/count1[i]));
+            dataPoints2.add(new Data(i, (float)data2[i]/count2[i]));
         }
         dataPointsDirty = false;
     }
